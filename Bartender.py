@@ -36,9 +36,13 @@ def createOrder(name):
 def showDrinkMenu():
     return Drink_Library.DrinkLibrary
 
-def displayShelf():
+def getShelf():
     shelf = []
     for ingredient in Ingredient_Library.IngredientLibrary:
         if ingredient.isActive():
             shelf.append(ingredient)
     return shelf
+
+def editShelf():
+    shelf = getShelf()
+    
