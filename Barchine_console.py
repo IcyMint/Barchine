@@ -1,6 +1,7 @@
-import restoreIngredientLibrary, storeIngredientLibrary, listIngredients from Ingredient_Library
-import restoreDrinkLibrary, storeDrinkLibrary, listDrinks from Drink_Library
+from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, listIngredients
+from Drink_Library import restoreDrinkLibrary, storeDrinkLibrary, listDrinks
 import Bartender
+import sys
 
 print('Barchine::Made by Diego Bonilla, 2016')
 print('type "help" to list all commands')
@@ -10,6 +11,8 @@ user = ''
 #Main console loop
 
 while(user!='exit'):
+
+    user = input('')
 
     #Load libraries
     if(user == 'load'):

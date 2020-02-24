@@ -24,7 +24,11 @@ class BaseTypes():
         'Vermouth',
         'Vodka',
         'Whiskey',
-        'Wine'
+        'Wine',
+        'Cola',
+        'Sprite',
+        'Tonic',
+        'None'
     ]
     def getBaseTypes():
         return self.base
@@ -55,7 +59,7 @@ class Ingredient:
 
 #Create an ingredient
 def createIngredient(name,base,family,startVol, endVol, active, position):
-    ingredient = Ingredient(name, base, family, startVol, startVol, active, position)
+    ingredient = Ingredient(name, base, family, startVol, endVol, active, position)
     addIngredient(ingredient)
 
 #Add ingredient to IngredientLibrary
@@ -71,10 +75,10 @@ def storeIngredientLibrary():
 
 #Restore IngredientLibrary from storage
 def restoreIngredientLibrary():
-    file.open("IngredientRepo.txt","w")
+    file = open("IngredientRepo.txt","r")
     for line in file:
         elements = line.split(',')
-        createIngredient(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5])
+        createIngredient(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6])
     
 #Delete ingredient from IngredientLibrary
 def deleteIngredient(name):
@@ -83,3 +87,6 @@ def deleteIngredient(name):
         if element.name == name:
             marked = element
     IngredientLibrary.remove(element)
+
+def listIngredients():
+    return IngredientLibrary

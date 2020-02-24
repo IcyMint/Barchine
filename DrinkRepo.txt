@@ -1,0 +1,3 @@
+Gin and Tonic,Cubes,Any,None,None,Gin@25#Tonic@100,0
+Vodka and Coke,Cubes,Any,None,None,Vodka@25#Cola@100,0
+Vodka Shot,Cubes,Any,None,None,Vodka@25,0

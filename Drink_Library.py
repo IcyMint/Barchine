@@ -66,8 +66,10 @@ def storeDrinkLibrary():
     file.close()
 
 def restoreDrinkLibrary():
-    file.open("DrinkRepo.txt","w")
+    file = open("DrinkRepo.txt","r")
     for line in file:
         elements = line.split(',')
         createDrink(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6])
         
+def listDrinks():
+    return DrinkLibrary
