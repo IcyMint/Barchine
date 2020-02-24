@@ -62,14 +62,14 @@ def addDrink(new_drink):
 def storeDrinkLibrary():
     file = open("DrinkRepo.txt","w")
     for drink in DrinkLibrary:
-        file.write(drink.__str__)
+        file.write(str(drink)+'\n')
     file.close()
 
 def restoreDrinkLibrary():
     file = open("DrinkRepo.txt","r")
     for line in file:
         elements = line.split(',')
-        createDrink(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6])
+        createDrink(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6].rstrip())
         
 def listDrinks():
     return DrinkLibrary

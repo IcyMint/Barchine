@@ -1,6 +1,7 @@
-Grey Goose,Vodka,Alcohol,750,750,True,1
+Grey Goose,Vodka,Alcohol,750,500,True,3
 Beefeater,Gin,Alcohol,750,750,True,2
-Kraken,Rum,Alcohol,500,300,False,0
-Coca Cola,Cola,Mixer,1000,1000,True,3
-Sprite,Sprite,Mixer,1000,1000,False,0
-Tonic Water,Tonic,Mixer,1000,1000,False,0
+Kraken,Rum,Alcohol,500,300,False,-1
+Coca Cola,Cola,Mixer,1000,1000,True,1
+Sprite,Sprite,Mixer,1000,1000,False,-1
+Tonic Water,Tonic,Mixer,1000,1000,False,-1
+White Wine,Wine,Alcohol,660,660,False,-1

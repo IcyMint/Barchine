@@ -2,6 +2,8 @@ import Ingredient_Library
 import Drink_Library
 import time, datetime
 
+MAX_POSITIONS = 4
+
 class Order():
     drink_ref = None
     status = None
@@ -35,14 +37,26 @@ def createOrder(name):
 
 def showDrinkMenu():
     return Drink_Library.DrinkLibrary
+    
 
 def getShelf():
-    shelf = []
+    shelf = [None]*MAX_POSITIONS
     for ingredient in Ingredient_Library.IngredientLibrary:
         if ingredient.isActive():
-            shelf.append(ingredient)
+            shelf[ingredient.getPosition()] = ingredient
     return shelf
 
-def editShelf():
-    shelf = getShelf()
+def removeShelfItem(name):
+    for ingredient in Ingredient_Library.IngredientLibrary:
+        if(name == ingredient.getName()):
+            ingredient.setActive(False)
+            ingredient.setPosition(-1)
+
+def addShelfItem(name, position):
+    for ingredient in Ingredient_Library.IngredientLibrary:
+        if(name == ingredient.getName()):
+            ingredient.setActive(True)
+            ingredient.setPosition(position)
     
+def getMaxPos():
+    return MAX_POSITIONS
