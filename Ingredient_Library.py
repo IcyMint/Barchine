@@ -36,21 +36,26 @@ class Ingredient:
     startVol = None
     endVol = None
     active = None
-    def __init__(self, name, base, family, startVol, endVol, active):
+    position = None
+    def __init__(self, name, base, family, startVol, endVol, active, position):
         self.name = name
         self.base = base
         self.family = family
         self.startVol = startVol
         self.endVol = endVol
         self.active = active
+        self.position = position
 
     #String representation for storage
     def __str__(self):
-        return self.name+','+self.base+','+self.family+','+self.startVol+','+self.endVol+','+self.active
+        return self.name+','+self.base+','+self.family+','+self.startVol+','+self.endVol+','+self.active+','+self.position
+
+    def isActive(self):
+        return self.active
 
 #Create an ingredient
-def createIngredient(name,base,family,startVol, endVol, active):
-    ingredient = Ingredient(name, base, family, startVol, startVol, active)
+def createIngredient(name,base,family,startVol, endVol, active, position):
+    ingredient = Ingredient(name, base, family, startVol, startVol, active, position)
     addIngredient(ingredient)
 
 #Add ingredient to IngredientLibrary

@@ -1,5 +1,5 @@
-import * from Ingredient_Library
-import * from Drink_Library
+import Ingredient_Library
+import Drink_Library
 import time, datetime
 
 class Order():
@@ -28,7 +28,17 @@ class StatusTypes():
 
 def createOrder(name):
     order = None
-    for drink in DrinkLibrary:
+    for drink in Drink_Library.DrinkLibrary:
         if drink == name:
             order = Order(drink, StatusTypes.getStatusTypes()[0])
             #Send order onwards to logging system and arduino processing
+
+def showDrinkMenu():
+    return Drink_Library.DrinkLibrary
+
+def displayShelf():
+    shelf = []
+    for ingredient in Ingredient_Library.IngredientLibrary:
+        if ingredient.isActive():
+            shelf.append(ingredient)
+    return shelf
