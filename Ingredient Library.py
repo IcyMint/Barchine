@@ -24,7 +24,7 @@ class BaseTypes():
         'Vermouth',
         'Vodka',
         'Whiskey',
-        'Wine',
+        'Wine'
     ]
     def getBaseTypes():
         return self.base
@@ -52,14 +52,14 @@ def addIngredient(new_ingredient):
     IngredientLibrary.append(new_ingredient)
 
 #Commit IngredientLibrary to storage
-def storeLibrary():
+def storeIngredientLibrary():
     file = open("IngredientRepo.txt","w")
     for ingredient in IngredientLibrary:
         file.write(ingredient.__str__)
     file.close()
 
 #Restore IngredientLibrary from storage
-def restoreLibrary():
+def restoreIngredientLibrary():
     file.open("IngredientRepo.txt","w")
     for line in file:
         elements = line.split(',')
