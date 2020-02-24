@@ -21,6 +21,13 @@ class Drink():
 
     def __str__(self):
         return self.name+','+self.ice+','+self.glass+','+self.garnish+','+self.extras+','+self.ingredients+','+self.image
+    
+    def getIngredients(self):
+        dict = {}
+        elements = self.ingredients.split('#')
+        for each in elements:
+            dict[each[:each.index('@')]] = int(each[each.index('@')+1:])
+        return dict
 
 class IceTypes():
     ice = [

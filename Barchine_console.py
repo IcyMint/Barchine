@@ -166,6 +166,10 @@ while(user!='exit'):
         target = input('------Select ingredient to delete------')
         deleteIngredient(listIngredients()[int(target)].getName())
 
+    if(user == 'menu'):
+        for drink in Bartender.showDrinkMenu():
+            print(drink)
+
     #print out list of commands with description
 
     if (user=='help'):
@@ -173,13 +177,13 @@ while(user!='exit'):
         print('load           - Load data for ingredients and drinks')
         print('save           - Save drinks menu and ingredients to a file')
         print('list           - List a full ingredients list and menu list with relevant data points')
+        print('menu       - List all drinks which can be made with current ingredients')
         print('showshelf      - List a full ingredients list and menu list with relevant data points')
         print('editshelf      - Swap out ingredients/swap positions')
         print('addIngredient  - Add new ingredient')
         print('editIngredient - Edit an ingredient')
         print('delIngredient  - Delete an Ingredient form the Library')
         print('order          - Order a drink (Default, sending to Arduino via Serial)')
-        print('viable         - List all drinks which can be made with current ingredients')
         print('help - List all console commands with description')
         print('exit - Exit and close program')
 
