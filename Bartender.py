@@ -3,9 +3,9 @@ import * from Drink Library
 import time, datetime
 
 class Order():
-    drink_ref = ''
-    status = ''
-    time = ''
+    drink_ref = None
+    status = None
+    time = None
     def __init__(self,drink_ref,status):
         ts = time.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
@@ -27,7 +27,7 @@ class StatusTypes():
         return self.status
 
 def createOrder(name):
-    order = null
+    order = None
     for drink in DrinkLibrary:
         if drink == name:
             order = Order(drink, StatusTypes.getStatusTypes()[0])

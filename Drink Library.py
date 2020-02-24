@@ -3,7 +3,13 @@ DrinkLibrary = []
 
 
 class Drink():
-    
+    name = None
+    ice = None
+    glass = None
+    garnish = None
+    extras = None
+    ingredients = None
+    image = None
     def __init__(self, name, ice, glass, garnish, extras, ingredients, image):
         self.name = name
         self.ice = ice

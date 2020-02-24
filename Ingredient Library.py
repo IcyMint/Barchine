@@ -30,6 +30,12 @@ class BaseTypes():
         return self.base
 
 class Ingredient:
+    name = None
+    base = None
+    family = None
+    startVol = None
+    endVol = None
+    active = None
     def __init__(self, name, base, family, startVol, endVol, active):
         self.name = name
         self.base = base
@@ -67,7 +73,7 @@ def restoreIngredientLibrary():
     
 #Delete ingredient from IngredientLibrary
 def deleteIngredient(name):
-    marked = null
+    marked = None
     for element in IngredientLibrary:
         if element.name == name:
             marked = element
