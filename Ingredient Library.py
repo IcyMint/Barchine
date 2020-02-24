@@ -1,6 +1,6 @@
 #Import/Modify/Store info for all ingredients
 
-library = []
+IngredientLibrary = []
 
 class FamilyTypes():
     family = ['Alcohol','Mixer']
@@ -47,28 +47,28 @@ def createIngredient(name,base,family,startVol, endVol, active):
     ingredient = Ingredient(name, base, family, startVol, startVol, active)
     addIngredient(ingredient)
 
-#Add ingredient to library
+#Add ingredient to IngredientLibrary
 def addIngredient(new_ingredient):
-    library.append(new_ingredient)
+    IngredientLibrary.append(new_ingredient)
 
-#Commit library to storage
+#Commit IngredientLibrary to storage
 def storeLibrary():
     file = open("IngredientRepo.txt","w")
-    for ingredient in library:
+    for ingredient in IngredientLibrary:
         file.write(ingredient.__str__)
     file.close()
 
-#Restore library from storage
+#Restore IngredientLibrary from storage
 def restoreLibrary():
     file.open("IngredientRepo.txt","w")
     for line in file:
         elements = line.split(',')
         createIngredient(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5])
     
-#Delete ingredient from library
+#Delete ingredient from IngredientLibrary
 def deleteIngredient(name):
     marked = null
-    for element in library:
+    for element in IngredientLibrary:
         if element.name == name:
             marked = element
-    library.remove(element)
+    IngredientLibrary.remove(element)
