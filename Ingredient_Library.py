@@ -2,9 +2,9 @@
 
 IngredientLibrary = []
 
-Families = ['Alcohol','Mixer']
+FAMILIES = ['Alcohol','Mixer']
 
-Bases = [
+BASES = [
     'Benedictine',
     'Brandy',
     'Cachaca',
@@ -124,7 +124,7 @@ def restoreIngredientLibrary():
 def deleteIngredient(name):
     marked = None
     for element in IngredientLibrary:
-        if element.name == name:
+        if(element.getName() == name):
             marked = element
     IngredientLibrary.remove(marked)
 
@@ -132,7 +132,7 @@ def listIngredients():
     return IngredientLibrary
 
 def getFamilyTypes():
-    return Families
+    return FAMILIES
 
 def getBaseTypes():
-    return Bases
+    return BASES

@@ -1,6 +1,29 @@
 #Import/Modify/Store info for all drinks
 DrinkLibrary = []
 
+ICE = [
+    'Cubes',
+    'Crushed',
+    'Any',
+    'None'
+]
+
+GLASSES = [
+        'Any',
+        'Cocktail Glass',
+        'Flute Glass',
+        'Highball Glass',
+        'Hurricane Glass',
+        'Irish Coffee Glass',
+        'Lowball Glass',
+        'Margarita Glass',
+        'Martini Glass',
+        'Red Wine Glass',
+        'Rock',
+        'Snifter Glass',
+        'Glencairn Whiskey Glass',
+        'White Wine Glass'
+    ]
 
 class Drink():
     name = None
@@ -29,35 +52,41 @@ class Drink():
             dict[each[:each.index('@')]] = int(each[each.index('@')+1:])
         return dict
 
-class IceTypes():
-    ice = [
-        'Cubes',
-        'Crushed',
-        'Any',
-        'None'
-    ]
-    def getIceTypes():
+    def getName(self):
+        return self.name
+
+    def setName(self,new_name):
+        self.name = new_name
+
+    def getIce(self):
         return self.ice
 
-class GlassTypes():
-    glasses = [
-        'Any',
-        'Cocktail Glass',
-        'Flute Glass',
-        'Highball Glass',
-        'Hurricane Glass',
-        'Irish Coffee Glass',
-        'Lowball Glass',
-        'Margarita Glass',
-        'Martini Glass',
-        'Red Wine Glass',
-        'Rock',
-        'Snifter Glass',
-        'Glencairn Whiskey Glass',
-        'White Wine Glass'
-    ]
-    def getGlassTypes():
-        return self.glasses
+    def setIce(self,new_ice):
+        self.ice = new_ice
+
+    def getGlass(self):
+        return self.glass
+
+    def setGlass(self,new_glass):
+        self.glass = new_glass
+
+    def getGarnish(self):
+        return self.garnish
+
+    def setGarnish(self,new_garnish):
+        self.garnish = new_garnish
+
+    def getExtras(self):
+        return self.extras
+
+    def setExtras(self,new_extras):
+        self.extras = new_extras
+    
+    def getImage(self):
+        return self.image
+
+    def setImage(self,new_image):
+        self.image = new_image
 
 def createDrink(name, ice, glass, garnish, extras, ingredients, image):
     drink = Drink(name, ice, glass, garnish, extras, ingredients, image)
@@ -77,6 +106,20 @@ def restoreDrinkLibrary():
     for line in file:
         elements = line.split(',')
         createDrink(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6].rstrip())
+
+#Delete ingredient from IngredientLibrary
+def deleteDrink(name):
+    marked = None
+    for element in DrinkLibrary:
+        if(element.getName() == name):
+            marked = element
+    DrinkLibrary.remove(marked)
         
 def listDrinks():
     return DrinkLibrary
+
+def getIceTypes():
+    return ICE
+
+def getGlassTypes():
+    return GLASSES
