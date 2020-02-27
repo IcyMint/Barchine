@@ -168,7 +168,7 @@ while(user!='exit'):
         deleteIngredient(listIngredients()[int(target)].getName())
 
     if(user == 'menu'):
-        for drink in Bartender.showDrinkMenu():
+        for drink in Bartender.showDrinkMenu(False):
             print(drink)
 
     if(user == 'delDrink'):

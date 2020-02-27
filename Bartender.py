@@ -35,7 +35,7 @@ def createOrder(name):
             order = Order(drink, StatusTypes.getStatusTypes()[0])
             #Send order onwards to logging system and arduino processing
 
-def showDrinkMenu():
+def showDrinkMenu(pretty):
     drinkmenu = []
     for drink in Drink_Library.DrinkLibrary:
         total = len(drink.getIngredients())
@@ -46,9 +46,11 @@ def showDrinkMenu():
                     if(element.getBase() == name):
                         count+=1
         if(total==count):
-            drinkmenu.append(drink)
+            if(pretty):
+                drinkmenu.append(drink.getName())
+            else:
+                drinkmenu.append(drink)
     return drinkmenu
-
             #compare each name against shelf names, if all exists then can be made
     
 
