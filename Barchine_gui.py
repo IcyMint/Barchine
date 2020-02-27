@@ -5,6 +5,8 @@ import Bartender
 import sys
 import os
 
+MENU = 'Home'
+
 #Initialize display properties
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
@@ -26,14 +28,16 @@ columnInfo = [
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='Menu_DrinkIngredients')]
             ]
 
-layout = [
+layout_home = [
             [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30))],
-            [sg.Button('Home',font=('Helvetica', 15)),sg.Button('Library',font=('Helvetica', 15)),sg.Button('Ingredients',font=('Helvetica', 15)),sg.Button('Stations',font=('Helvetica', 15)),sg.Button('Stats',font=('Helvetica', 15)),sg.Button('Settings',font=('Helvetica', 15))],
+            [sg.Button('Home',font=('Helvetica', 15)),sg.Button('Library',font=('Helvetica', 15),),sg.Button('Ingredients',font=('Helvetica', 15)),sg.Button('Stations',font=('Helvetica', 15)),sg.Button('Stats',font=('Helvetica', 15)),sg.Button('Settings',font=('Helvetica', 15))],
             [sg.Listbox(Bartender.showDrinkMenu(True),font=('Helvetica', 20),size=(25,8),key='Menu_List',enable_events=True),sg.Column(columnInfo)],
-            [sg.Input(key='-IN-')]
+            [sg.Button('Order',font=('Helvetica', 20),size=(25,1))]
         ]
 
-window = sg.Window('Barchine', layout).Finalize()
+
+
+window = sg.Window('Barchine', layout_home).Finalize()
 #window.Maximize()
 
 while True:  # Event Loop
