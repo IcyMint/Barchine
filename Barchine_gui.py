@@ -5,6 +5,7 @@ import Bartender
 import sys
 import os
 from pathlib import Path
+import re
 
 #Initialize display properties
 if os.environ.get('DISPLAY','') == '':
@@ -157,7 +158,7 @@ def HomeGUI(prev_window):
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
-                        display.append(str(key)+str(value).rjust(20, ' '))
+                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
 
                     window_home['DrinkIngredients_home'].update(display)
             
@@ -243,16 +244,24 @@ def LibraryGUI(prev_window):
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
-                        display.append(str(key)+str(value).rjust(20, ' '))
+                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
 
                     window_library['DrinkIngredients_library'].update(display)
 
         if(event == 'Add_library'):
             print(chosen)
+            window_library.disable()
+            DrinkView('new',None)
+            window_library.enable()
+            window_library.bring_to_front()
             pass
 
-        if(event == 'Edit_library'):
+        if(event == 'Edit_library' and chosen is not None):
             print(chosen)
+            window_library.disable()
+            DrinkView('edit',chosen)
+            window_library.enable()
+            window_library.bring_to_front()
             pass
 
         if(event == 'Delete_library'):
@@ -266,17 +275,19 @@ def LibraryGUI(prev_window):
     #Close remaining window
     window_library.close()
 
-def IngredientAddPopUp(mode):
+def IngredientAddPopUp(mode, key, value):
 
     #Get list of ingredient names
-    ingredients_pretty = []
-    for ingredient in listIngredients():
-        ingredients_pretty.append(ingredient.getName())
+    base_pretty = []
+    for base in getBaseTypes():
+        base_pretty.append(base)
+
+    response = None
 
     layout_ingredientaddpopup = [
                         [sg.Text('MODE',key='mode_name_ingredientaddpopup',font=('Helvetica', 30))],
                         [sg.Text('Name: ',key='name_text_ingredientaddpopup',font=('Helvetica', 15))
-                        ,sg.InputCombo(ingredients_pretty,key='ingredient_input_ingredientaddpopup')],
+                        ,sg.OptionMenu(base_pretty,key='ingredient_input_ingredientaddpopup')],
                         [sg.Text('Amount: ',key='amount_text_ingredientaddpopup',font=('Helvetica', 15))
                         ,sg.InputText('0000',key='amount_input_ingredientaddpopup',size=(4,1))
                         ,sg.Text(' mL',key='unit_ingredientaddpopup',font=('Helvetica', 15))],
@@ -292,6 +303,8 @@ def IngredientAddPopUp(mode):
     #Change mode title displayed
     if(mode == 'edit'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='Edit')
+        window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(value=key)
+        window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(value=value)
     if(mode == 'new'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='New')
 
@@ -299,16 +312,26 @@ def IngredientAddPopUp(mode):
         event, values = window_ingredientaddpopup.read()
         print(event, values)
 
+        if(event =='save_ingredientaddpopup'):
+            response = 'save'
+            break
+
         if(event =='exit_ingredientaddpopup'):
+            response = 'exit'
             break
 
         if event in  (None, 'Exit'):
             break
-    
+
     window_ingredientaddpopup.close()
+    if(response == 'save'):
+        return([values['ingredient_input_ingredientaddpopup'],values['amount_input_ingredientaddpopup']])
+    elif(response == 'exit'):
+        return([None,None])
 
 
-def DrinkView(mode):
+
+def DrinkView(mode,drink):
 
     layout_buttons_drinkview = [
                         [sg.Button('Add',font=('Helvetica', 15),key='add_drinkviewingredient')],
@@ -319,14 +342,14 @@ def DrinkView(mode):
     layout_drinkview = [
             [sg.Text('MODE',key='mode_name_drinkview',font=('Helvetica', 30))],
             [sg.Text('Name: ',key='name_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT NAME',key='name_input_drinkview')],
-            [sg.Text('Ice: ',key='ice_text_drinkview',font=('Helvetica', 15)),sg.InputCombo(getIceTypes(),key='ice_input_drinkview')],
-            [sg.Text('Glass: ',key='glass_text_drinkview',font=('Helvetica', 15)),sg.InputCombo(getGlassTypes(),key='glass_input_drinkview')],
+            [sg.Text('Ice: ',key='ice_text_drinkview',font=('Helvetica', 15)),sg.OptionMenu(getIceTypes(),key='ice_input_drinkview')],
+            [sg.Text('Glass: ',key='glass_text_drinkview',font=('Helvetica', 15)),sg.OptionMenu(getGlassTypes(),key='glass_input_drinkview')],
             [sg.Text('Garnish: ',key='garnish_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT GARNISH',key='garnish_input_drinkview')],
             [sg.Text('Extras: ',key='extras_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT EXTRA',key='extra_input_drinkview')],
             [sg.Button('Save',font=('Helvetica', 15),key='save_drinkview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_drinkview')],
             [sg.Text('Ingredients',key='ingredients_title',font=('Helvetica', 20))],
             #TODO:List drink components here
-            [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_drinkview'),
+            [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_drinkview',enable_events=True),
             sg.Column(layout_buttons_drinkview)
             ]
         ]
@@ -335,30 +358,84 @@ def DrinkView(mode):
     window_drinkview = sg.Window('Barchine', layout_drinkview,keep_on_top=True,no_titlebar=True).Finalize()
     window_drinkview.BringToFront()
 
+    #Set default variable values
+    new_name = None
+    new_ice = None
+    new_glass = None
+    new_garnish = None
+    new_extras = None
+    new_ingredients = None
+    new_image = None
+
     #Change mode title displayed
     if(mode == 'edit'):
         window_drinkview['mode_name_drinkview'].update(value='Edit')
     if(mode == 'new'):
         window_drinkview['mode_name_drinkview'].update(value='New')
 
+    #Change displayed info based on mode
+    if(mode == 'edit'):
 
-    
+        #Set default variables
+        new_name = drink.getName()
+        new_ice = drink.getIce()
+        new_glass = drink.getGlass()
+        new_garnish = drink.getGarnish()
+        new_extras = drink.getExtras()
+        new_ingredients = drink.getIngredients()
+        new_image = drink.getImage()
+
+        #Retrieve list of ingredients formatted
+        display = []
+        for key, value in new_ingredients.items():
+            display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+            
+        #Update fields
+        window_drinkview['name_input_drinkview'].update(value=new_name)
+        window_drinkview['ice_input_drinkview'].update(value=new_ice)
+        window_drinkview['glass_input_drinkview'].update(value=new_glass)
+        window_drinkview['garnish_input_drinkview'].update(value=new_garnish)
+        window_drinkview['extra_input_drinkview'].update(value=new_extras)
+        window_drinkview['DrinkIngredients_drinkview'].update(values=display)
+
 
     while True:  # Event Loop
         event, values = window_drinkview.read()
         print(event, values)
 
         if(event =='save_drinkview'):
-            pass
+
+            if(mode == 'new'):
+                
+                pass
+
+            if(mode == 'edit'):
+
+                pass
 
         if(event =='exit_drinkview'):
             break
 
         if(event == 'add_drinkviewingredient'):
-            IngredientAddPopUp('new')
+            
+            new_key,new_val = IngredientAddPopUp('edit',key,value)
 
-        if(event == 'edit_drinkviewingredient'):
-            IngredientAddPopUp('edit')
+        if(event == 'edit_drinkviewingredient' and mode == 'edit'):
+            for key, value in drink.getIngredients().items():
+                if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
+                    #Send values to user field, then replace with returning values
+                    new_elements = IngredientAddPopUp('edit',key,value)
+                    print('NEW VALUES: '+new_elements[0]+' = '+new_elements[1])
+                    #Replace entry
+                    if(new_elements[0] is not None):
+                        del new_ingredients[key]
+                        new_ingredients[new_elements[0]] = int(new_elements[1])
+                        
+                        #Update ingredients list
+                        display = []
+                        for key, value in new_ingredients.items():
+                            display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                        window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
         if event in  (None, 'Exit'):
             break
@@ -568,5 +645,4 @@ def StationsGUI(prev_window):
     window_stations.close()
 
 #Launch default home menu
-#HomeGUI(None)
-DrinkView('edit')
+HomeGUI(None)
