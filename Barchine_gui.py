@@ -313,8 +313,11 @@ def IngredientAddPopUp(mode, key, value):
         print(event, values)
 
         if(event =='save_ingredientaddpopup'):
-            response = 'save'
-            break
+            if(len(re.findall('^[0-9]+$',values['amount_input_ingredientaddpopup'])) > 0):
+                response = 'save'
+                break
+            else:
+                print('ERROR: invalid number')
 
         if(event =='exit_ingredientaddpopup'):
             response = 'exit'
@@ -324,12 +327,11 @@ def IngredientAddPopUp(mode, key, value):
             break
 
     window_ingredientaddpopup.close()
+    
     if(response == 'save'):
         return([values['ingredient_input_ingredientaddpopup'],values['amount_input_ingredientaddpopup']])
     elif(response == 'exit'):
         return([None,None])
-
-
 
 def DrinkView(mode,drink):
 
@@ -425,7 +427,6 @@ def DrinkView(mode,drink):
                 if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
                     #Send values to user field, then replace with returning values
                     new_elements = IngredientAddPopUp('edit',key,value)
-                    print('NEW VALUES: '+new_elements[0]+' = '+new_elements[1])
                     #Replace entry
                     if(new_elements[0] is not None):
                         del new_ingredients[key]
