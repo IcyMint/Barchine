@@ -275,7 +275,7 @@ def LibraryGUI(prev_window):
     #Close remaining window
     window_library.close()
 
-def IngredientAddPopUp(mode, key, value):
+def IngredientAddPopUp(mode, input_key, input_value):
 
     #Get list of ingredient names
     base_pretty = []
@@ -289,7 +289,7 @@ def IngredientAddPopUp(mode, key, value):
                         [sg.Text('Name: ',key='name_text_ingredientaddpopup',font=('Helvetica', 15))
                         ,sg.OptionMenu(base_pretty,key='ingredient_input_ingredientaddpopup')],
                         [sg.Text('Amount: ',key='amount_text_ingredientaddpopup',font=('Helvetica', 15))
-                        ,sg.InputText('0000',key='amount_input_ingredientaddpopup',size=(4,1))
+                        ,sg.InputText('',key='amount_input_ingredientaddpopup',size=(4,1))
                         ,sg.Text(' mL',key='unit_ingredientaddpopup',font=('Helvetica', 15))],
                         [sg.Button('Save',font=('Helvetica', 15),key='save_ingredientaddpopup')
                         ,sg.Button('Exit',font=('Helvetica', 15),key='exit_ingredientaddpopup')],
@@ -303,8 +303,8 @@ def IngredientAddPopUp(mode, key, value):
     #Change mode title displayed
     if(mode == 'edit'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='Edit')
-        window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(value=key)
-        window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(value=value)
+        window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(value=input_key)
+        window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(value=input_value)
     if(mode == 'new'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='New')
 
@@ -420,10 +420,17 @@ def DrinkView(mode,drink):
 
         if(event == 'add_drinkviewingredient'):
             
-            new_key,new_val = IngredientAddPopUp('edit',key,value)
+            new_elements = IngredientAddPopUp('new',None,None)
+            new_ingredients[new_elements[0]] = int(new_elements[1])
+
+            #Update ingredients list
+            display = []
+            for key, value in new_ingredients.items():
+                display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+            window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
         if(event == 'edit_drinkviewingredient' and mode == 'edit'):
-            for key, value in drink.getIngredients().items():
+            for key, value in new_ingredients.items():
                 if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
                     #Send values to user field, then replace with returning values
                     new_elements = IngredientAddPopUp('edit',key,value)
