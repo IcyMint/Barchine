@@ -2,7 +2,7 @@ import Ingredient_Library
 import Drink_Library
 import time, datetime
 
-MAX_POSITIONS = 4
+MAX_POSITIONS = 8
 
 class Order():
     drink_ref = None

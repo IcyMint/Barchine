@@ -275,7 +275,7 @@ def IngredientsGUI(prev_window):
         ingredients_pretty.append(ingredient.getName())
 
     ingredientInfo_ingredients = [
-                [sg.Text('-INGREDIENT_NAME-',key='INGREDIENT_NAME_ingredients',font=('Helvetica', 15),size=(15,1))],
+                [sg.Text('-INGREDIENT_NAME-',key='INGREDIENT_NAME_ingredients',font=('Helvetica', 15),size=(30,1))],
                 [sg.Text('-FAMILY_NAME-',key='FAMILY_NAME_ingredients',size=(15,1))],
                 [sg.Text('-BASE_NAME-',key='BASE_NAME_ingredients',size=(15,1))],
                 [sg.Text('-STARTING_VOLUME-',key='STARTING_VOLUME_NAME_ingredients')],
@@ -365,29 +365,47 @@ def StationsGUI(prev_window):
             ]
 
     layout_bar1 = [
-            [sg.Text(text='1',size=(1,1),font=('Helvetica', 12),key='bar1_num')],
+            [sg.Text(text='1',size=(2,1),font=('Helvetica', 12),key='bar1_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar1_meter')],
-            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar1_name')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar1_name',enable_events=True)],
             ]
     layout_bar2 = [
             [sg.Text(text='2',size=(1,1),font=('Helvetica', 12),key='bar2_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar2_meter')],
-            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar2_name')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar2_name',enable_events=True)],
             ]
     layout_bar3 = [
             [sg.Text(text='3',size=(1,1),font=('Helvetica', 12),key='bar3_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar3_meter')],
-            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar3_name')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar3_name',enable_events=True)],
             ]
     layout_bar4 = [
             [sg.Text(text='4',size=(1,1),font=('Helvetica', 12),key='bar4_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar4_meter')],
-            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar4_name')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar4_name',enable_events=True)],
             ]
     layout_bar5 = [
             [sg.Text(text='5',size=(1,1),font=('Helvetica', 12),key='bar5_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar5_meter')],
-            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar5_name')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar5_name',enable_events=True)],
+            ]
+
+    layout_bar6 = [
+            [sg.Text(text='6',size=(1,1),font=('Helvetica', 12),key='bar6_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar6_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar6_name',enable_events=True)],
+            ]
+
+    layout_bar7 = [
+            [sg.Text(text='7',size=(1,1),font=('Helvetica', 12),key='bar7_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar7_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar7_name',enable_events=True)],
+            ]
+
+    layout_bar8 = [
+            [sg.Text(text='8',size=(1,1),font=('Helvetica', 12),key='bar8_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar8_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar8_name',enable_events=True)],
             ]
 
     layout_stations = [
@@ -400,7 +418,8 @@ def StationsGUI(prev_window):
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')],
                 [sg.Text(text='Select Station to Edit',size=(17,1),font=('Helvetica', 20),key='subtitle_stations')],
                 [sg.Column(layout_measure),sg.Column(layout_bar1),sg.Column(layout_bar2),
-                sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5)]
+                sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5),
+                sg.Column(layout_bar6),sg.Column(layout_bar7),sg.Column(layout_bar8),sg.Text(text=' ',size=(10,1))]
             ]
 
     #Launch window
@@ -408,13 +427,26 @@ def StationsGUI(prev_window):
     if(FULLSCREEN):
         window_stations.Maximize()
 
+
     #Close Previous window
     if(prev_window is not None):
         prev_window.close()
 
+    #Load bars with shelf items
+    i = 1
+    for item in Bartender.getShelf():
+        if(item!=None):
+            window_stations['bar'+str(i)+'_name'].update(value=item.getName())
+            window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
+        else:
+            window_stations['bar'+str(i)+'_name'].update(value='EMPTY')
+            window_stations['bar'+str(i)+'_meter'].update_bar(0,100)
+        i+=1
+
     chosen = None
 
     while True:  # Event Loop
+
         event, values = window_stations.read()
         print(event, values)
 
@@ -427,6 +459,7 @@ def StationsGUI(prev_window):
 
         if(event == 'Ingredients_stations'):
             contextSwitcher('Stations_stations','Ingredients_stations',window_stations)
+
 
         if event in  (None, 'Exit'):
             window_stations.close()
