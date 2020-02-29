@@ -57,6 +57,10 @@ def HomeGUI():
         if(event == 'Library_home'):
             window_home.close()
             LibraryGUI()
+        
+        if(event == 'Ingredients_home'):
+            window_home.close()
+            IngredientsGUI()
 
         #When drink menu item is selected
         if event == 'Menu_List':
@@ -128,6 +132,10 @@ def LibraryGUI():
             window_library.close()
             HomeGUI()
 
+        if(event == 'Ingredients_library'):
+            window_library.close()
+            IngredientsGUI()
+
          #When drink item is selected
         if event == 'Library_List':
             for drink in listDrinks():
@@ -162,7 +170,86 @@ def LibraryGUI():
 
     #Close remaining window
     window_library.close()
-    
+
+
+def IngredientsGUI():
+
+    #Format list of ingredient names
+    ingredients_pretty = []
+    for ingredient in listIngredients():
+        ingredients_pretty.append(ingredient.getName())
+
+    ingredientInfo_ingredients = [
+                [sg.Text('-INGREDIENT_NAME-',key='INGREDIENT_NAME_ingredients',font=('Helvetica', 15),size=(15,1))],
+                [sg.Text('-FAMILY_NAME-',key='FAMILY_NAME_ingredients',size=(15,1))],
+                [sg.Text('-BASE_NAME-',key='BASE_NAME_ingredients',size=(15,1))],
+                [sg.Text('-STARTING_VOLUME-',key='STARTING_VOLUME_NAME_ingredients')],
+                [sg.Text('-CURRENT_VOLUME-',key='CURRENT_VOLUME_NAME_ingredients')]
+            ]
+
+    layout_ingredients = [
+                [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_ingredients')],
+            [sg.Button('Home',font=('Helvetica', 15),key='Home_ingredients'),
+            sg.Button('Library',font=('Helvetica', 15),key='Library_ingredients'),
+            sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_ingredients'),
+            sg.Button('Stations',font=('Helvetica', 15),key='Stations_ingredients'),
+            sg.Button('Stats',font=('Helvetica', 15),key='Stats_ingredients'),
+            sg.Button('Settings',font=('Helvetica', 15),key='Settings_ingredients')],
+            [sg.Listbox(ingredients_pretty,font=('Helvetica', 20),size=(25,8),
+            key='Ingredients_List',enable_events=True),sg.Column(ingredientInfo_ingredients)],
+            [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_ingredients'),
+            sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_ingredients'),
+            sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_ingredients')]
+            ]
+
+    window_ingredients = sg.Window('Barchine', layout_ingredients).Finalize()
+    #window_library.Maximize()
+
+    chosen = None
+
+    while True:  # Event Loop
+        event, values = window_ingredients.read()
+        print(event, values)
+
+        #Check for menu selection
+        if(event == 'Home_ingredients'):
+            window_ingredients.close()
+            HomeGUI()
+
+        if(event == 'Library_ingredients'):
+            window_ingredients.close()
+            LibraryGUI()
+
+        #When ingredient item is selected
+        if event == 'Ingredients_List':
+            for ingredient in listIngredients():
+                if(ingredient.getName() == values['Ingredients_List'][0]):
+                    chosen = ingredient
+                    window_ingredients['INGREDIENT_NAME_ingredients'].update(ingredient.getName())
+                    window_ingredients['FAMILY_NAME_ingredients'].update('Family: '+ingredient.getFamily())
+                    window_ingredients['BASE_NAME_ingredients'].update('Base: '+ingredient.getBase())
+                    window_ingredients['STARTING_VOLUME_NAME_ingredients'].update('Starting Volume: '+str(ingredient.getStartVol())+' mL')
+                    window_ingredients['CURRENT_VOLUME_NAME_ingredients'].update('Current Volume: '+str(ingredient.getEndVol())+' mL')
+        
+        if(event == 'Add_ingredients'):
+            print(chosen)
+            pass
+
+        if(event == 'Edit_ingredients'):
+            print(chosen)
+            pass
+
+        if(event == 'Delete_ingredients'):
+            print(chosen)
+            pass
+
+        if event in  (None, 'Exit'):
+                break
+
+    #Close remaining window
+    window_ingredients.close()
+
+
 
 #Launch default home menu
 HomeGUI()
