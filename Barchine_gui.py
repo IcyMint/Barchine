@@ -4,8 +4,7 @@ from Drink_Library import restoreDrinkLibrary, storeDrinkLibrary, listDrinks, de
 import Bartender
 import sys
 import os
-
-MENU = 'Home'
+from pathlib import Path
 
 #Initialize display properties
 if os.environ.get('DISPLAY','') == '':
@@ -14,12 +13,85 @@ if os.environ.get('DISPLAY','') == '':
 
 sg.theme('DarkAmber')
 
+#Fullscreen selector
+FULLSCREEN = False
+
 #Load library information
 restoreIngredientLibrary()
 restoreDrinkLibrary()
 
+def contextSwitcher(current, next, window):
 
-def HomeGUI():
+    #Check for Home menu selection
+    if(current == 'Home_home'):
+        if(next == 'Library_home'):
+            #window.hide()
+            LibraryGUI(window)
+            #window.close()
+        
+        if(next == 'Ingredients_home'):
+            #window.hide()
+            IngredientsGUI(window)
+            #window.close()
+
+        if(next == 'Stations_home'):
+            #window.hide()
+            StationsGUI(window)
+            #window.close()
+
+    #Check for Library menu selection
+    if(current == 'Library_library'):
+        if(next == 'Home_library'):
+            #window.hide()
+            HomeGUI(window)
+            #window.close()
+
+        if(next == 'Ingredients_library'):
+            #window.hide()
+            IngredientsGUI(window)
+            #window.close()
+        
+        if(next == 'Stations_library'):
+            #window.hide()
+            StationsGUI(window)
+            #window.close()
+
+    #Check for Ingredients menu selection
+    if(current == 'Ingredients_ingredients'):
+        if(next == 'Home_ingredients'):
+            #window.hide()
+            HomeGUI(window)
+            #window.close()
+
+        if(next == 'Library_ingredients'):
+            #window.hide()
+            LibraryGUI(window)
+            #window.close()
+
+        if(next == 'Stations_ingredients'):
+            #window.hide()
+            StationsGUI(window)
+            #window.close()
+
+    #Check for Stations menu selection
+    if(current == 'Stations_stations'):
+        if(next == 'Home_stations'):
+            #window.hide()
+            HomeGUI(window)
+            #window.close()
+
+        if(next == 'Library_stations'):
+            #window.hide()
+            LibraryGUI(window)
+            #window.close()
+
+        if(next == 'Ingredients_stations'):
+            #window.hide()
+            IngredientsGUI(window)
+            #window.close()
+
+
+def HomeGUI(prev_window):
 
     drinkInfo_home = [
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_home',font=('Helvetica', 15),size=(15,1))],
@@ -30,8 +102,11 @@ def HomeGUI():
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_home')]
             ]
+    #Image translation
+    placeholder = Path('Image_Library/placeholder.png')
+        
     image_layout_home = [
-                [sg.Image(r'Image_Library\placeholder.png',key='image_home')]
+                [sg.Image(filename=placeholder,key='image_home')]
             ]
 
     layout_home = [
@@ -47,8 +122,13 @@ def HomeGUI():
                 [sg.Button('Order',font=('Helvetica', 20),size=(25,1))]
             ]
 
+    #Launch Window
     window_home = sg.Window('Barchine', layout_home).Finalize()
-    #window_home.Maximize()
+    if(FULLSCREEN):
+        window_home.Maximize()
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
     
     while True:  # Event Loop
         event, values = window_home.read()
@@ -56,16 +136,14 @@ def HomeGUI():
 
         #Check for menu selection
         if(event == 'Library_home'):
-            window_home.close()
-            LibraryGUI()
+            contextSwitcher('Home_home','Library_home',window_home)
         
         if(event == 'Ingredients_home'):
-            window_home.close()
-            IngredientsGUI()
+            contextSwitcher('Home_home','Ingredients_home',window_home)
 
         if(event == 'Stations_home'):
-            window_home.close()
-            StationsGUI()
+            contextSwitcher('Home_home','Stations_home',window_home)
+
 
         #When drink menu item is selected
         if event == 'Menu_List':
@@ -84,10 +162,11 @@ def HomeGUI():
                     window_home['DrinkIngredients_home'].update(display)
             
         if event in  (None, 'Exit'):
+            window_home.close()
             break
 
 
-def LibraryGUI():
+def LibraryGUI(prev_window):
 
     #Format list of drink names
     drinks_pretty = []
@@ -104,8 +183,11 @@ def LibraryGUI():
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_library')]
             ]
 
+    #Image translation
+    placeholder = Path('Image_Library/placeholder.png')
+
     image_layout_library = [
-                [sg.Image(r'Image_Library\placeholder.png',key='image_library')]
+                [sg.Image(filename=placeholder,key='image_library')]
             ]
 
     layout_library = [
@@ -123,8 +205,14 @@ def LibraryGUI():
                 sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_library')]
             ]
 
+    #Launch window
     window_library = sg.Window('Barchine', layout_library).Finalize()
-    #window_library.Maximize()
+    if(FULLSCREEN):
+        window_library.Maximize()
+
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
 
     chosen = None
 
@@ -134,16 +222,13 @@ def LibraryGUI():
 
         #Check for menu selection
         if(event == 'Home_library'):
-            window_library.close()
-            HomeGUI()
+            contextSwitcher('Library_library','Home_library',window_library)
 
         if(event == 'Ingredients_library'):
-            window_library.close()
-            IngredientsGUI()
+            contextSwitcher('Library_library','Ingredients_library',window_library)
         
         if(event == 'Stations_library'):
-            window_library.close()
-            StationsGUI()
+            contextSwitcher('Library_library','Stations_library',window_library)
 
          #When drink item is selected
         if event == 'Library_List':
@@ -175,13 +260,14 @@ def LibraryGUI():
             pass
 
         if event in  (None, 'Exit'):
-                break
+            window_library.close()
+            break
 
     #Close remaining window
     window_library.close()
 
 
-def IngredientsGUI():
+def IngredientsGUI(prev_window):
 
     #Format list of ingredient names
     ingredients_pretty = []
@@ -211,8 +297,14 @@ def IngredientsGUI():
                 sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_ingredients')]
             ]
 
+    #Launch window
     window_ingredients = sg.Window('Barchine', layout_ingredients).Finalize()
-    #window_library.Maximize()
+    if(FULLSCREEN):
+        window_ingredients.Maximize()
+
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
 
     chosen = None
 
@@ -222,16 +314,13 @@ def IngredientsGUI():
 
         #Check for menu selection
         if(event == 'Home_ingredients'):
-            window_ingredients.close()
-            HomeGUI()
+            contextSwitcher('Ingredients_ingredients','Home_ingredients',window_ingredients)
 
         if(event == 'Library_ingredients'):
-            window_ingredients.close()
-            LibraryGUI()
+            contextSwitcher('Ingredients_ingredients','Library_ingredients',window_ingredients)
 
         if(event == 'Stations_ingredients'):
-            window_ingredients.close()
-            StationsGUI()
+            contextSwitcher('Ingredients_ingredients','Stations_ingredients',window_ingredients)
 
         #When ingredient item is selected
         if event == 'Ingredients_List':
@@ -257,17 +346,21 @@ def IngredientsGUI():
             pass
 
         if event in  (None, 'Exit'):
-                break
+            window_ingredients.close()
+            break
 
     #Close remaining window
     window_ingredients.close()
 
 
-def StationsGUI():
+def StationsGUI(prev_window):
+
+     #Image translation
+    measurebar = Path('Image_Library/measurementbar.png')
 
     layout_measure = [
                 [sg.Text(text='100%',size=(5,1),font=('Helvetica', 8))],
-                [sg.Image(r'Image_Library\measurementbar.png',key='image_library')],
+                [sg.Image(filename=measurebar,key='image_library')],
                 [sg.Text(text='0%',size=(3,1),font=('Helvetica', 12))],
             ]
 
@@ -310,8 +403,14 @@ def StationsGUI():
                 sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5)]
             ]
 
+    #Launch window
     window_stations = sg.Window('Barchine', layout_stations).Finalize()
-    #window_library.Maximize()
+    if(FULLSCREEN):
+        window_stations.Maximize()
+
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
 
     chosen = None
 
@@ -321,26 +420,20 @@ def StationsGUI():
 
         #Check for menu selection
         if(event == 'Home_stations'):
-            window_stations.close()
-            HomeGUI()
+            contextSwitcher('Stations_stations','Home_stations',window_stations)
 
         if(event == 'Library_stations'):
-            window_stations.close()
-            LibraryGUI()
+            contextSwitcher('Stations_stations','Library_stations',window_stations)
 
         if(event == 'Ingredients_stations'):
-            window_stations.close()
-            IngredientsGUI()
-
-        
-
-
+            contextSwitcher('Stations_stations','Ingredients_stations',window_stations)
 
         if event in  (None, 'Exit'):
-                break
+            window_stations.close()
+            break
 
     #Close remaining window
     window_stations.close()
 
 #Launch default home menu
-HomeGUI()
+HomeGUI(None)
