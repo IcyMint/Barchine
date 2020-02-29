@@ -273,27 +273,27 @@ def StationsGUI():
 
     layout_bar1 = [
             [sg.Text(text='1',size=(1,1),font=('Helvetica', 12),key='bar1_num')],
-            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar1_meter')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar1_meter')],
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar1_name')],
             ]
     layout_bar2 = [
             [sg.Text(text='2',size=(1,1),font=('Helvetica', 12),key='bar2_num')],
-            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar2_meter')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar2_meter')],
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar2_name')],
             ]
     layout_bar3 = [
             [sg.Text(text='3',size=(1,1),font=('Helvetica', 12),key='bar3_num')],
-            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar3_meter')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar3_meter')],
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar3_name')],
             ]
     layout_bar4 = [
             [sg.Text(text='4',size=(1,1),font=('Helvetica', 12),key='bar4_num')],
-            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar4_meter')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar4_meter')],
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar4_name')],
             ]
     layout_bar5 = [
             [sg.Text(text='5',size=(1,1),font=('Helvetica', 12),key='bar5_num')],
-            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar5_meter')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar5_meter')],
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar5_name')],
             ]
 
