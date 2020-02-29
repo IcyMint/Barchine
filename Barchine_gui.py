@@ -105,17 +105,17 @@ def LibraryGUI():
 
     layout_library = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_library')],
-            [sg.Button('Home',font=('Helvetica', 15),key='Home_library'),
-            sg.Button('Library',font=('Helvetica', 15),key='Library_library'),
-            sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_library'),
-            sg.Button('Stations',font=('Helvetica', 15),key='Stations_library'),
-            sg.Button('Stats',font=('Helvetica', 15),key='Stats_library'),
-            sg.Button('Settings',font=('Helvetica', 15),key='Settings_library')],
-            [sg.Listbox(drinks_pretty,font=('Helvetica', 20),size=(25,8),
-            key='Library_List',enable_events=True),sg.Column(drinkInfo_library),sg.Column(image_layout_library)],
-            [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_library'),
-            sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_library'),
-            sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_library')]
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_library'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_library'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_library'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_library'),
+                sg.Button('Stats',font=('Helvetica', 15),key='Stats_library'),
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_library')],
+                [sg.Listbox(drinks_pretty,font=('Helvetica', 20),size=(25,8),
+                key='Library_List',enable_events=True),sg.Column(drinkInfo_library),sg.Column(image_layout_library)],
+                [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_library'),
+                sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_library'),
+                sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_library')]
             ]
 
     window_library = sg.Window('Barchine', layout_library).Finalize()
@@ -189,17 +189,17 @@ def IngredientsGUI():
 
     layout_ingredients = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_ingredients')],
-            [sg.Button('Home',font=('Helvetica', 15),key='Home_ingredients'),
-            sg.Button('Library',font=('Helvetica', 15),key='Library_ingredients'),
-            sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_ingredients'),
-            sg.Button('Stations',font=('Helvetica', 15),key='Stations_ingredients'),
-            sg.Button('Stats',font=('Helvetica', 15),key='Stats_ingredients'),
-            sg.Button('Settings',font=('Helvetica', 15),key='Settings_ingredients')],
-            [sg.Listbox(ingredients_pretty,font=('Helvetica', 20),size=(25,8),
-            key='Ingredients_List',enable_events=True),sg.Column(ingredientInfo_ingredients)],
-            [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_ingredients'),
-            sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_ingredients'),
-            sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_ingredients')]
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_ingredients'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_ingredients'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_ingredients'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_ingredients'),
+                sg.Button('Stats',font=('Helvetica', 15),key='Stats_ingredients'),
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_ingredients')],
+                [sg.Listbox(ingredients_pretty,font=('Helvetica', 20),size=(25,8),
+                key='Ingredients_List',enable_events=True),sg.Column(ingredientInfo_ingredients)],
+                [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_ingredients'),
+                sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_ingredients'),
+                sg.Button('Delete',font=('Helvetica', 15),size=(15,1),key='Delete_ingredients')]
             ]
 
     window_ingredients = sg.Window('Barchine', layout_ingredients).Finalize()
@@ -250,6 +250,34 @@ def IngredientsGUI():
     window_ingredients.close()
 
 
+def StationsGUI():
+
+    layout_stations = [
+                [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_stations')],
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_stations'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_stations'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_stations'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_stations'),
+                sg.Button('Stats',font=('Helvetica', 15),key='Stats_stations'),
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')]
+            ]
+
+    window_stations = sg.Window('Barchine', layout_stations).Finalize()
+    #window_library.Maximize()
+
+    chosen = None
+
+    while True:  # Event Loop
+        event, values = window_stations.read()
+        print(event, values)
+
+
+
+        if event in  (None, 'Exit'):
+                break
+
+    #Close remaining window
+    window_stations.close()
 
 #Launch default home menu
 HomeGUI()
