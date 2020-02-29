@@ -36,7 +36,7 @@ def HomeGUI():
 
     layout_home = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_home')],
-                [sg.Button('Home',font=('Helvetica', 15),key='Home_home'),
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_home',border_width=5,button_color=(None,'#60b551')),
                 sg.Button('Library',font=('Helvetica', 15),key='Library_home'),
                 sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_home'),
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_home'),
@@ -111,7 +111,7 @@ def LibraryGUI():
     layout_library = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_library')],
                 [sg.Button('Home',font=('Helvetica', 15),key='Home_library'),
-                sg.Button('Library',font=('Helvetica', 15),key='Library_library'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_library',border_width=5,button_color=(None,'#60b551')),
                 sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_library'),
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_library'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_library'),
@@ -200,7 +200,7 @@ def IngredientsGUI():
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_ingredients')],
                 [sg.Button('Home',font=('Helvetica', 15),key='Home_ingredients'),
                 sg.Button('Library',font=('Helvetica', 15),key='Library_ingredients'),
-                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_ingredients'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_ingredients',border_width=5,button_color=(None,'#60b551')),
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_ingredients'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_ingredients'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_ingredients')],
@@ -302,7 +302,7 @@ def StationsGUI():
                 [sg.Button('Home',font=('Helvetica', 15),key='Home_stations'),
                 sg.Button('Library',font=('Helvetica', 15),key='Library_stations'),
                 sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_stations'),
-                sg.Button('Stations',font=('Helvetica', 15),key='Stations_stations'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_stations',border_width=5,button_color=(None,'#60b551')),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_stations'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')],
                 [sg.Text(text='Select Station to Edit',size=(17,1),font=('Helvetica', 20),key='subtitle_stations')],
