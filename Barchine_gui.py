@@ -18,6 +18,7 @@ sg.theme('DarkAmber')
 restoreIngredientLibrary()
 restoreDrinkLibrary()
 
+
 def HomeGUI():
 
     drinkInfo_home = [
@@ -61,6 +62,10 @@ def HomeGUI():
         if(event == 'Ingredients_home'):
             window_home.close()
             IngredientsGUI()
+
+        if(event == 'Stations_home'):
+            window_home.close()
+            StationsGUI()
 
         #When drink menu item is selected
         if event == 'Menu_List':
@@ -135,6 +140,10 @@ def LibraryGUI():
         if(event == 'Ingredients_library'):
             window_library.close()
             IngredientsGUI()
+        
+        if(event == 'Stations_library'):
+            window_library.close()
+            StationsGUI()
 
          #When drink item is selected
         if event == 'Library_List':
@@ -220,6 +229,10 @@ def IngredientsGUI():
             window_ingredients.close()
             LibraryGUI()
 
+        if(event == 'Stations_ingredients'):
+            window_ingredients.close()
+            StationsGUI()
+
         #When ingredient item is selected
         if event == 'Ingredients_List':
             for ingredient in listIngredients():
@@ -252,6 +265,38 @@ def IngredientsGUI():
 
 def StationsGUI():
 
+    layout_measure = [
+                [sg.Text(text='100%',size=(5,1),font=('Helvetica', 12))],
+                [sg.Image(r'Image_Library\measurementbar.png',key='image_library')],
+                [sg.Text(text='0%',size=(3,1),font=('Helvetica', 12))],
+            ]
+
+    layout_bar1 = [
+            [sg.Text(text='1',size=(1,1),font=('Helvetica', 12),key='bar1_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar1_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 12),key='bar1_name')],
+            ]
+    layout_bar2 = [
+            [sg.Text(text='2',size=(1,1),font=('Helvetica', 12),key='bar2_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar2_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 12),key='bar2_name')],
+            ]
+    layout_bar3 = [
+            [sg.Text(text='3',size=(1,1),font=('Helvetica', 12),key='bar3_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar3_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 12),key='bar3_name')],
+            ]
+    layout_bar4 = [
+            [sg.Text(text='4',size=(1,1),font=('Helvetica', 12),key='bar4_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar4_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 12),key='bar4_name')],
+            ]
+    layout_bar5 = [
+            [sg.Text(text='5',size=(1,1),font=('Helvetica', 12),key='bar5_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 10), key='bar5_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 12),key='bar5_name')],
+            ]
+
     layout_stations = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_stations')],
                 [sg.Button('Home',font=('Helvetica', 15),key='Home_stations'),
@@ -259,7 +304,10 @@ def StationsGUI():
                 sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_stations'),
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_stations'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_stations'),
-                sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')]
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')],
+                [sg.Text(text='Select Station to Edit',size=(17,1),font=('Helvetica', 20),key='subtitle_stations')],
+                [sg.Column(layout_measure),sg.Column(layout_bar1),sg.Column(layout_bar2),
+                sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5)]
             ]
 
     window_stations = sg.Window('Barchine', layout_stations).Finalize()
@@ -270,6 +318,21 @@ def StationsGUI():
     while True:  # Event Loop
         event, values = window_stations.read()
         print(event, values)
+
+        #Check for menu selection
+        if(event == 'Home_stations'):
+            window_stations.close()
+            HomeGUI()
+
+        if(event == 'Library_stations'):
+            window_stations.close()
+            LibraryGUI()
+
+        if(event == 'Ingredients_stations'):
+            window_stations.close()
+            IngredientsGUI()
+
+        
 
 
 
