@@ -2,10 +2,10 @@
 DrinkLibrary = []
 
 ICE = [
+    'None',
     'Cubes',
     'Crushed',
-    'Any',
-    'None'
+    'Any'
 ]
 
 GLASSES = [

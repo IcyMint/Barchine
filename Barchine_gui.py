@@ -279,6 +279,17 @@ def LibraryGUI(prev_window):
 
         if(event == 'Delete_library'):
             print(chosen)
+            if(chosen is not None):
+                deleteDrink(chosen.getName())
+                chosen = None
+
+                #Update list of drinks
+                drinks_pretty = []
+                for drink in listDrinks():
+                    drinks_pretty.append(drink.getName())
+                window_library['Library_List'].update(values=drinks_pretty)
+            pass
+
             pass
 
         if event in  (None, 'Exit'):
@@ -359,8 +370,8 @@ def DrinkView(mode,drink):
             [sg.Text('Name: ',key='name_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT NAME',key='name_input_drinkview')],
             [sg.Text('Ice: ',key='ice_text_drinkview',font=('Helvetica', 15)),sg.OptionMenu(getIceTypes(),key='ice_input_drinkview')],
             [sg.Text('Glass: ',key='glass_text_drinkview',font=('Helvetica', 15)),sg.OptionMenu(getGlassTypes(),key='glass_input_drinkview')],
-            [sg.Text('Garnish: ',key='garnish_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT GARNISH',key='garnish_input_drinkview')],
-            [sg.Text('Extras: ',key='extras_text_drinkview',font=('Helvetica', 15)),sg.InputText('DEFAULT EXTRA',key='extra_input_drinkview')],
+            [sg.Text('Garnish: ',key='garnish_text_drinkview',font=('Helvetica', 15)),sg.InputText('None',key='garnish_input_drinkview')],
+            [sg.Text('Extras: ',key='extras_text_drinkview',font=('Helvetica', 15)),sg.InputText('None',key='extra_input_drinkview')],
             [sg.Button('Save',font=('Helvetica', 15),key='save_drinkview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_drinkview')],
             [sg.Text('Ingredients',key='ingredients_title',font=('Helvetica', 20))],
             #TODO:List drink components here
