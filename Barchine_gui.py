@@ -254,6 +254,12 @@ def LibraryGUI(prev_window):
             DrinkView('new',None)
             window_library.enable()
             window_library.bring_to_front()
+
+            #Update list of drinks
+            drinks_pretty = []
+            for drink in listDrinks():
+                drinks_pretty.append(drink.getName())
+            window_library['Library_List'].update(values=drinks_pretty)
             pass
 
         if(event == 'Edit_library' and chosen is not None):
@@ -373,7 +379,7 @@ def DrinkView(mode,drink):
     new_glass = None
     new_garnish = None
     new_extras = None
-    new_ingredients = None
+    new_ingredients = {}
     new_image = None
 
     #Change mode title displayed
@@ -413,9 +419,28 @@ def DrinkView(mode,drink):
         print(event, values)
 
         if(event =='save_drinkview'):
-
-            if(mode == 'new'):
-                
+            new_name = re.sub('[#@,]','', values['name_input_drinkview'])
+            if(mode == 'new' and new_name is not None and len(new_ingredients) > 0):
+                #Load in values
+                new_ice = re.sub('[#@,]','', values['ice_input_drinkview'])
+                new_glass = re.sub('[#@,]','', values['glass_input_drinkview'])
+                new_garnish = re.sub('[#@,]','', values['garnish_input_drinkview'])
+                new_extras = re.sub('[#@,]','', values['extra_input_drinkview'])
+                new_image = '1'
+                check = True
+                #Check for duplicate name
+                for drink in listDrinks():
+                    if(drink.getName() == new_name):
+                        check = False
+                #Continue saving
+                if(check):
+                    print('SAVED')
+                    #Convert ingredients
+                    string = ''
+                    for key, value in new_ingredients.items():
+                        string+=str(key)+'@'+str(value)+'#'
+                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,string[:-1],new_image)
+                    break
                 pass
 
             if(mode == 'edit'):
@@ -440,15 +465,16 @@ def DrinkView(mode,drink):
             break
 
         if(event == 'add_drinkviewingredient'):
-            
-            new_elements = IngredientAddPopUp('new',None,None)
-            new_ingredients[new_elements[0]] = int(new_elements[1])
 
-            #Update ingredients list
-            display = []
-            for key, value in new_ingredients.items():
-                display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
-            window_drinkview['DrinkIngredients_drinkview'].update(values=display)
+            new_elements = IngredientAddPopUp('new',None,None)
+            if(new_elements[0] is not None):
+                new_ingredients[new_elements[0]] = int(new_elements[1])
+
+                #Update ingredients list
+                display = []
+                for key, value in new_ingredients.items():
+                    display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
         if(event == 'edit_drinkviewingredient' and mode == 'edit' and len(values['DrinkIngredients_drinkview']) > 0):
             for key, value in new_ingredients.items():

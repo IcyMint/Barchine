@@ -55,8 +55,9 @@ class Drink():
     def setIngredients(self,ingredients):
         string = ''
         for key, value in ingredients.items():
-            string+=key+'@'+str(value)+'#'
+            string+=str(key)+'@'+str(value)+'#'
         self.ingredients = string[:-1]
+        print('LIST = '+self.ingredients)
 
     def getName(self):
         return self.name
