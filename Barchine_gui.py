@@ -262,6 +262,13 @@ def LibraryGUI(prev_window):
             DrinkView('edit',chosen)
             window_library.enable()
             window_library.bring_to_front()
+
+            #Update list of drinks
+            drinks_pretty = []
+            for drink in listDrinks():
+                drinks_pretty.append(drink.getName())
+            window_library['Library_List'].update(values=drinks_pretty)
+            
             pass
 
         if(event == 'Delete_library'):
@@ -412,13 +419,27 @@ def DrinkView(mode,drink):
                 pass
 
             if(mode == 'edit'):
-
-                pass
+                #Get changes
+                new_name = values['name_input_drinkview']
+                new_ice = values['ice_input_drinkview']
+                new_glass = values['glass_input_drinkview']
+                new_garnish = values['garnish_input_drinkview']
+                new_extras = values['extra_input_drinkview']
+                #Apply edits
+                drink.setName(new_name)
+                drink.setIce(new_ice)
+                drink.setGlass(new_glass)
+                drink.setGarnish(new_garnish)
+                drink.setExtras(new_extras)
+                drink.setIngredients(new_ingredients)
+                #TODO: Update when adding image selection
+                drink.setImage("1")
+                break
 
         if(event =='exit_drinkview'):
             break
 
-        if(event == 'add_drinkviewingredient' and len(values['DrinkIngredients_drinkview']) > 0):
+        if(event == 'add_drinkviewingredient'):
             
             new_elements = IngredientAddPopUp('new',None,None)
             new_ingredients[new_elements[0]] = int(new_elements[1])

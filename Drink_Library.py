@@ -52,6 +52,12 @@ class Drink():
             dict[each[:each.index('@')]] = int(each[each.index('@')+1:])
         return dict
 
+    def setIngredients(self,ingredients):
+        string = ''
+        for key, value in ingredients.items():
+            string+=key+'@'+str(value)+'#'
+        self.ingredients = string[:-1]
+
     def getName(self):
         return self.name
 
