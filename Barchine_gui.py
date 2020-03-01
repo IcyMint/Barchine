@@ -418,7 +418,7 @@ def DrinkView(mode,drink):
         if(event =='exit_drinkview'):
             break
 
-        if(event == 'add_drinkviewingredient'):
+        if(event == 'add_drinkviewingredient' and len(values['DrinkIngredients_drinkview']) > 0):
             
             new_elements = IngredientAddPopUp('new',None,None)
             new_ingredients[new_elements[0]] = int(new_elements[1])
@@ -429,7 +429,7 @@ def DrinkView(mode,drink):
                 display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
             window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
-        if(event == 'edit_drinkviewingredient' and mode == 'edit'):
+        if(event == 'edit_drinkviewingredient' and mode == 'edit' and len(values['DrinkIngredients_drinkview']) > 0):
             for key, value in new_ingredients.items():
                 if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
                     #Send values to user field, then replace with returning values
@@ -444,6 +444,19 @@ def DrinkView(mode,drink):
                         for key, value in new_ingredients.items():
                             display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
                         window_drinkview['DrinkIngredients_drinkview'].update(values=display)
+
+        if(event == 'remove_drinkviewingredient' and len(values['DrinkIngredients_drinkview']) > 0):
+            for key, value in new_ingredients.items():
+                if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
+                    #Delete from ingredients list
+                    del new_ingredients[key]
+
+                    #Update ingredients list
+                    display = []
+                    for key, value in new_ingredients.items():
+                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                    window_drinkview['DrinkIngredients_drinkview'].update(values=display)
+                    break
 
         if event in  (None, 'Exit'):
             break
