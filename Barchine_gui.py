@@ -277,19 +277,16 @@ def LibraryGUI(prev_window):
             
             pass
 
-        if(event == 'Delete_library'):
+        if(event == 'Delete_library' and chosen is not None):
             print(chosen)
-            if(chosen is not None):
-                deleteDrink(chosen.getName())
-                chosen = None
+            deleteDrink(chosen.getName())
+            chosen = None
 
-                #Update list of drinks
-                drinks_pretty = []
-                for drink in listDrinks():
-                    drinks_pretty.append(drink.getName())
-                window_library['Library_List'].update(values=drinks_pretty)
-            pass
-
+            #Update list of drinks
+            drinks_pretty = []
+            for drink in listDrinks():
+                drinks_pretty.append(drink.getName())
+            window_library['Library_List'].update(values=drinks_pretty)
             pass
 
         if event in  (None, 'Exit'):
@@ -595,8 +592,16 @@ def IngredientsGUI(prev_window):
             IngredientView('edit',chosen)
             pass
 
-        if(event == 'Delete_ingredients'):
+        if(event == 'Delete_ingredients' and chosen is not None):
             print(chosen)
+            deleteIngredient(chosen.getName())
+            chosen = None
+
+            #Update list of drinks
+            ingredients_pretty = []
+            for ingredient in listIngredients():
+                ingredients_pretty.append(ingredient.getName())
+            window_ingredients['Ingredients_List'].update(values=ingredients_pretty)
             pass
 
         if event in  (None, 'Exit'):
