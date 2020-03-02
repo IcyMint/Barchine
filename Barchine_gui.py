@@ -299,19 +299,16 @@ def LibraryGUI(prev_window):
     #Close remaining window
     window_library.close()
 
+
 def IngredientAddPopUp(mode, input_key, input_value):
 
-    #Get list of ingredient names
-    base_pretty = []
-    for base in getBaseTypes():
-        base_pretty.append(base)
 
     response = None
 
     layout_ingredientaddpopup = [
                         [sg.Text('MODE',key='mode_name_ingredientaddpopup',font=('Helvetica', 30))],
                         [sg.Text('Name: ',key='name_text_ingredientaddpopup',font=('Helvetica', 15))
-                        ,sg.OptionMenu(base_pretty,key='ingredient_input_ingredientaddpopup')],
+                        ,sg.OptionMenu(getBaseTypes(),key='ingredient_input_ingredientaddpopup')],
                         [sg.Text('Amount: ',key='amount_text_ingredientaddpopup',font=('Helvetica', 15))
                         ,sg.InputText('',key='amount_input_ingredientaddpopup',size=(4,1))
                         ,sg.Text(' mL',key='unit_ingredientaddpopup',font=('Helvetica', 15))],
@@ -356,6 +353,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
         return([values['ingredient_input_ingredientaddpopup'],values['amount_input_ingredientaddpopup']])
     elif(response == 'exit'):
         return([None,None])
+
 
 def DrinkView(mode,drink):
 
@@ -589,11 +587,12 @@ def IngredientsGUI(prev_window):
                     window_ingredients['CURRENT_VOLUME_NAME_ingredients'].update('Current Volume: '+str(ingredient.getEndVol())+' mL')
         
         if(event == 'Add_ingredients'):
-            print(chosen)
+            IngredientView('new',None)
             pass
 
-        if(event == 'Edit_ingredients'):
+        if(event == 'Edit_ingredients' and chosen is not None):
             print(chosen)
+            IngredientView('edit',chosen)
             pass
 
         if(event == 'Delete_ingredients'):
@@ -607,6 +606,76 @@ def IngredientsGUI(prev_window):
     #Close remaining window
     window_ingredients.close()
 
+def IngredientView(mode,ingredient):
+
+    layout_ingredientview = [
+                [sg.Text('MODE',key='mode_name_ingredientview',font=('Helvetica', 30))],
+                [sg.Text('Name: ',key='name_text_ingredientview',font=('Helvetica', 15)),sg.InputText('DEFAULT NAME',key='name_input_ingredientview')],
+                [sg.Text('Base: ',key='base_text_ingredientview',font=('Helvetica', 15))
+                ,sg.OptionMenu(getBaseTypes(),key='base_input_ingredientview')],
+                [sg.Text('Family: ',key='family_text_ingredientview',font=('Helvetica', 15))
+                ,sg.OptionMenu(getFamilyTypes(),key='family_input_ingredientview')],
+                [sg.Text('Starting Volume: ',key='startvol_text_ingredientview',font=('Helvetica', 15))
+                ,sg.InputText('',key='startvol_input_ingredientview',size=(4,1))
+                ,sg.Text(' mL',key='unit1_ingredientview',font=('Helvetica', 15))],
+                [sg.Text('Current Volume: ',key='endvol_text_ingredientview',font=('Helvetica', 15))
+                ,sg.InputText('',key='endvol_input_ingredientview',size=(4,1))
+                ,sg.Text(' mL',key='unit2_ingredientview',font=('Helvetica', 15))],
+                [sg.Button('Save',font=('Helvetica', 15),key='save_ingredientview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_ingredientview')]
+            ]
+
+    #Launch window
+    window_ingredientview = sg.Window('Barchine', layout_ingredientview,keep_on_top=True,no_titlebar=True).Finalize()
+    window_ingredientview.BringToFront()
+
+    #Initialize default variables
+    new_name = None
+    new_base = None
+    new_family = None
+    new_startVol = None
+    new_endVol = None
+    new_active = False
+    new_position = -1
+
+    #Change mode title displayed
+    if(mode == 'edit'):
+        window_ingredientview['mode_name_ingredientview'].update(value='Edit')
+    if(mode == 'new'):
+        window_ingredientview['mode_name_ingredientview'].update(value='New')
+
+    #Change displayed info based on mode
+    if(mode == 'edit'):
+
+        #Set default variables
+        new_name = ingredient.getName()
+        new_base = ingredient.getBase()
+        new_family = ingredient.getFamily()
+        new_startVol = ingredient.getStartVol()
+        new_endVol = ingredient.getEndVol()
+        new_active = ingredient.isActive()
+        new_position = ingredient.getPosition()
+
+        #Update fields
+        window_ingredientview['name_input_ingredientview'].update(value=new_name)
+        window_ingredientview['base_input_ingredientview'].update(value=new_base)
+        window_ingredientview['family_input_ingredientview'].update(value=new_family)
+        window_ingredientview['startvol_input_ingredientview'].update(value=new_startVol)
+        window_ingredientview['endvol_input_ingredientview'].update(value=new_endVol)
+
+    while True:  # Event Loop
+        event, values = window_ingredientview.read()
+        print(event, values)
+
+        if(event == 'save_ingredientview'):
+            pass
+
+        if(event == 'exit_ingredientview'):
+            break
+
+        if event in  (None, 'Exit'):
+            break
+    
+    window_ingredientview.close()
 
 def StationsGUI(prev_window):
 
