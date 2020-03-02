@@ -331,7 +331,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
         print(event, values)
 
         if(event =='save_ingredientaddpopup'):
-            if(len(re.findall('^[0-9]+$',values['amount_input_ingredientaddpopup'])) > 0):
+            if(values['amount_input_ingredientaddpopup'].isdigit()):
                 response = 'save'
                 break
             else:
@@ -585,6 +585,11 @@ def IngredientsGUI(prev_window):
         
         if(event == 'Add_ingredients'):
             IngredientView('new',None)
+            #Update list of ingredients
+            ingredients_pretty = []
+            for ingredient in listIngredients():
+                ingredients_pretty.append(ingredient.getName())
+            window_ingredients['Ingredients_List'].update(values=ingredients_pretty)
             pass
 
         if(event == 'Edit_ingredients' and chosen is not None):
@@ -597,7 +602,7 @@ def IngredientsGUI(prev_window):
             deleteIngredient(chosen.getName())
             chosen = None
 
-            #Update list of drinks
+            #Update list of ingredients
             ingredients_pretty = []
             for ingredient in listIngredients():
                 ingredients_pretty.append(ingredient.getName())
@@ -610,6 +615,7 @@ def IngredientsGUI(prev_window):
 
     #Close remaining window
     window_ingredients.close()
+
 
 def IngredientView(mode,ingredient):
 
@@ -672,7 +678,28 @@ def IngredientView(mode,ingredient):
         print(event, values)
 
         if(event == 'save_ingredientview'):
-            pass
+            new_name = re.sub('[#@,]','', values['name_input_ingredientview'])
+            if(mode == 'new' and len(new_name) > 0 and new_name is not None and values['startvol_input_ingredientview'].isdigit() and values['endvol_input_ingredientview'].isdigit()):
+                    #Load in values
+                    new_base = values['base_input_ingredientview']
+                    new_family = values['family_input_ingredientview']
+                    new_startVol = values['startvol_input_ingredientview']
+                    new_endVol = values['endvol_input_ingredientview']
+
+                    check = True
+                    #Check for duplicate name
+                    for element in listIngredients():
+                        if(new_name == element.getName()):
+                            check = False
+                    
+                    if(check):
+                        print('SAVED')
+                        createIngredient(new_name,new_base,new_family,new_startVol,new_endVol,new_active,new_position)
+
+                        #Update list of ingredients
+
+                        break
+                    pass
 
         if(event == 'exit_ingredientview'):
             break
