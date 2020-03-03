@@ -595,6 +595,11 @@ def IngredientsGUI(prev_window):
         if(event == 'Edit_ingredients' and chosen is not None):
             print(chosen)
             IngredientView('edit',chosen)
+            #Update list of ingredients
+            ingredients_pretty = []
+            for ingredient in listIngredients():
+                ingredients_pretty.append(ingredient.getName())
+            window_ingredients['Ingredients_List'].update(values=ingredients_pretty)
             pass
 
         if(event == 'Delete_ingredients' and chosen is not None):
@@ -695,11 +700,29 @@ def IngredientView(mode,ingredient):
                     if(check):
                         print('SAVED')
                         createIngredient(new_name,new_base,new_family,new_startVol,new_endVol,new_active,new_position)
-
-                        #Update list of ingredients
-
                         break
                     pass
+            if(mode == 'edit' and values['startvol_input_ingredientview'].isdigit() and values['endvol_input_ingredientview'].isdigit()):
+
+                #Load in values
+                new_base = values['base_input_ingredientview']
+                new_family = values['family_input_ingredientview']
+                new_startVol = values['startvol_input_ingredientview']
+                new_endVol = values['endvol_input_ingredientview']
+
+                check = True
+                #Check for duplicate name
+                for element in listIngredients():
+                    if(new_name == element.getName()):
+                        check = False
+                if(check):
+                    #Load in values
+                    ingredient.setName(new_name)
+                    ingredient.setBase(new_base)
+                    ingredient.setFamily(new_family)
+                    ingredient.setStartVol(new_startVol)
+                    ingredient.setEndVol(new_endVol)
+                    break
 
         if(event == 'exit_ingredientview'):
             break
