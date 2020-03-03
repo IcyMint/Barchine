@@ -732,6 +732,7 @@ def IngredientView(mode,ingredient):
     
     window_ingredientview.close()
 
+
 def StationsGUI(prev_window):
 
      #Image translation
@@ -823,11 +824,90 @@ def StationsGUI(prev_window):
         i+=1
 
     chosen = None
+    update = False
 
     while True:  # Event Loop
 
         event, values = window_stations.read()
         print(event, values)
+
+        #Check for station selection
+        if(event == 'bar1_name'):
+            if(Bartender.getShelf()[0] == None):
+                StationsView('1',None)
+            else:
+                StationsView('1',Bartender.getShelf()[0])
+            #Update Display
+            update = True
+
+        if(event == 'bar2_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('2',None)
+            else:
+                StationsView('2',Bartender.getShelf()[1])
+            #Update Display
+            update = True
+        
+        if(event == 'bar3_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('3',None)
+            else:
+                StationsView('3',Bartender.getShelf()[2])
+            #Update Display
+            update = True
+
+        if(event == 'bar4_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('4',None)
+            else:
+                StationsView('4',Bartender.getShelf()[3])
+            #Update Display
+            update = True
+
+        if(event == 'bar5_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('5',None)
+            else:
+                StationsView('5',Bartender.getShelf()[4])
+            #Update Display
+            update = True
+
+        if(event == 'bar6_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('6',None)
+            else:
+                StationsView('6',Bartender.getShelf()[5])
+            #Update Display
+            update = True
+
+        if(event == 'bar7_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('7',None)
+            else:
+                StationsView('7',Bartender.getShelf()[6])
+            #Update Display
+            update = True
+
+        if(event == 'bar8_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('8',None)
+            else:
+                StationsView('8',Bartender.getShelf()[7])
+            #Update Display
+            update = True
+
+        #Update Display
+        if(update):
+            i = 1
+            for item in Bartender.getShelf():
+                if(item!=None):
+                    window_stations['bar'+str(i)+'_name'].update(value=item.getName())
+                    window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
+                else:
+                    window_stations['bar'+str(i)+'_name'].update(value='EMPTY')
+                    window_stations['bar'+str(i)+'_meter'].update_bar(0,100)
+                i+=1
+            update = False
 
         #Check for menu selection
         if(event == 'Home_stations'):
@@ -846,6 +926,59 @@ def StationsGUI(prev_window):
 
     #Close remaining window
     window_stations.close()
+
+
+def StationsView(station,ingredient):
+
+    available = ['Empty']
+    for element in listIngredients():
+        if not element.isActive():
+            available.append(element.getName())
+
+    layout_stationsview = [
+                    [sg.Text('Replace Station ',key='title_stationsview',font=('Helvetica', 30)),sg.Text(station,key='title_num_stationsview',font=('Helvetica', 30))],
+                    [sg.Text('New Ingredient: ',key='ingredient_text_stationsview',font=('Helvetica', 15))
+                    ,sg.OptionMenu(available,key='ingredient_input_stationsview')],
+                    [sg.Button('Save',font=('Helvetica', 15),key='save_stationsview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_stationsview')]
+                ]
+
+    #Launch window
+    window_stationsview = sg.Window('Barchine', layout_stationsview,keep_on_top=True,no_titlebar=True).Finalize()
+    window_stationsview.BringToFront()
+
+    #Check for preconditions
+    if(ingredient is not None):
+        window_stationsview['ingredient_input_stationsview'].update(value=ingredient.getName())
+
+    while True:  # Event Loop
+        event, values = window_stationsview.read()
+        print(event, values)
+
+        if(event == 'save_stationsview'):
+
+            #Check if field is set to 'Empty'
+            if(values['ingredient_input_stationsview'] != 'Empty'):
+                #Get the replacement ingredient and update fields
+                for element in listIngredients():
+                    if(element.getName() == values['ingredient_input_stationsview']):
+                        element.setActive(True)
+                        element.setPosition(int(station)-1)
+
+            #If exists, update old ingredient
+            if(ingredient is not None):
+                for element in listIngredients():
+                    if(element.getName() == ingredient.getName()):
+                        element.setActive(False)
+                        element.setPosition(-1)
+            break
+
+        if(event == 'exit_stationsview'):
+            break
+
+        if event in  (None, 'Exit'):
+            break
+
+    window_stationsview.close()
 
 #Launch default home menu
 HomeGUI(None)
