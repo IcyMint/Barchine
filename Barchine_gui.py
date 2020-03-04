@@ -39,6 +39,16 @@ def contextSwitcher(current, next, window):
             #window.hide()
             StationsGUI(window)
             #window.close()
+        
+        if(next == 'Stats_home'):
+            #window.hide()
+            StatsGUI(window)
+            #window.close()
+
+        if(next == 'Settings_home'):
+            #window.hide()
+            SettingsGUI(window)
+            #window.close()
 
     #Check for Library menu selection
     if(current == 'Library_library'):
@@ -57,6 +67,16 @@ def contextSwitcher(current, next, window):
             StationsGUI(window)
             #window.close()
 
+        if(next == 'Stats_library'):
+            #window.hide()
+            StatsGUI(window)
+            #window.close()
+
+        if(next == 'Settings_library'):
+            #window.hide()
+            SettingsGUI(window)
+            #window.close()
+
     #Check for Ingredients menu selection
     if(current == 'Ingredients_ingredients'):
         if(next == 'Home_ingredients'):
@@ -72,6 +92,16 @@ def contextSwitcher(current, next, window):
         if(next == 'Stations_ingredients'):
             #window.hide()
             StationsGUI(window)
+            #window.close()
+        
+        if(next == 'Stats_ingredients'):
+            #window.hide()
+            StatsGUI(window)
+            #window.close()
+
+        if(next == 'Settings_ingredients'):
+            #window.hide()
+            SettingsGUI(window)
             #window.close()
 
     #Check for Stations menu selection
@@ -89,6 +119,70 @@ def contextSwitcher(current, next, window):
         if(next == 'Ingredients_stations'):
             #window.hide()
             IngredientsGUI(window)
+            #window.close()
+
+        if(next == 'Stats_stations'):
+            #window.hide()
+            StatsGUI(window)
+            #window.close()
+        
+        if(next == 'Settings_stations'):
+            #window.hide()
+            SettingsGUI(window)
+            #window.close()
+
+    #Check for Stats menu selection
+    if(current == 'Stats_stats'):
+        if(next == 'Home_stats'):
+            #window.hide()
+            HomeGUI(window)
+            #window.close()
+
+        if(next == 'Library_stats'):
+            #window.hide()
+            LibraryGUI(window)
+            #window.close()
+
+        if(next == 'Ingredients_stats'):
+            #window.hide()
+            IngredientsGUI(window)
+            #window.close()
+
+        if(next == 'Stations_stats'):
+            #window.hide()
+            StationsGUI(window)
+            #window.close()
+        
+        if(next == 'Settings_stats'):
+            #window.hide()
+            SettingsGUI(window)
+            #window.close()
+
+    #Check for Settings menu selection
+    if(current == 'Settings_settings'):
+        if(next == 'Home_settings'):
+            #window.hide()
+            HomeGUI(window)
+            #window.close()
+
+        if(next == 'Library_settings'):
+            #window.hide()
+            LibraryGUI(window)
+            #window.close()
+
+        if(next == 'Ingredients_settings'):
+            #window.hide()
+            IngredientsGUI(window)
+            #window.close()
+
+        if(next == 'Stations_settings'):
+            #window.hide()
+            StationsGUI(window)
+            #window.close()
+        
+        if(next == 'Stats_settings'):
+            #window.hide()
+            StatsGUI(window)
             #window.close()
 
 
@@ -144,6 +238,12 @@ def HomeGUI(prev_window):
 
         if(event == 'Stations_home'):
             contextSwitcher('Home_home','Stations_home',window_home)
+
+        if(event == 'Stats_home'):
+            contextSwitcher('Home_home','Stats_home',window_home)
+
+        if(event == 'Settings_home'):
+            contextSwitcher('Home_home','Settings_home',window_home)
 
 
         #When drink menu item is selected
@@ -230,6 +330,12 @@ def LibraryGUI(prev_window):
         
         if(event == 'Stations_library'):
             contextSwitcher('Library_library','Stations_library',window_library)
+
+        if(event == 'Stats_library'):
+            contextSwitcher('Library_library','Stats_library',window_library)
+
+        if(event == 'Settings_library'):
+            contextSwitcher('Library_library','Settings_library',window_library)
 
          #When drink item is selected
         if event == 'Library_List':
@@ -571,6 +677,12 @@ def IngredientsGUI(prev_window):
 
         if(event == 'Stations_ingredients'):
             contextSwitcher('Ingredients_ingredients','Stations_ingredients',window_ingredients)
+
+        if(event == 'Stats_ingredients'):
+            contextSwitcher('Ingredients_ingredients','Stats_ingredients',window_ingredients)
+
+        if(event == 'Settings_ingredients'):
+            contextSwitcher('Ingredients_ingredients','Settings_ingredients',window_ingredients)
 
         #When ingredient item is selected
         if event == 'Ingredients_List':
@@ -919,6 +1031,13 @@ def StationsGUI(prev_window):
         if(event == 'Ingredients_stations'):
             contextSwitcher('Stations_stations','Ingredients_stations',window_stations)
 
+        if(event == 'Stats_stations'):
+            contextSwitcher('Stations_stations','Stats_stations',window_stations)
+
+        if(event == 'Settings_stations'):
+            contextSwitcher('Stations_stations','Settings_stations',window_stations)
+
+
 
         if event in  (None, 'Exit'):
             window_stations.close()
@@ -980,5 +1099,110 @@ def StationsView(station,ingredient):
 
     window_stationsview.close()
 
+
+def StatsGUI(prev_window):
+
+    layout_stats = [
+
+                [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_stats')],
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_stats'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_stats'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_stats'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_stats'),
+                sg.Button('Stats',font=('Helvetica', 15),key='Stats_stats',border_width=5,button_color=(None,'#60b551')),
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_stats')],
+                [sg.Text(text='Stats Page',size=(17,1),font=('Helvetica', 20),key='subtitle_stats')]
+
+            ]
+
+    #Launch window
+    window_stats = sg.Window('Barchine', layout_stats).Finalize()
+    if(FULLSCREEN):
+        window_stats.Maximize()
+
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
+
+    while True:  # Event Loop
+        event, values = window_stats.read()
+        print(event, values)
+
+        #Check for menu selection
+        if(event == 'Home_stats'):
+            contextSwitcher('Stats_stats','Home_stats',window_stats)
+
+        if(event == 'Library_stats'):
+            contextSwitcher('Stats_stats','Library_stats',window_stats)
+
+        if(event == 'Ingredients_stats'):
+            contextSwitcher('Stats_stats','Ingredients_stats',window_stats)
+
+        if(event == 'Stations_stats'):
+            contextSwitcher('Stats_stats','Stations_stats',window_stats)
+
+        if(event == 'Settings_stats'):
+            contextSwitcher('Stats_stats','Settings_stats',window_stats)
+
+        if event in  (None, 'Exit'):
+            window_stats.close()
+            break
+
+    #Close remaining window
+    window_stats.close()
+
+
+def SettingsGUI(prev_window):
+
+    layout_settings = [
+
+                [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_settings')],
+                [sg.Button('Home',font=('Helvetica', 15),key='Home_settings'),
+                sg.Button('Library',font=('Helvetica', 15),key='Library_settings'),
+                sg.Button('Ingredients',font=('Helvetica', 15),key='Ingredients_settings'),
+                sg.Button('Stations',font=('Helvetica', 15),key='Stations_settings'),
+                sg.Button('Stats',font=('Helvetica', 15),key='Stats_settings'),
+                sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
+                [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')]
+
+            ]
+
+    #Launch window
+    window_settings = sg.Window('Barchine', layout_settings).Finalize()
+    if(FULLSCREEN):
+        window_settings.Maximize()
+
+    #Close Previous window
+    if(prev_window is not None):
+        prev_window.close()
+
+    while True:  # Event Loop
+        event, values = window_settings.read()
+        print(event, values)
+
+        #Check for menu selection
+        if(event == 'Home_settings'):
+            contextSwitcher('Settings_settings','Home_settings',window_settings)
+
+        if(event == 'Library_settings'):
+            contextSwitcher('Settings_settings','Library_settings',window_settings)
+
+        if(event == 'Ingredients_settings'):
+            contextSwitcher('Settings_settings','Ingredients_settings',window_settings)
+
+        if(event == 'Stations_settings'):
+            contextSwitcher('Settings_settings','Stations_settings',window_settings)
+
+        if(event == 'Stats_settings'):
+            contextSwitcher('Settings_settings','Stats_settings',window_settings)
+
+        
+
+        if event in  (None, 'Exit'):
+            window_settings.close()
+            break
+
+    #Close remaining window
+    window_settings.close()
 #Launch default home menu
 HomeGUI(None)
