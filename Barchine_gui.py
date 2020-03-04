@@ -943,6 +943,23 @@ def StationsGUI(prev_window):
         event, values = window_stations.read()
         print(event, values)
 
+        #Check for menu selection
+        if(event == 'Home_stations'):
+            contextSwitcher('Stations_stations','Home_stations',window_stations)
+
+        if(event == 'Library_stations'):
+            contextSwitcher('Stations_stations','Library_stations',window_stations)
+
+        if(event == 'Ingredients_stations'):
+            contextSwitcher('Stations_stations','Ingredients_stations',window_stations)
+
+        if(event == 'Stats_stations'):
+            contextSwitcher('Stations_stations','Stats_stations',window_stations)
+
+        if(event == 'Settings_stations'):
+            contextSwitcher('Stations_stations','Settings_stations',window_stations)
+
+
         #Check for station selection
         if(event == 'bar1_name'):
             if(Bartender.getShelf()[0] == None):
@@ -1020,24 +1037,6 @@ def StationsGUI(prev_window):
                     window_stations['bar'+str(i)+'_meter'].update_bar(0,100)
                 i+=1
             update = False
-
-        #Check for menu selection
-        if(event == 'Home_stations'):
-            contextSwitcher('Stations_stations','Home_stations',window_stations)
-
-        if(event == 'Library_stations'):
-            contextSwitcher('Stations_stations','Library_stations',window_stations)
-
-        if(event == 'Ingredients_stations'):
-            contextSwitcher('Stations_stations','Ingredients_stations',window_stations)
-
-        if(event == 'Stats_stations'):
-            contextSwitcher('Stations_stations','Stats_stations',window_stations)
-
-        if(event == 'Settings_stations'):
-            contextSwitcher('Stations_stations','Settings_stations',window_stations)
-
-
 
         if event in  (None, 'Exit'):
             window_stations.close()
