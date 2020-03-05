@@ -128,3 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 workspace.code-workspace
+
+# Log file
+Logs.csv
