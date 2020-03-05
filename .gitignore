@@ -130,4 +130,4 @@ dmypy.json
 workspace.code-workspace
 
 # Log file
-Logs.csv
+*.csv
