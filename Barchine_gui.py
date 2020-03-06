@@ -217,9 +217,9 @@ def HomeGUI(prev_window):
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_home')],
                 [sg.Listbox(Bartender.showDrinkMenu(True),font=('Helvetica', 20),size=(25,8),
                 key='Menu_List',enable_events=True),sg.Column(drinkInfo_home),sg.Column(image_layout_home)],
-                [sg.Button('Order',font=('Helvetica', 20),size=(12,1))
-                ,sg.Button('Custom',font=('Helvetica', 20),size=(8,1))
-                ,sg.Button('Recommended',font=('Helvetica', 20),size=(12,1))]
+                [sg.Button('Order',font=('Helvetica', 20),size=(12,1),key='order_home')
+                ,sg.Button('Custom',font=('Helvetica', 20),size=(8,1),key='custom_home')
+                ,sg.Button('Recommended',font=('Helvetica', 20),size=(12,1),key='recommended_home')]
             ]
 
     #Launch Window
@@ -267,18 +267,81 @@ def HomeGUI(prev_window):
 
                     window_home['DrinkIngredients_home'].update(display)
 
-        if(event == 'Order'):
+        if(event == 'order_home'):
             pass
 
-        if(event == 'Custom'):
-            pass
+        if(event == 'custom_home'):
+            CustomView()
 
-        if(event == 'Recommended'):
+        if(event == 'recommended_home'):
             pass
             
         if event in  (None, 'Exit'):
             window_home.close()
             break
+
+def CustomView():
+
+    layout_buttons_customview = [
+                        [sg.Button('Add',font=('Helvetica', 15),key='add_customview')],
+                        [sg.Button('Remove',font=('Helvetica', 15),key='remove_customview')]
+                ]
+
+    layout_customview = [
+                    [sg.Text('Custom Drink',key='title_customview',font=('Helvetica', 30))],
+                    [sg.Listbox([],size=(20,4),key='DrinkIngredients_customview',enable_events=True)
+                    ,sg.Column(layout_buttons_customview)],
+                    [sg.Button('Order',font=('Helvetica', 15),key='order_customview'),sg.Button('Cancel',font=('Helvetica', 15),key='cancel_customview')],
+            ]
+
+    #Launch window
+    window_customview = sg.Window('Barchine', layout_customview,keep_on_top=True,no_titlebar=True).Finalize()
+    window_customview.BringToFront()
+
+    ingredients = {}
+
+    while True:  # Event Loop
+        event, values = window_customview.read()
+        print(event, values)
+
+        if(event == 'add_customview'):
+
+            new_elements = IngredientAddPopUp('new',None,None)
+            if(new_elements[0] is not None):
+                ingredients[new_elements[0]] = int(new_elements[1])
+
+                #Update ingredients list
+                display = []
+                for key, value in ingredients.items():
+                    display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                window_customview['DrinkIngredients_customview'].update(values=display)
+
+        if(event == 'remove_customview' and len(values['DrinkIngredients_customview']) > 0):
+            for key, value in ingredients.items():
+                if(key == re.findall("[^0-9]*",values['DrinkIngredients_customview'][0])[0].rstrip()):
+                    #Delete from ingredients list
+                    del ingredients[key]
+
+                    #Update ingredients list
+                    display = []
+                    for key, value in ingredients.items():
+                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                    window_customview['DrinkIngredients_customview'].update(values=display)
+                    break
+
+        if(event == 'order_customview'):
+            #TODO: Order the beverage
+            pass
+
+        if(event == 'cancel_customview'):
+            break
+
+        if event in  (None, 'Exit'):
+            break
+    
+    window_customview.close()
+
+    
 
 
 def LibraryGUI(prev_window):
