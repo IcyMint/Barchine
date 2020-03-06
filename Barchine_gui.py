@@ -541,6 +541,8 @@ def IngredientAddPopUp(mode, input_key, input_value):
 
 def DrinkView(mode,drink):
 
+    listDrinks()
+
     layout_buttons_drinkview = [
                         [sg.Button('Add',font=('Helvetica', 15),key='add_drinkviewingredient')],
                         [sg.Button('Edit',font=('Helvetica', 15),key='edit_drinkviewingredient')],
@@ -634,8 +636,8 @@ def DrinkView(mode,drink):
                     new_image = 'placeholder.png'
                 check = True
                 #Check for duplicate name
-                for drink in listDrinks():
-                    if(drink.getName() == new_name):
+                for drink_element in listDrinks():
+                    if(drink_element.getName() == new_name):
                         check = False
                 #Continue saving
                 if(check):
@@ -661,12 +663,11 @@ def DrinkView(mode,drink):
                 else:
                     new_image = 'placeholder.png'
                 check = True
+                #TODO: Add fix for potential conflict in ingredients, also check for issue with name overwrite from drink -> drink_element
                 #Check for duplicate name
-                temp_nameList = []
-                for drink in listDrinks():
-                    temp_nameList.append(drink.getName())
-                if(temp_nameList.count(new_name) > 2):
-                    check = False
+                for drink_element in listDrinks():
+                    if(drink_element.getName() == new_name and new_name != drink.getName()):
+                        check = False
                 #Continue saving
                 if(check):
                     #Apply edits
@@ -677,6 +678,8 @@ def DrinkView(mode,drink):
                     drink.setExtras(new_extras)
                     drink.setIngredients(new_ingredients)
                     drink.setImage(new_image)
+
+                    listDrinks()
                 else:
                     print('ERROR: Duplicate name or invalid image file')
                 break

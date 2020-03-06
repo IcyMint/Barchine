@@ -123,6 +123,8 @@ def deleteDrink(name):
     DrinkLibrary.remove(marked)
         
 def listDrinks():
+    for drink in DrinkLibrary:
+        print(drink)
     return DrinkLibrary
 
 def getIceTypes():
