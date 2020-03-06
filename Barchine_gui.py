@@ -438,6 +438,8 @@ def LibraryGUI(prev_window):
             window_library.enable()
             window_library.bring_to_front()
 
+            chosen = None
+
             #Update list of drinks
             drinks_pretty = []
             for drink in listDrinks():
@@ -451,6 +453,8 @@ def LibraryGUI(prev_window):
             DrinkView('edit',chosen)
             window_library.enable()
             window_library.bring_to_front()
+
+            chosen = None
 
             #Update list of drinks
             drinks_pretty = []
@@ -583,6 +587,8 @@ def DrinkView(mode,drink):
     #Change displayed info based on mode
     if(mode == 'edit'):
 
+        #Retrieve proper drink reference
+
         #Set default variables
         new_name = drink.getName()
         new_ice = drink.getIce()
@@ -606,12 +612,12 @@ def DrinkView(mode,drink):
         window_drinkview['DrinkIngredients_drinkview'].update(values=display)
         window_drinkview['filename_drinkview'].update(value=new_image)
 
-
     while True:  # Event Loop
         event, values = window_drinkview.read()
         print(event, values)
 
         if(event == 'filename_field'):
+            print('IMAGE FOUND')
             window_drinkview['filename_drinkview'].update(value=re.search('([^\/]*)$', values['filename_field']).group())
 
         if(event =='save_drinkview'):
@@ -622,7 +628,10 @@ def DrinkView(mode,drink):
                 new_glass = re.sub('[#@,]','', values['glass_input_drinkview'])
                 new_garnish = re.sub('[#@,]','', values['garnish_input_drinkview'])
                 new_extras = re.sub('[#@,]','', values['extra_input_drinkview'])
-                new_image = re.search('([^\/]*)$', values['filename_field']).group()
+                if(values['filename_field'][-3:] == 'png'):
+                    new_image = re.search('([^\/]*)$', values['filename_field']).group()
+                else:
+                    new_image = 'placeholder.png'
                 check = True
                 #Check for duplicate name
                 for drink in listDrinks():
@@ -647,12 +656,17 @@ def DrinkView(mode,drink):
                 new_glass = values['glass_input_drinkview']
                 new_garnish = values['garnish_input_drinkview']
                 new_extras = values['extra_input_drinkview']
-                new_image = re.search('([^\/]*)$', values['filename_field']).group()
+                if(values['filename_field'][-3:] == 'png'):
+                    new_image = re.search('([^\/]*)$', values['filename_field']).group()
+                else:
+                    new_image = 'placeholder.png'
                 check = True
                 #Check for duplicate name
+                temp_nameList = []
                 for drink in listDrinks():
-                    if(drink.getName() == new_name):
-                        check = False
+                    temp_nameList.append(drink.getName())
+                if(temp_nameList.count(new_name) > 2):
+                    check = False
                 #Continue saving
                 if(check):
                     #Apply edits
