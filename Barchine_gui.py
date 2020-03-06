@@ -198,10 +198,10 @@ def HomeGUI(prev_window):
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_home')]
             ]
     #Image translation
-    placeholder = Path('Image_Library/placeholder.png')
+    image = Path('Image_Library/placeholder.png')
         
     image_layout_home = [
-                [sg.Image(filename=placeholder,key='image_home')]
+                [sg.Image(filename=image,key='image_home')]
             ]
 
     layout_home = [
@@ -257,6 +257,8 @@ def HomeGUI(prev_window):
                     window_home['GLASS_NAME_home'].update('Glass: '+drink.getGlass())
                     window_home['GARNISH_NAME_home'].update('Garnish: '+drink.getGarnish())
                     window_home['EXTRAS_NAME_home'].update('Extras: '+drink.getExtras())
+                    image = Path('Image_Library/'+drink.getImage())
+                    window_home['image_home'].update(filename=image)
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
@@ -358,10 +360,10 @@ def LibraryGUI(prev_window):
             ]
 
     #Image translation
-    placeholder = Path('Image_Library/placeholder.png')
+    image = Path('Image_Library/placeholder.png')
 
     image_layout_library = [
-                [sg.Image(filename=placeholder,key='image_library')]
+                [sg.Image(filename=image,key='image_library')]
             ]
 
     layout_library = [
@@ -420,6 +422,8 @@ def LibraryGUI(prev_window):
                     window_library['GLASS_NAME_library'].update('Glass: '+drink.getGlass())
                     window_library['GARNISH_NAME_library'].update('Garnish: '+drink.getGarnish())
                     window_library['EXTRAS_NAME_library'].update('Extras: '+drink.getExtras())
+                    image = Path('Image_Library/'+drink.getImage())
+                    window_library['image_library'].update(filename=image)
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
@@ -546,10 +550,13 @@ def DrinkView(mode,drink):
             [sg.Text('Glass: ',key='glass_text_drinkview',font=('Helvetica', 15)),sg.OptionMenu(getGlassTypes(),key='glass_input_drinkview')],
             [sg.Text('Garnish: ',key='garnish_text_drinkview',font=('Helvetica', 15)),sg.InputText('None',key='garnish_input_drinkview')],
             [sg.Text('Extras: ',key='extras_text_drinkview',font=('Helvetica', 15)),sg.InputText('None',key='extra_input_drinkview')],
-            [sg.Button('Save',font=('Helvetica', 15),key='save_drinkview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_drinkview')],
-            [sg.Text('Ingredients',key='ingredients_title',font=('Helvetica', 20))],
+            [sg.Input(key='filename_field', visible=False, enable_events=True),sg.FileBrowse(file_types=(('Images', '*.png'),))
+            ,sg.Text('Image: ',key='image_text_drinkview',font=('Helvetica', 15))
+            ,sg.Text('placeholder.png',key='filename_drinkview',font=('Helvetica', 12),size=(20,1))],
+            [sg.Text('Ingredients',key='ingredients_title',font=('Helvetica', 20)),sg.Text(' ',key='spacer_drinkview',size=(20,1))
+            ,sg.Button('Save',font=('Helvetica', 15),key='save_drinkview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_drinkview')],
             #TODO:List drink components here
-            [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_drinkview',enable_events=True),
+            [sg.Listbox([],size=(20,4),key='DrinkIngredients_drinkview',enable_events=True),
             sg.Column(layout_buttons_drinkview)
             ]
         ]
@@ -597,11 +604,15 @@ def DrinkView(mode,drink):
         window_drinkview['garnish_input_drinkview'].update(value=new_garnish)
         window_drinkview['extra_input_drinkview'].update(value=new_extras)
         window_drinkview['DrinkIngredients_drinkview'].update(values=display)
+        window_drinkview['filename_drinkview'].update(value=new_image)
 
 
     while True:  # Event Loop
         event, values = window_drinkview.read()
         print(event, values)
+
+        if(event == 'filename_field'):
+            window_drinkview['filename_drinkview'].update(value=re.search('([^\/]*)$', values['filename_field']).group())
 
         if(event =='save_drinkview'):
             new_name = re.sub('[#@,]','', values['name_input_drinkview'])
@@ -611,7 +622,7 @@ def DrinkView(mode,drink):
                 new_glass = re.sub('[#@,]','', values['glass_input_drinkview'])
                 new_garnish = re.sub('[#@,]','', values['garnish_input_drinkview'])
                 new_extras = re.sub('[#@,]','', values['extra_input_drinkview'])
-                new_image = '1'
+                new_image = re.search('([^\/]*)$', values['filename_field']).group()
                 check = True
                 #Check for duplicate name
                 for drink in listDrinks():
@@ -619,13 +630,14 @@ def DrinkView(mode,drink):
                         check = False
                 #Continue saving
                 if(check):
-                    print('SAVED')
                     #Convert ingredients
                     string = ''
                     for key, value in new_ingredients.items():
                         string+=str(key)+'@'+str(value)+'#'
                     createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,string[:-1],new_image)
                     break
+                else:
+                    print('ERROR: Duplicate name or invalid image file')
                 pass
 
             if(mode == 'edit'):
@@ -635,15 +647,24 @@ def DrinkView(mode,drink):
                 new_glass = values['glass_input_drinkview']
                 new_garnish = values['garnish_input_drinkview']
                 new_extras = values['extra_input_drinkview']
-                #Apply edits
-                drink.setName(new_name)
-                drink.setIce(new_ice)
-                drink.setGlass(new_glass)
-                drink.setGarnish(new_garnish)
-                drink.setExtras(new_extras)
-                drink.setIngredients(new_ingredients)
-                #TODO: Update when adding image selection
-                drink.setImage("1")
+                new_image = re.search('([^\/]*)$', values['filename_field']).group()
+                check = True
+                #Check for duplicate name
+                for drink in listDrinks():
+                    if(drink.getName() == new_name):
+                        check = False
+                #Continue saving
+                if(check):
+                    #Apply edits
+                    drink.setName(new_name)
+                    drink.setIce(new_ice)
+                    drink.setGlass(new_glass)
+                    drink.setGarnish(new_garnish)
+                    drink.setExtras(new_extras)
+                    drink.setIngredients(new_ingredients)
+                    drink.setImage(new_image)
+                else:
+                    print('ERROR: Duplicate name or invalid image file')
                 break
 
         if(event =='exit_drinkview'):
