@@ -17,6 +17,9 @@ sg.theme('DarkAmber')
 #Fullscreen selector
 FULLSCREEN = False
 
+#Unit display
+UNIT = 'metric'
+
 #Load library information
 restoreIngredientLibrary()
 restoreDrinkLibrary()
@@ -214,7 +217,9 @@ def HomeGUI(prev_window):
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_home')],
                 [sg.Listbox(Bartender.showDrinkMenu(True),font=('Helvetica', 20),size=(25,8),
                 key='Menu_List',enable_events=True),sg.Column(drinkInfo_home),sg.Column(image_layout_home)],
-                [sg.Button('Order',font=('Helvetica', 20),size=(25,1))]
+                [sg.Button('Order',font=('Helvetica', 20),size=(12,1))
+                ,sg.Button('Custom',font=('Helvetica', 20),size=(8,1))
+                ,sg.Button('Recommended',font=('Helvetica', 20),size=(12,1))]
             ]
 
     #Launch Window
@@ -261,6 +266,15 @@ def HomeGUI(prev_window):
                         display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
 
                     window_home['DrinkIngredients_home'].update(display)
+
+        if(event == 'Order'):
+            pass
+
+        if(event == 'Custom'):
+            pass
+
+        if(event == 'Recommended'):
+            pass
             
         if event in  (None, 'Exit'):
             window_home.close()
@@ -1162,7 +1176,8 @@ def SettingsGUI(prev_window):
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_settings'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_settings'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
-                [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')]
+                [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')],
+
 
             ]
 
