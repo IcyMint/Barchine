@@ -17,9 +17,6 @@ sg.theme('DarkAmber')
 #Fullscreen selector
 FULLSCREEN = False
 
-#Unit display
-UNIT = 'metric'
-
 #Load library information
 restoreIngredientLibrary()
 restoreDrinkLibrary()
@@ -280,6 +277,7 @@ def HomeGUI(prev_window):
             window_home.close()
             break
 
+
 def CustomView():
 
     layout_buttons_customview = [
@@ -340,8 +338,6 @@ def CustomView():
             break
     
     window_customview.close()
-
-    
 
 
 def LibraryGUI(prev_window):
