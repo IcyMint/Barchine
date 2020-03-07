@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, listIngredients, getFamilyTypes, getBaseTypes, deleteIngredient, createIngredient
+from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, listIngredients, getFamilyTypes, getBaseTypes, deleteIngredient, createIngredient, restoreBases
 from Drink_Library import restoreDrinkLibrary, storeDrinkLibrary, listDrinks, deleteDrink, getIceTypes, getGlassTypes, createDrink
 import Bartender
 from Keypad import Keypad
@@ -19,6 +19,7 @@ sg.theme('DarkAmber')
 FULLSCREEN = False
 
 #Load library information
+restoreBases()
 restoreIngredientLibrary()
 restoreDrinkLibrary()
 

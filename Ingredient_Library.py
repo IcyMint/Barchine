@@ -4,28 +4,7 @@ IngredientLibrary = []
 
 FAMILIES = ['Alcohol','Mixer']
 
-BASES = [
-    'Benedictine',
-    'Brandy',
-    'Cachaca',
-    'Campari',
-    'Cointreau',
-    'Drambuie',
-    'Gin',
-    'Jagermeister',
-    'Liqeueur',
-    'Rum',
-    'Schnapps',
-    'Tequila',
-    'Vermouth',
-    'Vodka',
-    'Whiskey',
-    'Wine',
-    'Cola',
-    'Sprite',
-    'Tonic',
-    'None'
-]
+BASES = []
 
 
 class Ingredient:
@@ -119,6 +98,12 @@ def restoreIngredientLibrary():
     for line in file:
         elements = line.split(',')
         createIngredient(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6])
+
+#Build bases library from file
+def restoreBases():
+    file = open("BasesRepo.txt","r")
+    for line in file:
+        BASES.append(line.strip('\n'))
     
 #Delete ingredient from IngredientLibrary
 def deleteIngredient(name):
