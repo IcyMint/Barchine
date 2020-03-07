@@ -936,6 +936,10 @@ def IngredientView(mode,ingredient):
                     for element in listIngredients():
                         if(new_name == element.getName()):
                             check = False
+
+                    #Ensure volumes are correct
+                    if(int(new_startVol) < int(new_endVol)):
+                        check = False
                     
                     if(check):
                         print('SAVED')
@@ -955,6 +959,11 @@ def IngredientView(mode,ingredient):
                 for element in listIngredients():
                     if(element.getName() == new_name and new_name != ingredient.getName()):
                         check = False
+
+                #Ensure volumes are correct
+                if(int(new_startVol) < int(new_endVol)):
+                    check = False
+
                 if(check):
                     #Load in values
                     ingredient.setName(new_name)
