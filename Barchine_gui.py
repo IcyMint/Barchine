@@ -202,7 +202,7 @@ def HomeGUI(prev_window):
     image = Path('Image_Library/placeholder.png')
         
     image_layout_home = [
-                [sg.Image(filename=image,key='image_home')]
+                [sg.Image(filename=image,key='image_home',size=(128,256))]
             ]
 
     layout_home = [
@@ -370,7 +370,7 @@ def LibraryGUI(prev_window):
     image = Path('Image_Library/placeholder.png')
 
     image_layout_library = [
-                [sg.Image(filename=image,key='image_library')]
+                [sg.Image(filename=image,key='image_library',size=(128,256))]
             ]
 
     layout_library = [
@@ -998,7 +998,7 @@ def StationsGUI(prev_window):
 
     layout_measure = [
                 [sg.Text(text='100%',size=(5,1),font=('Helvetica', 8))],
-                [sg.Image(filename=measurebar,key='image_library')],
+                [sg.Image(filename=measurebar,key='image_library',size=(128,256))],
                 [sg.Text(text='0%',size=(3,1),font=('Helvetica', 12))],
             ]
 
