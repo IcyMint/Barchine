@@ -1310,7 +1310,7 @@ def SettingsGUI(prev_window):
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_settings'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
                 [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')],
-
+                [sg.Button('Save',key='save_settings')]
 
             ]
 
@@ -1342,6 +1342,12 @@ def SettingsGUI(prev_window):
 
         if(event == 'Stats_settings'):
             contextSwitcher('Settings_settings','Stats_settings',window_settings)
+
+        if(event == 'save_settings'):
+            print('Saving libraries')
+            storeIngredientLibrary()
+            storeDrinkLibrary()
+            print('Saved')
 
         
 

@@ -17,4 +17,3 @@ Wine
 Cola
 Sprite
 Tonic
-None
