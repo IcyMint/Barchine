@@ -663,7 +663,6 @@ def DrinkView(mode,drink):
                 else:
                     new_image = 'placeholder.png'
                 check = True
-                #TODO: Add fix for potential conflict in ingredients, also check for issue with name overwrite from drink -> drink_element
                 #Check for duplicate name
                 for drink_element in listDrinks():
                     if(drink_element.getName() == new_name and new_name != drink.getName()):
@@ -936,7 +935,7 @@ def IngredientView(mode,ingredient):
                 check = True
                 #Check for duplicate name
                 for element in listIngredients():
-                    if(new_name == element.getName()):
+                    if(element.getName() == new_name and new_name != ingredient.getName()):
                         check = False
                 if(check):
                     #Load in values
