@@ -756,8 +756,8 @@ def IngredientsGUI(prev_window):
                 [sg.Text('-INGREDIENT_NAME-',key='INGREDIENT_NAME_ingredients',font=('Helvetica', 15),size=(30,1))],
                 [sg.Text('-FAMILY_NAME-',key='FAMILY_NAME_ingredients',size=(15,1))],
                 [sg.Text('-BASE_NAME-',key='BASE_NAME_ingredients',size=(15,1))],
-                [sg.Text('-STARTING_VOLUME-',key='STARTING_VOLUME_NAME_ingredients')],
-                [sg.Text('-CURRENT_VOLUME-',key='CURRENT_VOLUME_NAME_ingredients')]
+                [sg.Text('-STARTING_VOLUME-',key='STARTING_VOLUME_NAME_ingredients',size=(24,1))],
+                [sg.Text('-CURRENT_VOLUME-',key='CURRENT_VOLUME_NAME_ingredients',size=(24,1))]
             ]
 
     layout_ingredients = [
