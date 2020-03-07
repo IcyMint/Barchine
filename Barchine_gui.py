@@ -350,6 +350,12 @@ def LibraryGUI(prev_window):
     for drink in listDrinks():
         drinks_pretty.append(drink.getName())
 
+    shelf = {}
+    #Get a dict of shelf names
+    for element in Bartender.getShelf():
+        if(element is not None):
+            shelf[element.getBase()] = ''
+
     drinkInfo_library = [
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,1))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
@@ -357,7 +363,7 @@ def LibraryGUI(prev_window):
                 [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library')],
                 [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library')],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
-                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_library')]
+                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(26,4),key='DrinkIngredients_library')]
             ]
 
     #Image translation
@@ -428,7 +434,10 @@ def LibraryGUI(prev_window):
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
-                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                        if(key in shelf):
+                            display.append(str(key)+'         '+str(value).rjust(25-len(str(key)), ' '))
+                        else:
+                            display.append(str(key)+' - [Miss]'+str(value).rjust(34-len(str(key+' - [Miss]')), ' '))
 
                     window_library['DrinkIngredients_library'].update(display)
 
