@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, listIngredients, getFamilyTypes, getBaseTypes, deleteIngredient, createIngredient
 from Drink_Library import restoreDrinkLibrary, storeDrinkLibrary, listDrinks, deleteDrink, getIceTypes, getGlassTypes, createDrink
 import Bartender
+from Keypad import Keypad
 import sys
 import os
 from pathlib import Path
@@ -494,7 +495,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
                         [sg.Text('Name: ',key='name_text_ingredientaddpopup',font=('Helvetica', 15))
                         ,sg.OptionMenu(getBaseTypes(),key='ingredient_input_ingredientaddpopup')],
                         [sg.Text('Amount: ',key='amount_text_ingredientaddpopup',font=('Helvetica', 15))
-                        ,sg.InputText('',key='amount_input_ingredientaddpopup',size=(4,1))
+                        ,sg.Button('',key='amount_input_ingredientaddpopup',size=(4,1))
                         ,sg.Text(' mL',key='unit_ingredientaddpopup',font=('Helvetica', 15))],
                         [sg.Button('Save',font=('Helvetica', 15),key='save_ingredientaddpopup')
                         ,sg.Button('Exit',font=('Helvetica', 15),key='exit_ingredientaddpopup')],
@@ -509,7 +510,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
     if(mode == 'edit'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='Edit')
         window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(value=input_key)
-        window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(value=input_value)
+        window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(text=input_value)
     if(mode == 'new' or mode == 'custom'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='New')
 
@@ -525,8 +526,11 @@ def IngredientAddPopUp(mode, input_key, input_value):
         event, values = window_ingredientaddpopup.read()
         print(event, values)
 
+        if(event == 'amount_input_ingredientaddpopup'):
+            window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(text=Keypad())
+
         if(event =='save_ingredientaddpopup'):
-            if(values['amount_input_ingredientaddpopup'].isdigit()):
+            if(window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()):
                 response = 'save'
                 break
             else:
@@ -542,7 +546,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
     window_ingredientaddpopup.close()
     
     if(response == 'save'):
-        return([values['ingredient_input_ingredientaddpopup'],values['amount_input_ingredientaddpopup']])
+        return([values['ingredient_input_ingredientaddpopup'],window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()])
     elif(response == 'exit'):
         return([None,None])
 
@@ -862,10 +866,10 @@ def IngredientView(mode,ingredient):
                 [sg.Text('Family: ',key='family_text_ingredientview',font=('Helvetica', 15))
                 ,sg.OptionMenu(getFamilyTypes(),key='family_input_ingredientview')],
                 [sg.Text('Starting Volume: ',key='startvol_text_ingredientview',font=('Helvetica', 15))
-                ,sg.InputText('',key='startvol_input_ingredientview',size=(4,1))
+                ,sg.Button('',key='startvol_input_ingredientview',size=(4,1))
                 ,sg.Text(' mL',key='unit1_ingredientview',font=('Helvetica', 15))],
                 [sg.Text('Current Volume: ',key='endvol_text_ingredientview',font=('Helvetica', 15))
-                ,sg.InputText('',key='endvol_input_ingredientview',size=(4,1))
+                ,sg.Button('',key='endvol_input_ingredientview',size=(4,1))
                 ,sg.Text(' mL',key='unit2_ingredientview',font=('Helvetica', 15))],
                 [sg.Button('Save',font=('Helvetica', 15),key='save_ingredientview'),sg.Button('Exit',font=('Helvetica', 15),key='exit_ingredientview')]
             ]
@@ -905,21 +909,27 @@ def IngredientView(mode,ingredient):
         window_ingredientview['name_input_ingredientview'].update(value=new_name)
         window_ingredientview['base_input_ingredientview'].update(value=new_base)
         window_ingredientview['family_input_ingredientview'].update(value=new_family)
-        window_ingredientview['startvol_input_ingredientview'].update(value=new_startVol)
-        window_ingredientview['endvol_input_ingredientview'].update(value=new_endVol)
+        window_ingredientview['startvol_input_ingredientview'].update(text=new_startVol)
+        window_ingredientview['endvol_input_ingredientview'].update(text=new_endVol)
 
     while True:  # Event Loop
         event, values = window_ingredientview.read()
         print(event, values)
 
+        if(event == 'startvol_input_ingredientview'):
+            window_ingredientview['startvol_input_ingredientview'].update(text=Keypad())
+        
+        if(event == 'endvol_input_ingredientview'):
+            window_ingredientview['endvol_input_ingredientview'].update(text=Keypad())
+
         if(event == 'save_ingredientview'):
             new_name = re.sub('[#@,]','', values['name_input_ingredientview'])
-            if(mode == 'new' and len(new_name) > 0 and new_name is not None and values['startvol_input_ingredientview'].isdigit() and values['endvol_input_ingredientview'].isdigit()):
+            if(mode == 'new' and len(new_name) > 0 and new_name is not None):
                     #Load in values
                     new_base = values['base_input_ingredientview']
                     new_family = values['family_input_ingredientview']
-                    new_startVol = values['startvol_input_ingredientview']
-                    new_endVol = values['endvol_input_ingredientview']
+                    new_startVol = window_ingredientview['startvol_input_ingredientview'].GetText()
+                    new_endVol = window_ingredientview['endvol_input_ingredientview'].GetText()
 
                     check = True
                     #Check for duplicate name
@@ -932,13 +942,13 @@ def IngredientView(mode,ingredient):
                         createIngredient(new_name,new_base,new_family,new_startVol,new_endVol,new_active,new_position)
                         break
                     pass
-            if(mode == 'edit' and values['startvol_input_ingredientview'].isdigit() and values['endvol_input_ingredientview'].isdigit()):
+            if(mode == 'edit'):
 
                 #Load in values
                 new_base = values['base_input_ingredientview']
                 new_family = values['family_input_ingredientview']
-                new_startVol = values['startvol_input_ingredientview']
-                new_endVol = values['endvol_input_ingredientview']
+                new_startVol = window_ingredientview['startvol_input_ingredientview'].GetText()
+                new_endVol = window_ingredientview['endvol_input_ingredientview'].GetText()
 
                 check = True
                 #Check for duplicate name

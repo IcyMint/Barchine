@@ -7,8 +7,7 @@ def Keypad():
             [sg.Button('1'), sg.Button('2'), sg.Button('3')],
             [sg.Button('4'), sg.Button('5'), sg.Button('6')],
             [sg.Button('7'), sg.Button('8'), sg.Button('9')],
-            [sg.Button('0'), sg.Button('.'), sg.Button('Clear')],
-            [sg.Button('Submit',size=(19,2))]
+            [sg.Button('Clear'), sg.Button('0'), sg.Button('Submit')]
     ]
 
     window = sg.Window('Keypad',layout,default_button_element_size=(5,2),keep_on_top=True,no_titlebar=True,auto_size_buttons=False).Finalize()
@@ -22,11 +21,13 @@ def Keypad():
         if event == 'Clear':
             keys_entered = ''
             window['out'].update(keys_entered)
-        elif event in '1234567890.':
+        elif event in '1234567890':
             keys_entered = values['input']
             keys_entered += event
             window['out'].update(keys_entered)
         elif event == 'Submit':
+            window.close()
             return(values['input'])
 
         window['input'].update(keys_entered)
+    window.close()
