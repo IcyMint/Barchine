@@ -306,7 +306,7 @@ def CustomView():
 
         if(event == 'add_customview'):
 
-            new_elements = IngredientAddPopUp('new',None,None)
+            new_elements = IngredientAddPopUp('custom',None,None)
             if(new_elements[0] is not None):
                 ingredients[new_elements[0]] = int(new_elements[1])
 
@@ -510,8 +510,16 @@ def IngredientAddPopUp(mode, input_key, input_value):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='Edit')
         window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(value=input_key)
         window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(value=input_value)
-    if(mode == 'new'):
+    if(mode == 'new' or mode == 'custom'):
         window_ingredientaddpopup['mode_name_ingredientaddpopup'].update(value='New')
+
+    #Change displayed options depending on mode
+    if(mode == 'custom'):
+        basetypes = set()
+        for element in Bartender.getShelf():
+            if(element is not None):
+                basetypes.add(element.getBase())
+        window_ingredientaddpopup['ingredient_input_ingredientaddpopup'].update(values=list(basetypes))
 
     while True:  # Event Loop
         event, values = window_ingredientaddpopup.read()
