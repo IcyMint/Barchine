@@ -48,11 +48,10 @@ def showDrinkMenu(pretty):
         if(total==count):
             if(pretty):
                 drinkmenu.append(drink.getName())
+                #Organise list alphabetically
+                drinkmenu.sort(key=str.lower) 
             else:
                 drinkmenu.append(drink)
-
-    #Organise list alphabetically
-    drinkmenu.sort(key=str.lower) 
     return drinkmenu
 
 def getShelf():
