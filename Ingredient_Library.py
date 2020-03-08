@@ -101,6 +101,8 @@ def restoreIngredientLibrary():
 
 #Build bases library from file
 def restoreBases():
+    #TODO: Remove this after ingestion
+    BASES.clear()
     file = open("BasesRepo.txt","r")
     for line in file:
         BASES.append(line.strip('\n'))

@@ -1,3 +1,26 @@
-Gin and Tonic,Cubes,Any,None,None,Gin@25#Tonic@100,placeholder.png
-Vodka and Coke,Cubes,Any,None,None,Vodka@25#Cola@100,placeholder.png
-Vodka Shot,Cubes,Any,None,None,Vodka@25,placeholder.png
+Gin and Tonic,Cubes,Highball Glass,Lime Slice/Wedge,None,Gin@60#Tonic@60,placeholder.png
+Orange Blossom,Any,Highball Glass,None,Grenadine Lime Juice,Gin@60#Orange Juice@120,placeholder.png
+Mojito,Crushed,Highball Glass,Mint leaf,2 tsp sugar lime juice,Light Rum@60#Club Soda@90,placeholder.png
+Long Island Tea,Cubes,Highball Glass,Lemon Wedge,Lemon juice,Vodka@15#Light Rum@15#Gin@15#Tequila@15#Coca Cola@90,placeholder.png
+Moscow Mule,Crushed,Any,Lime wedge,60 ml Lime juice,Vodka@60#Ginger Ale@120,placeholder.png
+English Highball,Cubes,Highball Glass,Lemon peel,None,Brandy@20#Gin@20#Vermouth@20#Tonic@90,placeholder.png
+Almeria,None,Cocktail Glass,None,1 egg white,Dark Rum@60#Kahlua@30,placeholder.png
+Amaretto Rose,Cubes,Highball Glass,Lime wedge,15 mL lime juice,Amaretto@45#Club Soda@120,placeholder.png
+Black Russian,Cubes,Lowball Glass,None,None,Vodka@45#Kahlua@20,placeholder.png
+Bloody Mary,Cubes,Any,Lime wedge,dash of lemon juice 90 mL tomato juice 1/2 tsp Worcestershire Sauce 2-3 drops tabasco,Vodka@45,placeholder.png
+Boston Sidecar,None,Cocktail Glass,None,lime juice,Light Rum@20#Brandy@20#Triple Sec@20,placeholder.png
+City Slicker,None,Cocktail Glass,None,None,Brandy@60#Triple Sec@15,placeholder.png
+Cuba Libre,Cubes,Highball Glass,Lime Wedge,None,Light Rum@60#Coca Cola@120,placeholder.png
+Dragon Fly,Cubes,Highball Glass,Lime Wedge,None,Gin@45#Ginger Ale@120,placeholder.png
+Flying Dutchman,Cubes,Lowball Glass,Lemon Wedge,None,Gin@60#Triple Sec@15,placeholder.png
+Kamikaze,Crushed,Any,None,30 mL lime juice,Vodka@30#Triple Sec@30,placeholder.png
+Kentucky B And B,None,Snifter Glass,None,None,Bourbon@60#Benedictine@15,placeholder.png
+Mississippi Planters Punch,Any,Hurricane Glass,Mint,lemon juice 1 tblsp powdered sugar,Brandy@30#Light Rum@15#Bourbon@15#Club Soda@120,placeholder.png
+Monkey Wrench,Cubes,Lowball Glass,None,90 mL grapefruit juice dash of bitters,Light Rum@45,placeholder.png
+Queen Elizabeth,None,Cocktail Glass,None,None,Dry Vermouth@15#Gin@45#Benedictine@5,placeholder.png
+Blue Lagoon,Crushed,Highball Glass,None,None,Vodka@30#Blue Curacao@30#Lemonade@120,placeholder.png
+Bluebird,None,Cocktail Glass,None,2 dashes bitters,Gin@45#Triple Sec@15#Blue Curacao@15,placeholder.png
+Classic Old-Fashioned,Cubes,Lowball Glass,Lemon Wedge,tsp sugar 3 dashes bitters 1 tsp water,Bourbon@90,placeholder.png
+Bourbon Sling,None,Highball Glass,None,2 tsp water 30 mL lemon juice 1 tsp sugar,Bourbon@60,placeholder.png
+Boxcar,None,Cocktail Glass,None,1 egg white 1 tsp lemon juice 1/2 tsp grenadine,Gin@45#Triple Sec@30,placeholder.png
+Dry Rob Roy,None,Cocktail Glass,None,None,Scotch@75#Dry Vermouth@5,placeholder.png

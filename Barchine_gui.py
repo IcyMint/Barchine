@@ -194,8 +194,8 @@ def HomeGUI(prev_window):
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_home',font=('Helvetica', 15),size=(15,1))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_home',size=(15,1))],
                 [sg.Text('-GLASS_NAME-',key='GLASS_NAME_home',size=(15,1))],
-                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_home')],
-                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_home')],
+                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_home',size=(15,1))],
+                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_home',size=(15,3))],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_home')]
             ]
@@ -361,8 +361,8 @@ def LibraryGUI(prev_window):
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,1))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
                 [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(15,1))],
-                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library')],
-                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library')],
+                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1))],
+                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library',size=(15,3))],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(26,4),key='DrinkIngredients_library')]
             ]
@@ -503,7 +503,7 @@ def IngredientAddPopUp(mode, input_key, input_value):
     layout_ingredientaddpopup = [
                         [sg.Text('MODE',key='mode_name_ingredientaddpopup',font=('Helvetica', 30))],
                         [sg.Text('Name: ',key='name_text_ingredientaddpopup',font=('Helvetica', 15))
-                        ,sg.OptionMenu(getBaseTypes(),key='ingredient_input_ingredientaddpopup')],
+                        ,sg.OptionMenu(getBaseTypes(),key='ingredient_input_ingredientaddpopup',size=(15,10))],
                         [sg.Text('Amount: ',key='amount_text_ingredientaddpopup',font=('Helvetica', 15))
                         ,sg.Button('',key='amount_input_ingredientaddpopup',size=(4,1))
                         ,sg.Text(' mL',key='unit_ingredientaddpopup',font=('Helvetica', 15))],
@@ -872,7 +872,7 @@ def IngredientView(mode,ingredient):
                 [sg.Text('MODE',key='mode_name_ingredientview',font=('Helvetica', 30))],
                 [sg.Text('Name: ',key='name_text_ingredientview',font=('Helvetica', 15)),sg.InputText('DEFAULT NAME',key='name_input_ingredientview')],
                 [sg.Text('Base: ',key='base_text_ingredientview',font=('Helvetica', 15))
-                ,sg.OptionMenu(getBaseTypes(),key='base_input_ingredientview')],
+                ,sg.OptionMenu(getBaseTypes(),key='base_input_ingredientview',size=(15,10))],
                 [sg.Text('Family: ',key='family_text_ingredientview',font=('Helvetica', 15))
                 ,sg.OptionMenu(getFamilyTypes(),key='family_input_ingredientview')],
                 [sg.Text('Starting Volume: ',key='startvol_text_ingredientview',font=('Helvetica', 15))
@@ -1310,7 +1310,7 @@ def SettingsGUI(prev_window):
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_settings'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
                 [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')],
-                [sg.Button('Save',key='save_settings')]
+                [sg.Button('Save',key='save_settings',font=('Helvetica', 20)),sg.Button('Reload Bases',key='reload_bases_settings',font=('Helvetica', 20))]
 
             ]
 
@@ -1348,6 +1348,9 @@ def SettingsGUI(prev_window):
             storeIngredientLibrary()
             storeDrinkLibrary()
             print('Saved')
+        
+        if(event == 'save_settings'):
+            restoreBases()
 
         
 

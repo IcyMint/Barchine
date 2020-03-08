@@ -1,19 +1,30 @@
+Amaretto
 Benedictine
+Blue Curacao
+Bourbon
 Brandy
 Cachaca
 Campari
+Club Soda
+Coca Cola
 Cointreau
+Dark Rum
 Drambuie
+Dry Vermouth
 Gin
+Ginger Ale
 Jagermeister
+Kahlua
+Lemonade
+Light Rum
 Liqeueur
-Rum
+Orange Juice
 Schnapps
+Scotch
+Sprite
 Tequila
-Vermouth
+Tonic
+Triple Sec
 Vodka
 Whiskey
 Wine
-Cola
-Sprite
-Tonic
