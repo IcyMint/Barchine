@@ -50,9 +50,10 @@ def showDrinkMenu(pretty):
                 drinkmenu.append(drink.getName())
             else:
                 drinkmenu.append(drink)
+
+    #Organise list alphabetically
+    drinkmenu.sort(key=str.lower) 
     return drinkmenu
-            #compare each name against shelf names, if all exists then can be made
-    
 
 def getShelf():
     shelf = [None]*MAX_POSITIONS

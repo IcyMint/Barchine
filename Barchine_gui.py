@@ -350,6 +350,8 @@ def LibraryGUI(prev_window):
     drinks_pretty = []
     for drink in listDrinks():
         drinks_pretty.append(drink.getName())
+    #Sort alphabetically
+    drinks_pretty.sort(key=str.lower) 
 
     shelf = {}
     #Get a dict of shelf names
@@ -455,6 +457,8 @@ def LibraryGUI(prev_window):
             drinks_pretty = []
             for drink in listDrinks():
                 drinks_pretty.append(drink.getName())
+                #Sort alphabetically
+                drinks_pretty.sort(key=str.lower) 
             window_library['Library_List'].update(values=drinks_pretty)
             pass
 
@@ -471,6 +475,8 @@ def LibraryGUI(prev_window):
             drinks_pretty = []
             for drink in listDrinks():
                 drinks_pretty.append(drink.getName())
+                #Sort alphabetically
+                drinks_pretty.sort(key=str.lower) 
             window_library['Library_List'].update(values=drinks_pretty)
             
             pass
@@ -484,6 +490,8 @@ def LibraryGUI(prev_window):
             drinks_pretty = []
             for drink in listDrinks():
                 drinks_pretty.append(drink.getName())
+                #Sort alphabetically
+                drinks_pretty.sort(key=str.lower) 
             window_library['Library_List'].update(values=drinks_pretty)
             pass
 
