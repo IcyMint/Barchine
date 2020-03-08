@@ -13,19 +13,19 @@ City Slicker,None,Cocktail Glass,None,None,Brandy@60#Triple Sec@15,City Slicker.
 Cuba Libre,Cubes,Highball Glass,Lime Wedge,None,Light Rum@60#Coca Cola@120,Cuba Libre.png
 Dragon Fly,Cubes,Highball Glass,Lime Wedge,None,Gin@45#Ginger Ale@120,Dragon Fly.png
 Flying Dutchman,Cubes,Lowball Glass,Lemon Wedge,None,Gin@60#Triple Sec@15,Flying Dutchman.png
-Kamikaze,Crushed,Any,None,30 mL lime juice,Vodka@30#Triple Sec@30,placeholder.png
-Kentucky B And B,None,Snifter Glass,None,None,Bourbon@60#Benedictine@15,placeholder.png
-Mississippi Planters Punch,Any,Hurricane Glass,Mint,lemon juice 1 tblsp powdered sugar,Brandy@30#Light Rum@15#Bourbon@15#Club Soda@120,placeholder.png
-Monkey Wrench,Cubes,Lowball Glass,None,90 mL grapefruit juice dash of bitters,Light Rum@45,placeholder.png
-Queen Elizabeth,None,Cocktail Glass,None,None,Dry Vermouth@15#Gin@45#Benedictine@5,placeholder.png
+Kamikaze,Crushed,Any,None,30 mL lime juice,Vodka@30#Triple Sec@30,Kamikaze.png
+Kentucky B And B,None,Snifter Glass,None,None,Bourbon@60#Benedictine@15,Kentucky B and B.png
+Mississippi Planters Punch,Any,Hurricane Glass,Mint,lemon juice 1 tblsp powdered sugar,Brandy@30#Light Rum@15#Bourbon@15#Club Soda@120,Mississippi Planters Punch.png
+Monkey Wrench,Cubes,Lowball Glass,None,90 mL grapefruit juice dash of bitters,Light Rum@45,Monkey Wrench.png
+Queen Elizabeth,None,Cocktail Glass,None,None,Dry Vermouth@15#Gin@45#Benedictine@5,Queen Elizabeth.png
 Blue Lagoon,Crushed,Highball Glass,None,None,Vodka@30#Blue Curacao@30#Lemonade@120,Blue Lagoon.png
-Bluebird,None,Cocktail Glass,None,2 dashes bitters,Gin@45#Triple Sec@15#Blue Curacao@15,placeholder.png
-Classic Old-Fashioned,Cubes,Lowball Glass,Lemon Wedge,tsp sugar 3 dashes bitters 1 tsp water,Bourbon@90,placeholder.png
-Bourbon Sling,None,Highball Glass,None,2 tsp water 30 mL lemon juice 1 tsp sugar,Bourbon@60,placeholder.png
-Boxcar,None,Cocktail Glass,None,1 egg white 1 tsp lemon juice 1/2 tsp grenadine,Gin@45#Triple Sec@30,placeholder.png
-Dry Rob Roy,None,Cocktail Glass,None,None,Scotch@75#Dry Vermouth@5,placeholder.png
-Gin Fizz,None,Highball Glass,None,lemon juice 1 tsp sugar,Gin@60#Club Soda@120,placeholder.png
-Blue Hawaiian,None,Any,None,2/4 ounce cream of coconut 60 mL pineapple juice,Blue Curacao@20#Light Rum@45,placeholder.png
-Cosmopolitan,None,Martini Glass,None,1/4 cup cranberry 10 mL lime juice,Vodka@35#Cointreau@10,placeholder.png
-Tequila Sunrise,None,Any,None,10 mL Grenadine,Orange Juice@90#Tequila@15,placeholder.png
-Whiskey Sour,None,Lowball Glass,None,lemon juice 3/4 ounce simple syrup,Whiskey@45,placeholder.png
+Bluebird,None,Cocktail Glass,None,2 dashes bitters,Gin@45#Triple Sec@15#Blue Curacao@15,Bluebird.png
+Classic Old-Fashioned,Cubes,Lowball Glass,Lemon Wedge,tsp sugar 3 dashes bitters 1 tsp water,Bourbon@90,Classic Old-Fashioned.png
+Bourbon Sling,None,Highball Glass,None,2 tsp water 30 mL lemon juice 1 tsp sugar,Bourbon@60,Bourbon Sling.png
+Boxcar,None,Cocktail Glass,None,1 egg white 1 tsp lemon juice 1/2 tsp grenadine,Gin@45#Triple Sec@30,Boxcar.png
+Dry Rob Roy,None,Cocktail Glass,None,None,Scotch@75#Dry Vermouth@5,Dry Rob Roy.png
+Gin Fizz,None,Highball Glass,None,lemon juice 1 tsp sugar,Gin@60#Club Soda@120,Gin Fizz.png
+Blue Hawaiian,None,Any,None,2/4 ounce cream of coconut 60 mL pineapple juice,Blue Curacao@20#Light Rum@45,Blue Hawaiian Cocktail.png
+Cosmopolitan,None,Martini Glass,None,1/4 cup cranberry 10 mL lime juice,Vodka@35#Cointreau@10,Cosmopolitan.png
+Tequila Sunrise,None,Any,None,10 mL Grenadine,Orange Juice@90#Tequila@15,Tequila Sunrise.png
+Whiskey Sour,None,Lowball Glass,None,lemon juice 3/4 ounce simple syrup,Whiskey@45,Whiskey Sour.png
