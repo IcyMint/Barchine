@@ -28,12 +28,44 @@ class StatusTypes():
     def getStatusTypes():
         return self.status
 
-def createOrder(name):
+def createOrder(name,force):
+
+    shelfPositions = []
+    for item in getShelf():
+        if(item is not None):
+            shelfPositions.append(item.getBase())
+        else:
+            shelfPositions.append(None)
+
+    recipe = {}
     order = None
     for drink in Drink_Library.DrinkLibrary:
-        if drink == name:
-            order = Order(drink, StatusTypes.getStatusTypes()[0])
-            #Send order onwards to logging system and arduino processing
+        if drink.getName() == name:
+            order = drink
+            break
+
+    if(force):
+        shelf = {}
+        #Get a dict of shelf names
+        for element in getShelf():
+            if(element is not None):
+                shelf[element.getBase()] = ''
+
+            #Get recipe together for arduino
+        for key, value in order.getIngredients().items():
+            if(key in shelf):
+                recipe[shelfPositions.index(str(key))] = int(value)
+        #Pass on to arduino
+        print('RECIPE: '+str(recipe))
+    else:
+        #Get recipe together for arduino
+        for key, value in order.getIngredients().items():
+            try:
+                recipe[shelfPositions.index(str(key))] = int(value)
+            except ValueError:
+                print('Didnt find: '+str(key))
+        #Pass on to arduino
+        print(recipe)
 
 def showDrinkMenu(pretty):
     drinkmenu = []

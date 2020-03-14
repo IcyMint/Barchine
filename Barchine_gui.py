@@ -190,6 +190,8 @@ def contextSwitcher(current, next, window):
 
 def HomeGUI(prev_window):
 
+    filtered = True
+
     shelf = {}
     #Get a dict of shelf names
     for element in Bartender.getShelf():
@@ -225,7 +227,7 @@ def HomeGUI(prev_window):
                 [sg.Button('Order',font=('Helvetica', 20),size=(12,1),key='order_home')
                 ,sg.Button('Custom',font=('Helvetica', 20),size=(8,1),key='custom_home')
                 ,sg.Button('Recommended',font=('Helvetica', 20),size=(12,1),key='recommended_home')
-                ,sg.Button('Filter',font=('Helvetica', 20),size=(12,1),key='filter_home')]
+                ,sg.Button('Unfilter',font=('Helvetica', 20),size=(8,1),key='filter_home')]
             ]
 
     #Launch Window
@@ -261,7 +263,7 @@ def HomeGUI(prev_window):
 
         #When drink menu item is selected
         if event == 'Menu_List':
-            for drink in Bartender.showDrinkMenu(False):
+            for drink in listDrinks():
                 if(drink.getName() == values['Menu_List'][0]):
                     chosen = drink
                     window_home['DRINK_NAME_home'].update(drink.getName())
@@ -274,12 +276,26 @@ def HomeGUI(prev_window):
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
-                        display.append(str(value)+' mL - '+str(key))
+                        if(key in shelf):
+                            display.append(str(value)+' mL - '+str(key))
+                        else:
+                            display.append(str(value)+' mL - '+str(key)+' [Miss]')
 
                     window_home['DrinkIngredients_home'].update(display)
 
         if(event == 'order_home'):
-            pass
+            if(filtered):
+                Bartender.createOrder(chosen.getName(),False)
+            else:
+                display = []
+                counter = 0
+                for key, value in chosen.getIngredients().items():
+                    if(key not in shelf):
+                        display.append(str(key))
+                        counter+=1
+                if(counter!=0):
+                    if(ForceWarning(display)):
+                        Bartender.createOrder(chosen.getName(),True)
 
         if(event == 'custom_home'):
             CustomView()
@@ -287,13 +303,25 @@ def HomeGUI(prev_window):
         if(event == 'recommended_home'):
             pass
 
-        if(event == 'filter_home' and chosen is not None):
-            display = []
-            for key, value in chosen.getIngredients().items():
-                if(key not in shelf):
-                    display.append(str(key))   
-            if(ForceWarning(display)):
-                Bartender.createOrder(chosen.getName())      
+        if(event == 'filter_home'):
+            #If currently filtered, unfilter
+            if(filtered):
+                #Update variables/Button text
+                filtered = False
+                window_home['filter_home'].update(text='Filter')
+                #Format list of drink names
+                drinks_pretty = []
+                for drink in listDrinks():
+                    drinks_pretty.append(drink.getName())
+                #Sort alphabetically
+                drinks_pretty.sort(key=str.lower) 
+                window_home['Menu_List'].update(values=drinks_pretty)
+            #If not filtered, make filtered
+            else:
+                #Update variables/Button
+                filtered = True
+                window_home['filter_home'].update(text='Unfilter')
+                window_home['Menu_List'].update(values=Bartender.showDrinkMenu(True))      
         if event in  (None, 'Exit'):
             window_home.close()
             break
@@ -301,7 +329,8 @@ def HomeGUI(prev_window):
 def ForceWarning(missing):
     layout_forcewarning = [
                     [sg.Text('Recipe Warning',key='title_forcewarning',font=('Helvetica', 20))],
-                    [sg.Text(auto_size_text=True,key='missing_forcewarning')],
+                    [sg.Text('Missing Ingredients:',key='subtitle_forcewarning',font=('Helvetica', 15))],
+                    [sg.Text(size=(12,5),key='missing_forcewarning')],
                     [sg.Button('Order',font=('Helvetica', 15),key='order_forcewarning'),sg.Button('Cancel',font=('Helvetica', 15),key='cancel_forcewarning')]
             ]
 
@@ -314,22 +343,24 @@ def ForceWarning(missing):
     for element in missing:
         ingredients+=element+'\n'
     
-    window_forcewarning['missing_forcewarning'].update(value=ingredients[:-1])
+    window_forcewarning['missing_forcewarning'].update(value=ingredients)
 
 
     while True:  # Event Loop
-        event, values = window_customview.read()
+        event, values = window_forcewarning.read()
         print(event, values)
 
         if(event == 'order_forcewarning'):
+            window_forcewarning.close()
             return True
         if(event == 'cancel_forcewarning'):
+            window_forcewarning.close()
             return False
 
         if event in  (None, 'Exit'):
             break
     
-    window_customview.close()
+    window_forcewarning.close()
 
 def CustomView():
 
