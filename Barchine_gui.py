@@ -925,7 +925,6 @@ def IngredientsGUI(prev_window):
             pass
 
         if(event == 'Edit_ingredients' and chosen is not None):
-            print(chosen)
             IngredientView('edit',chosen)
             #Update list of ingredients
             ingredients_pretty = []
@@ -935,7 +934,6 @@ def IngredientsGUI(prev_window):
             pass
 
         if(event == 'Delete_ingredients' and chosen is not None):
-            print(chosen)
             deleteIngredient(chosen.getName())
             chosen = None
 

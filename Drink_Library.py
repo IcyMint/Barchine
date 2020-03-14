@@ -57,7 +57,6 @@ class Drink():
         for key, value in ingredients.items():
             string+=str(key)+'@'+str(value)+'#'
         self.ingredients = string[:-1]
-        print('LIST = '+self.ingredients)
 
     def getName(self):
         return self.name
@@ -123,8 +122,6 @@ def deleteDrink(name):
     DrinkLibrary.remove(marked)
         
 def listDrinks():
-    for drink in DrinkLibrary:
-        print(drink)
     return DrinkLibrary
 
 def getIceTypes():
