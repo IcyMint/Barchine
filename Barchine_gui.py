@@ -187,7 +187,6 @@ def contextSwitcher(current, next, window):
             StatsGUI(window)
             #window.close()
 
-
 def HomeGUI(prev_window):
 
     filtered = True
@@ -423,7 +422,6 @@ def CustomView():
     
     window_customview.close()
 
-
 def LibraryGUI(prev_window):
 
     #Format list of drink names
@@ -582,7 +580,6 @@ def LibraryGUI(prev_window):
     #Close remaining window
     window_library.close()
 
-
 def IngredientAddPopUp(mode, input_key, input_value):
 
 
@@ -647,7 +644,6 @@ def IngredientAddPopUp(mode, input_key, input_value):
         return([values['ingredient_input_ingredientaddpopup'],window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()])
     elif(response == 'exit'):
         return([None,None])
-
 
 def DrinkView(mode,drink):
 
@@ -842,7 +838,6 @@ def DrinkView(mode,drink):
     
     window_drinkview.close()
 
-
 def IngredientsGUI(prev_window):
 
     #Format list of ingredient names
@@ -950,7 +945,6 @@ def IngredientsGUI(prev_window):
 
     #Close remaining window
     window_ingredients.close()
-
 
 def IngredientView(mode,ingredient):
 
@@ -1076,7 +1070,6 @@ def IngredientView(mode,ingredient):
             break
     
     window_ingredientview.close()
-
 
 def StationsGUI(prev_window):
 
@@ -1278,7 +1271,6 @@ def StationsGUI(prev_window):
     #Close remaining window
     window_stations.close()
 
-
 def StationsView(station,ingredient):
 
     available = ['Empty']
@@ -1331,7 +1323,6 @@ def StationsView(station,ingredient):
 
     window_stationsview.close()
 
-
 def StatsGUI(prev_window):
 
     layout_stats = [
@@ -1382,7 +1373,6 @@ def StatsGUI(prev_window):
 
     #Close remaining window
     window_stats.close()
-
 
 def SettingsGUI(prev_window):
 
