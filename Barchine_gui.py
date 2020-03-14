@@ -264,7 +264,7 @@ def HomeGUI(prev_window):
                     #Retrieve list of ingredients formatted
                     display = []
                     for key, value in drink.getIngredients().items():
-                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                        display.append(str(value)+' mL - '+str(key))
 
                     window_home['DrinkIngredients_home'].update(display)
 
@@ -281,6 +281,26 @@ def HomeGUI(prev_window):
             window_home.close()
             break
 
+def ForceWarning(missing):
+    layout_forcewarning = [
+                    [sg.Text('Recipe Warning',key='title_forcewarning',font=('Helvetica', 20))],
+                    [sg.Text(auto_size_text=True,key='DrinkIngredients_customview')],
+                    [sg.Button('Order',font=('Helvetica', 15),key='order_forcewarning'),sg.Button('Cancel',font=('Helvetica', 15),key='cancel_forcewarning')]
+            ]
+
+    #Launch window
+    window_forcewarning = sg.Window('Barchine', layout_forcewarning,keep_on_top=True,no_titlebar=True).Finalize()
+    window_forcewarning.BringToFront()
+
+    while True:  # Event Loop
+        event, values = window_customview.read()
+        print(event, values)
+
+
+        if event in  (None, 'Exit'):
+            break
+    
+    window_customview.close()
 
 def CustomView():
 
@@ -360,7 +380,7 @@ def LibraryGUI(prev_window):
             shelf[element.getBase()] = ''
 
     drinkInfo_library = [
-                [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,1))],
+                [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,2))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
                 [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(15,1))],
                 [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1))],
@@ -438,9 +458,9 @@ def LibraryGUI(prev_window):
                     display = []
                     for key, value in drink.getIngredients().items():
                         if(key in shelf):
-                            display.append(str(key)+'         '+str(value).rjust(25-len(str(key)), ' '))
+                            display.append(str(value)+' mL - '+str(key))
                         else:
-                            display.append(str(key)+' - [Miss]'+str(value).rjust(34-len(str(key+' - [Miss]')), ' '))
+                            display.append(str(value)+' mL - '+str(key)+' [Miss]')
 
                     window_library['DrinkIngredients_library'].update(display)
 
