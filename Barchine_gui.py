@@ -276,9 +276,9 @@ def HomeGUI(prev_window):
                     display = []
                     for key, value in drink.getIngredients().items():
                         if(key in shelf):
-                            display.append(str(value)+' mL - '+str(key))
+                            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
                         else:
-                            display.append(str(value)+' mL - '+str(key)+' [Miss]')
+                            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key)+' [Miss]')
 
                     window_home['DrinkIngredients_home'].update(display)
 
@@ -516,9 +516,9 @@ def LibraryGUI(prev_window):
                     display = []
                     for key, value in drink.getIngredients().items():
                         if(key in shelf):
-                            display.append(str(value)+' mL - '+str(key))
+                            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
                         else:
-                            display.append(str(value)+' mL - '+str(key)+' [Miss]')
+                            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key)+' [Miss]')
 
                     window_library['DrinkIngredients_library'].update(display)
 
@@ -709,7 +709,7 @@ def DrinkView(mode,drink):
         #Retrieve list of ingredients formatted
         display = []
         for key, value in new_ingredients.items():
-            display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
             
         #Update fields
         window_drinkview['name_input_drinkview'].update(value=new_name)
@@ -817,7 +817,7 @@ def DrinkView(mode,drink):
                         #Update ingredients list
                         display = []
                         for key, value in new_ingredients.items():
-                            display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                            display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
                         window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
         if(event == 'remove_drinkviewingredient' and len(values['DrinkIngredients_drinkview']) > 0):
