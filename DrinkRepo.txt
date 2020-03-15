@@ -1,31 +1,31 @@
-Gin and Tonic,Cubes,Highball Glass,Lime Slice/Wedge,None,Gin@60#Tonic@60,Gin and Tonic.png
-Orange Blossom,Any,Highball Glass,None,Grenadine Lime Juice,Gin@60#Orange Juice@120,Orange Blossom.png
-Mojito,Crushed,Highball Glass,Mint leaf,2 tsp sugar lime juice,Light Rum@60#Club Soda@90,Mojito.png
-Long Island Tea,Cubes,Highball Glass,Lemon Wedge,Lemon juice,Vodka@15#Light Rum@15#Gin@15#Tequila@15#Coca Cola@90,Long Island Iced Tea.png
-Moscow Mule,Crushed,Any,Lime wedge,60 ml Lime juice,Vodka@60#Ginger Ale@120,Moscow Mule.png
-English Highball,Cubes,Highball Glass,Lemon peel,None,Brandy@20#Gin@20#Vermouth@20#Tonic@90,English Highball.png
-Almeria,None,Cocktail Glass,None,1 egg white,Dark Rum@60#Kahlua@30,Almeria.png
-Amaretto Rose,Cubes,Highball Glass,Lime wedge,15 mL lime juice,Amaretto@45#Club Soda@120,Amaretto Rose.png
-Black Russian,Cubes,Lowball Glass,None,None,Vodka@45#Kahlua@20,Black Russian.png
-Bloody Mary,Cubes,Any,Lime wedge,dash of lemon juice 90 mL tomato juice 1/2 tsp Worcestershire Sauce 2-3 drops tabasco,Vodka@45,Bloody Mary.png
-Boston Sidecar,None,Cocktail Glass,None,lime juice,Light Rum@20#Brandy@20#Triple Sec@20,Boston Sidecar.png
-City Slicker,None,Cocktail Glass,None,None,Brandy@60#Triple Sec@15,City Slicker.png
-Cuba Libre,Cubes,Highball Glass,Lime Wedge,None,Light Rum@60#Coca Cola@120,Cuba Libre.png
-Dragon Fly,Cubes,Highball Glass,Lime Wedge,None,Gin@45#Ginger Ale@120,Dragon Fly.png
-Flying Dutchman,Cubes,Lowball Glass,Lemon Wedge,None,Gin@60#Triple Sec@15,Flying Dutchman.png
-Kamikaze,Crushed,Any,None,30 mL lime juice,Vodka@30#Triple Sec@30,Kamikaze.png
-Kentucky B And B,None,Snifter Glass,None,None,Bourbon@60#Benedictine@15,Kentucky B and B.png
-Mississippi Planters Punch,Any,Hurricane Glass,Mint,lemon juice 1 tblsp powdered sugar,Brandy@30#Light Rum@15#Bourbon@15#Club Soda@120,Mississippi Planters Punch.png
-Monkey Wrench,Cubes,Lowball Glass,None,90 mL grapefruit juice dash of bitters,Light Rum@45,Monkey Wrench.png
-Queen Elizabeth,None,Cocktail Glass,None,None,Dry Vermouth@15#Gin@45#Benedictine@5,Queen Elizabeth.png
-Blue Lagoon,Crushed,Highball Glass,None,None,Vodka@30#Blue Curacao@30#Lemonade@120,Blue Lagoon.png
-Bluebird,None,Cocktail Glass,None,2 dashes bitters,Gin@45#Triple Sec@15#Blue Curacao@15,Bluebird.png
-Classic Old-Fashioned,Cubes,Lowball Glass,Lemon Wedge,tsp sugar 3 dashes bitters 1 tsp water,Bourbon@90,Classic Old-Fashioned.png
-Bourbon Sling,None,Highball Glass,None,2 tsp water 30 mL lemon juice 1 tsp sugar,Bourbon@60,Bourbon Sling.png
-Boxcar,None,Cocktail Glass,None,1 egg white 1 tsp lemon juice 1/2 tsp grenadine,Gin@45#Triple Sec@30,Boxcar.png
-Dry Rob Roy,None,Cocktail Glass,None,None,Scotch@75#Dry Vermouth@5,Dry Rob Roy.png
-Gin Fizz,None,Highball Glass,None,lemon juice 1 tsp sugar,Gin@60#Club Soda@120,Gin Fizz.png
-Blue Hawaiian,None,Any,None,2/4 ounce cream of coconut 60 mL pineapple juice,Blue Curacao@20#Light Rum@45,Blue Hawaiian Cocktail.png
-Cosmopolitan,None,Martini Glass,None,1/4 cup cranberry 10 mL lime juice,Vodka@35#Cointreau@10,Cosmopolitan.png
-Tequila Sunrise,None,Any,None,10 mL Grenadine,Orange Juice@90#Tequila@15,Tequila Sunrise.png
-Whiskey Sour,None,Lowball Glass,None,lemon juice 3/4 ounce simple syrup,Whiskey@45,Whiskey Sour.png
+{"name": "Gin and Tonic", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lime Slice/Wedge", "extras": "None", "ingredients": {"Gin": 60, "Tonic": 60}, "image": "Gin and Tonic.png"}
+{"name": "Orange Blossom", "ice": "Any", "glass": "Highball Glass", "garnish": "None", "extras": "Grenadine Lime Juice", "ingredients": {"Gin": 60, "Orange Juice": 120}, "image": "Orange Blossom.png"}
+{"name": "Mojito", "ice": "Crushed", "glass": "Highball Glass", "garnish": "Mint leaf", "extras": "2 tsp sugar lime juice", "ingredients": {"Light Rum": 60, "Club Soda": 90}, "image": "Mojito.png"}
+{"name": "Long Island Tea", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lemon Wedge", "extras": "Lemon juice", "ingredients": {"Vodka": 15, "Light Rum": 15, "Gin": 15, "Tequila": 15, "Coca Cola": 90}, "image": "Long Island Iced Tea.png"}
+{"name": "Moscow Mule", "ice": "Crushed", "glass": "Any", "garnish": "Lime wedge", "extras": "60 ml Lime juice", "ingredients": {"Vodka": 60, "Ginger Ale": 120}, "image": "Moscow Mule.png"}
+{"name": "English Highball", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lemon peel", "extras": "None", "ingredients": {"Brandy": 20, "Gin": 20, "Vermouth": 20, "Tonic": 90}, "image": "English Highball.png"}
+{"name": "Almeria", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "1 egg white", "ingredients": {"Dark Rum": 60, "Kahlua": 30}, "image": "Almeria.png"}
+{"name": "Amaretto Rose", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lime wedge", "extras": "15 mL lime juice", "ingredients": {"Amaretto": 45, "Club Soda": 120}, "image": "Amaretto Rose.png"}
+{"name": "Black Russian", "ice": "Cubes", "glass": "Lowball Glass", "garnish": "None", "extras": "None", "ingredients": {"Vodka": 45, "Kahlua": 20}, "image": "Black Russian.png"}
+{"name": "Bloody Mary", "ice": "Cubes", "glass": "Any", "garnish": "Lime wedge", "extras": "dash of lemon juice 90 mL tomato juice 1/2 tsp Worcestershire Sauce 2-3 drops tabasco", "ingredients": {"Vodka": 45}, "image": "Bloody Mary.png"}
+{"name": "Boston Sidecar", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "lime juice", "ingredients": {"Light Rum": 20, "Brandy": 20, "Triple Sec": 20}, "image": "Boston Sidecar.png"}
+{"name": "City Slicker", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "None", "ingredients": {"Brandy": 60, "Triple Sec": 15}, "image": "City Slicker.png"}
+{"name": "Cuba Libre", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lime Wedge", "extras": "None", "ingredients": {"Light Rum": 60, "Coca Cola": 120}, "image": "Cuba Libre.png"}
+{"name": "Dragon Fly", "ice": "Cubes", "glass": "Highball Glass", "garnish": "Lime Wedge", "extras": "None", "ingredients": {"Gin": 45, "Ginger Ale": 120}, "image": "Dragon Fly.png"}
+{"name": "Flying Dutchman", "ice": "Cubes", "glass": "Lowball Glass", "garnish": "Lemon Wedge", "extras": "None", "ingredients": {"Gin": 60, "Triple Sec": 15}, "image": "Flying Dutchman.png"}
+{"name": "Kamikaze", "ice": "Crushed", "glass": "Any", "garnish": "None", "extras": "30 mL lime juice", "ingredients": {"Vodka": 30, "Triple Sec": 30}, "image": "Kamikaze.png"}
+{"name": "Kentucky B And B", "ice": "None", "glass": "Snifter Glass", "garnish": "None", "extras": "None", "ingredients": {"Bourbon": 60, "Benedictine": 15}, "image": "Kentucky B and B.png"}
+{"name": "Mississippi Planters Punch", "ice": "Any", "glass": "Hurricane Glass", "garnish": "Mint", "extras": "lemon juice 1 tblsp powdered sugar", "ingredients": {"Brandy": 30, "Light Rum": 15, "Bourbon": 15, "Club Soda": 120}, "image": "Mississippi Planters Punch.png"}
+{"name": "Monkey Wrench", "ice": "Cubes", "glass": "Lowball Glass", "garnish": "None", "extras": "90 mL grapefruit juice dash of bitters", "ingredients": {"Light Rum": 45}, "image": "Monkey Wrench.png"}
+{"name": "Queen Elizabeth", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "None", "ingredients": {"Dry Vermouth": 15, "Gin": 45, "Benedictine": 5}, "image": "Queen Elizabeth.png"}
+{"name": "Blue Lagoon", "ice": "Crushed", "glass": "Highball Glass", "garnish": "None", "extras": "None", "ingredients": {"Vodka": 30, "Blue Curacao": 30, "Lemonade": 120}, "image": "Blue Lagoon.png"}
+{"name": "Bluebird", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "2 dashes bitters", "ingredients": {"Gin": 45, "Triple Sec": 15, "Blue Curacao": 15}, "image": "Bluebird.png"}
+{"name": "Classic Old-Fashioned", "ice": "Cubes", "glass": "Lowball Glass", "garnish": "Lemon Wedge", "extras": "tsp sugar 3 dashes bitters 1 tsp water", "ingredients": {"Bourbon": 90}, "image": "Classic Old-Fashioned.png"}
+{"name": "Bourbon Sling", "ice": "None", "glass": "Highball Glass", "garnish": "None", "extras": "2 tsp water 30 mL lemon juice 1 tsp sugar", "ingredients": {"Bourbon": 60}, "image": "Bourbon Sling.png"}
+{"name": "Boxcar", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "1 egg white 1 tsp lemon juice 1/2 tsp grenadine", "ingredients": {"Gin": 45, "Triple Sec": 30}, "image": "Boxcar.png"}
+{"name": "Dry Rob Roy", "ice": "None", "glass": "Cocktail Glass", "garnish": "None", "extras": "None", "ingredients": {"Scotch": 75, "Dry Vermouth": 5}, "image": "Dry Rob Roy.png"}
+{"name": "Gin Fizz", "ice": "None", "glass": "Highball Glass", "garnish": "None", "extras": "lemon juice 1 tsp sugar", "ingredients": {"Gin": 60, "Club Soda": 120}, "image": "Gin Fizz.png"}
+{"name": "Blue Hawaiian", "ice": "None", "glass": "Any", "garnish": "None", "extras": "2/4 ounce cream of coconut 60 mL pineapple juice", "ingredients": {"Blue Curacao": 20, "Light Rum": 45, "Amaretto": 900}, "image": "placeholder.png"}
+{"name": "Cosmopolitan", "ice": "None", "glass": "Martini Glass", "garnish": "None", "extras": "1/4 cup cranberry 10 mL lime juice", "ingredients": {"Vodka": 35, "Cointreau": 10}, "image": "Cosmopolitan.png"}
+{"name": "Tequila Sunrise", "ice": "None", "glass": "Any", "garnish": "None", "extras": "10 mL Grenadine", "ingredients": {"Orange Juice": 90, "Tequila": 15}, "image": "Tequila Sunrise.png"}
+{"name": "Whiskey Sour", "ice": "None", "glass": "Lowball Glass", "garnish": "None", "extras": "lemon juice 3/4 ounce simple syrup", "ingredients": {"Whiskey": 45}, "image": "Whiskey Sour.png"}
