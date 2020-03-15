@@ -20,12 +20,10 @@ sg.theme('DarkAmber')
 #Fullscreen selector
 FULLSCREEN = False
 
-#Load library information (LEGACY)
+#Load library information
 restoreBases()
 restoreIngredientLibrary()
 restoreDrinkLibrary()
-
-drinks = listDrinks()
 
 def contextSwitcher(current, next, window):
 
