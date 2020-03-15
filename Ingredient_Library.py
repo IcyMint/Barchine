@@ -1,3 +1,5 @@
+import json
+
 #Import/Modify/Store info for all ingredients
 
 IngredientLibrary = []
@@ -85,19 +87,19 @@ def createIngredient(name,base,family,startVol, endVol, active, position):
 def addIngredient(new_ingredient):
     IngredientLibrary.append(new_ingredient)
 
-#Commit IngredientLibrary to storage
+#Save IngredientLibrary to storage
 def storeIngredientLibrary():
     file = open("IngredientRepo.txt","w")
     for ingredient in IngredientLibrary:
-        file.write(str(ingredient)+'\n')
+        file.write(json.dumps(ingredient.__dict__)+'\n')
     file.close()
 
 #Restore IngredientLibrary from storage
 def restoreIngredientLibrary():
     file = open("IngredientRepo.txt","r")
     for line in file:
-        elements = line.split(',')
-        createIngredient(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6])
+        ingredient = json.loads(line[:len(line)-1])
+        createIngredient(ingredient['name'],ingredient['base'],ingredient['family'],ingredient['startVol'],ingredient['endVol'],ingredient['active'],ingredient['position'])
 
 #Build bases library from file
 def restoreBases():
