@@ -25,6 +25,8 @@ restoreBases()
 restoreIngredientLibrary()
 restoreDrinkLibrary()
 
+drinks = listDrinks()
+
 def contextSwitcher(current, next, window):
 
     #Check for Home menu selection
@@ -786,11 +788,7 @@ def DrinkView(mode,drink):
                         check = False
                 #Continue saving
                 if(check):
-                    #Convert ingredients
-                    string = ''
-                    for key, value in new_ingredients.items():
-                        string+=str(key)+'@'+str(value)+'#'
-                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,string[:-1],new_image)
+                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,new_ingredients,new_image)
                     break
                 else:
                     print('ERROR: Duplicate name or invalid image file')
@@ -1463,6 +1461,11 @@ def SettingsGUI(prev_window):
         if(event == 'save_settings'):
             print('Saving libraries')
             storeIngredientLibrary()
+            
+            for drink in listDrinks():
+                recipe = drink.getIngredients()
+                drink.setIngredients(recipe)
+
             storeDrinkLibrary()
             print('Saved')
         
