@@ -1,3 +1,5 @@
+import json
+
 #Import/Modify/Store info for all drinks
 DrinkLibrary = []
 
@@ -43,20 +45,13 @@ class Drink():
         self.image = image
 
     def __str__(self):
-        return self.name+','+self.ice+','+self.glass+','+self.garnish+','+self.extras+','+self.ingredients+','+self.image
+        return self.name+','+self.ice+','+self.glass+','+self.garnish+','+self.extras+','+str(self.ingredients)+','+self.image
     
     def getIngredients(self):
-        dict = {}
-        elements = self.ingredients.split('#')
-        for each in elements:
-            dict[each[:each.index('@')]] = int(each[each.index('@')+1:])
-        return dict
+        return self.ingredients
 
     def setIngredients(self,ingredients):
-        string = ''
-        for key, value in ingredients.items():
-            string+=str(key)+'@'+str(value)+'#'
-        self.ingredients = string[:-1]
+        self.ingredients = ingredients
 
     def getName(self):
         return self.name
@@ -104,14 +99,14 @@ def addDrink(new_drink):
 def storeDrinkLibrary():
     file = open("DrinkRepo.txt","w")
     for drink in DrinkLibrary:
-        file.write(str(drink)+'\n')
+        file.write(json.dumps(drink.__dict__)+'\n')
     file.close()
 
 def restoreDrinkLibrary():
     file = open("DrinkRepo.txt","r")
     for line in file:
-        elements = line.split(',')
-        createDrink(elements[0],elements[1],elements[2],elements[3],elements[4],elements[5],elements[6].rstrip())
+        drink = json.loads(line[:len(line)-1])
+        createDrink(drink['name'],drink['ice'],drink['glass'],drink['garnish'],drink['extras'],drink['ingredients'],drink['image'])
 
 #Delete ingredient from IngredientLibrary
 def deleteDrink(name):

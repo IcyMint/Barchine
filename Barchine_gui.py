@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
-from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, listIngredients, getFamilyTypes, getBaseTypes, deleteIngredient, createIngredient, restoreBases
+from Ingredient_Library import restoreIngredientLibrary, storeIngredientLibrary, createIngredient
+from Ingredient_Library import listIngredients, getFamilyTypes, getBaseTypes, deleteIngredient
+from Ingredient_Library import restoreBases
 from Drink_Library import restoreDrinkLibrary, storeDrinkLibrary, listDrinks, deleteDrink, getIceTypes, getGlassTypes, createDrink
 import Bartender
 from Keypad import Keypad
@@ -784,11 +786,7 @@ def DrinkView(mode,drink):
                         check = False
                 #Continue saving
                 if(check):
-                    #Convert ingredients
-                    string = ''
-                    for key, value in new_ingredients.items():
-                        string+=str(key)+'@'+str(value)+'#'
-                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,string[:-1],new_image)
+                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,new_ingredients,new_image)
                     break
                 else:
                     print('ERROR: Duplicate name or invalid image file')
@@ -1423,8 +1421,8 @@ def SettingsGUI(prev_window):
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_settings'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
                 [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')],
-                [sg.Button('Save',key='save_settings',font=('Helvetica', 20)),sg.Button('Reload Bases',key='reload_bases_settings',font=('Helvetica', 20))]
-
+                [sg.Button('Save',key='save_settings',font=('Helvetica', 20))
+                ,sg.Button('Reload Bases',key='reload_bases_settings',font=('Helvetica', 20))]
             ]
 
     #Launch window
@@ -1462,10 +1460,8 @@ def SettingsGUI(prev_window):
             storeDrinkLibrary()
             print('Saved')
         
-        if(event == 'save_settings'):
+        if(event == 'reload_bases_settings'):
             restoreBases()
-
-        
 
         if event in  (None, 'Exit'):
             window_settings.close()

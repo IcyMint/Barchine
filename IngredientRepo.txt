@@ -1,7 +1,7 @@
-Grey Goose,Vodka,Alcohol,750,500,True,5
-Beefeater,Gin,Alcohol,750,750,True,2
-Kraken,Rum,Alcohol,500,300,False,-1
-Coca Cola,Cola,Mixer,1000,1000,True,1
-Sprite,Sprite,Mixer,1000,1000,False,-1
-Tonic Water,Tonic,Mixer,1000,1000,True,3
-White Wine,Wine,Alcohol,660,660,False,-1
+{"name": "Grey Goose", "base": "Vodka", "family": "Alcohol", "startVol": 750, "endVol": 500, "active": true, "position": 5}
+{"name": "Beefeater", "base": "Gin", "family": "Alcohol", "startVol": 750, "endVol": 750, "active": true, "position": 2}
+{"name": "Kraken", "base": "Rum", "family": "Alcohol", "startVol": 500, "endVol": 300, "active": false, "position": -1}
+{"name": "Coca Cola", "base": "Cola", "family": "Mixer", "startVol": 1000, "endVol": 1000, "active": true, "position": 1}
+{"name": "Sprite", "base": "Sprite", "family": "Mixer", "startVol": 600, "endVol": 500, "active": false, "position": -1}
+{"name": "Tonic Water", "base": "Tonic", "family": "Mixer", "startVol": 1000, "endVol": 1000, "active": true, "position": 3}
+{"name": "White Wine", "base": "Wine", "family": "Alcohol", "startVol": 660, "endVol": 660, "active": true, "position": 4}
