@@ -1424,9 +1424,7 @@ def SettingsGUI(prev_window):
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_settings',border_width=5,button_color=(None,'#60b551'))],
                 [sg.Text(text='Settings Page',size=(17,1),font=('Helvetica', 20),key='subtitle_settings')],
                 [sg.Button('Save',key='save_settings',font=('Helvetica', 20))
-                ,sg.Button('Reload Bases',key='reload_bases_settings',font=('Helvetica', 20))
-                ,sg.Button('Save (Legacy)',key='save_legacy_settings',font=('Helvetica', 20))]
-
+                ,sg.Button('Reload Bases',key='reload_bases_settings',font=('Helvetica', 20))]
             ]
 
     #Launch window
@@ -1461,24 +1459,11 @@ def SettingsGUI(prev_window):
         if(event == 'save_settings'):
             print('Saving libraries')
             storeIngredientLibrary()
-            
-            for drink in listDrinks():
-                recipe = drink.getIngredients()
-                drink.setIngredients(recipe)
-
             storeDrinkLibrary()
             print('Saved')
         
         if(event == 'reload_bases_settings'):
             restoreBases()
-
-        if(event == 'save_legacy_settings'):
-            print('Legacy Saving libraries')
-            storeIngredientLibrary_LEGACY()
-            storeDrinkLibrary()
-            print('Saved')
-
-        
 
         if event in  (None, 'Exit'):
             window_settings.close()
