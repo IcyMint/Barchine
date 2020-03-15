@@ -686,8 +686,6 @@ def TextViewExpanded(text,title):
 
 def DrinkView(mode,drink):
 
-    listDrinks()
-
     layout_buttons_drinkview = [
                         [sg.Button('Add',font=('Helvetica', 15),key='add_drinkviewingredient')],
                         [sg.Button('Edit',font=('Helvetica', 15),key='edit_drinkviewingredient')],
@@ -758,6 +756,7 @@ def DrinkView(mode,drink):
         window_drinkview['extra_input_drinkview'].update(value=new_extras)
         window_drinkview['DrinkIngredients_drinkview'].update(values=display)
         window_drinkview['filename_drinkview'].update(value=new_image)
+        window_drinkview['filename_field'].update(value=new_image)
 
     while True:  # Event Loop
         event, values = window_drinkview.read()
@@ -768,13 +767,13 @@ def DrinkView(mode,drink):
             window_drinkview['filename_drinkview'].update(value=re.search('([^\/]*)$', values['filename_field']).group())
 
         if(event =='save_drinkview'):
-            new_name = re.sub('[#@,]','', values['name_input_drinkview'])
+            new_name = values['name_input_drinkview']
             if(mode == 'new' and new_name is not None and len(new_ingredients) > 0):
                 #Load in values
-                new_ice = re.sub('[#@,]','', values['ice_input_drinkview'])
-                new_glass = re.sub('[#@,]','', values['glass_input_drinkview'])
-                new_garnish = re.sub('[#@,]','', values['garnish_input_drinkview'])
-                new_extras = re.sub('[#@,]','', values['extra_input_drinkview'])
+                new_ice = values['ice_input_drinkview']
+                new_glass = values['glass_input_drinkview']
+                new_garnish = values['garnish_input_drinkview']
+                new_extras = values['extra_input_drinkview']
                 if(values['filename_field'][-3:] == 'png'):
                     new_image = re.search('([^\/]*)$', values['filename_field']).group()
                 else:
@@ -836,12 +835,12 @@ def DrinkView(mode,drink):
                 #Update ingredients list
                 display = []
                 for key, value in new_ingredients.items():
-                    display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                    display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
                 window_drinkview['DrinkIngredients_drinkview'].update(values=display)
 
         if(event == 'edit_drinkviewingredient' and mode == 'edit' and len(values['DrinkIngredients_drinkview']) > 0):
             for key, value in new_ingredients.items():
-                if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
+                if(key == values['DrinkIngredients_drinkview'][0][values['DrinkIngredients_drinkview'][0].index('- ')+2:]):
                     #Send values to user field, then replace with returning values
                     new_elements = IngredientAddPopUp('edit',key,value)
                     #Replace entry
@@ -857,14 +856,14 @@ def DrinkView(mode,drink):
 
         if(event == 'remove_drinkviewingredient' and len(values['DrinkIngredients_drinkview']) > 0):
             for key, value in new_ingredients.items():
-                if(key == re.findall("[^0-9]*",values['DrinkIngredients_drinkview'][0])[0].rstrip()):
+                if(key == values['DrinkIngredients_drinkview'][0][values['DrinkIngredients_drinkview'][0].index('- ')+2:]):
                     #Delete from ingredients list
                     del new_ingredients[key]
 
                     #Update ingredients list
                     display = []
                     for key, value in new_ingredients.items():
-                        display.append(str(key)+str(value).rjust(20-len(str(key)), ' '))
+                        display.append(str(value)+' '*(4-len(str(value)))+'mL - '+str(key))
                     window_drinkview['DrinkIngredients_drinkview'].update(values=display)
                     break
 
