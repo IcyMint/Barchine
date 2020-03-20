@@ -1160,6 +1160,12 @@ def StationsGUI(prev_window):
             [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar8_name',enable_events=True)],
             ]
 
+    layout_bar9 = [
+            [sg.Text(text='9',size=(1,1),font=('Helvetica', 12),key='bar9_num')],
+            [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar9_meter')],
+            [sg.Text(text='INSERT NAME HERE',size=(5,4),font=('Helvetica', 8),key='bar9_name',enable_events=True)],
+            ]
+
     layout_stations = [
                 [sg.Text(text='Barchine',size=(8,1),font=('Helvetica', 30),key='title_stations')],
                 [sg.Button('Home',font=('Helvetica', 15),key='Home_stations'),
@@ -1171,7 +1177,7 @@ def StationsGUI(prev_window):
                 [sg.Text(text='Select Station to Edit',size=(17,1),font=('Helvetica', 20),key='subtitle_stations')],
                 [sg.Column(layout_measure),sg.Column(layout_bar1),sg.Column(layout_bar2),
                 sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5),
-                sg.Column(layout_bar6),sg.Column(layout_bar7),sg.Column(layout_bar8),sg.Text(text=' ',size=(10,1))]
+                sg.Column(layout_bar6),sg.Column(layout_bar7),sg.Column(layout_bar8),sg.Column(layout_bar9)]
             ]
 
     #Launch window
@@ -1282,6 +1288,14 @@ def StationsGUI(prev_window):
                 StationsView('8',None)
             else:
                 StationsView('8',Bartender.getShelf()[7])
+            #Update Display
+            update = True
+
+        if(event == 'bar9_name'):
+            if(Bartender.getShelf()[1] == None):
+                StationsView('9',None)
+            else:
+                StationsView('9',Bartender.getShelf()[8])
             #Update Display
             update = True
 
