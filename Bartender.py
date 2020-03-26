@@ -2,7 +2,9 @@ import Ingredient_Library
 import Drink_Library
 import time, datetime
 
-MAX_POSITIONS = 9
+#First 9 positions are alcohol, next 5 are mixers
+ALCOHOL_POSITION_COUNT = 9
+MIXER_POSITION_COUNT = 5
 
 class Order():
     drink_ref = None
@@ -87,7 +89,7 @@ def showDrinkMenu(pretty):
     return drinkmenu
 
 def getShelf():
-    shelf = [None]*MAX_POSITIONS
+    shelf = [None]*getMaxPos()
     for ingredient in Ingredient_Library.IngredientLibrary:
         if ingredient.isActive():
             shelf[ingredient.getPosition()] = ingredient
@@ -106,4 +108,10 @@ def addShelfItem(name, position):
             ingredient.setPosition(position)
     
 def getMaxPos():
-    return MAX_POSITIONS
+    return ALCOHOL_POSITION_COUNT + MIXER_POSITION_COUNT
+
+def getAlcCount():
+    return ALCOHOL_POSITION_COUNT
+
+def getMixCount():
+    return MIXER_POSITION_COUNT

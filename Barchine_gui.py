@@ -1110,12 +1110,13 @@ def StationsGUI(prev_window):
      #Image translation
     measurebar = Path('Image_Library/measurementbar.png')
 
+    #Layout for level indicator image
     layout_measure = [
                 [sg.Text(text='100%',size=(5,1),font=('Helvetica', 8))],
-                [sg.Image(filename=measurebar,key='image_library',size=(128,256))],
+                [sg.Image(filename=measurebar,key='image_library',size=(128,140))],
                 [sg.Text(text='0%',size=(3,1),font=('Helvetica', 12))],
             ]
-
+    #Layouts for alcohol stations
     layout_bar1 = [
             [sg.Text(text='1',size=(2,1),font=('Helvetica', 12),key='bar1_num')],
             [sg.ProgressBar(100, orientation='v', size=(10, 30), key='bar1_meter')],
@@ -1174,10 +1175,12 @@ def StationsGUI(prev_window):
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_stations',border_width=5,button_color=(None,'#60b551')),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_stations'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')],
-                [sg.Text(text='Select Station to Edit',size=(17,1),font=('Helvetica', 20),key='subtitle_stations')],
-                [sg.Column(layout_measure),sg.Column(layout_bar1),sg.Column(layout_bar2),
-                sg.Column(layout_bar3),sg.Column(layout_bar4),sg.Column(layout_bar5),
-                sg.Column(layout_bar6),sg.Column(layout_bar7),sg.Column(layout_bar8),sg.Column(layout_bar9)]
+                [sg.Text(text='Select Station to Edit',size=(30,1),font=('Helvetica', 20),key='subtitle_stations')
+                ,sg.Button('View Mixers',key='station_menu_selector',size=(10,1),font=('Helvetica', 15))],
+                [sg.Column(layout_measure),sg.Column(layout_bar1,visible=True),sg.Column(layout_bar2,visible=True),
+                sg.Column(layout_bar3,visible=True),sg.Column(layout_bar4,visible=True),sg.Column(layout_bar5,visible=True),
+                sg.Column(layout_bar6,visible=True),sg.Column(layout_bar7,visible=True),sg.Column(layout_bar8,visible=True),
+                sg.Column(layout_bar9,visible=True)]
             ]
 
     #Launch window
@@ -1192,7 +1195,15 @@ def StationsGUI(prev_window):
 
     #Load bars with shelf items
     i = 1
+    if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+        i = Bartender.getAlcCount() + 1
+    offset = Bartender.getAlcCount() - 1
     for item in Bartender.getShelf():
+        #If currently showing alcohol, stop iterating once we hit end of alcohol list
+        if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i == Bartender.getAlcCount()+1):
+            break
+        if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+            offset+=1
         if(item!=None):
             window_stations['bar'+str(i)+'_name'].update(value=item.getName())
             window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
@@ -1225,84 +1236,44 @@ def StationsGUI(prev_window):
         if(event == 'Settings_stations'):
             contextSwitcher('Stations_stations','Settings_stations',window_stations)
 
+        #TODO: Fix this, thanks
+        #Check for station menu selector
+        if(event == 'station_menu_selector'):
+            #If currently looking at alcohol stations, swap to mixers
+            pass
 
-        #Check for station selection
-        if(event == 'bar1_name'):
-            if(Bartender.getShelf()[0] == None):
-                StationsView('1',None)
-            else:
-                StationsView('1',Bartender.getShelf()[0])
-            #Update Display
-            update = True
-
-        if(event == 'bar2_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('2',None)
-            else:
-                StationsView('2',Bartender.getShelf()[1])
-            #Update Display
-            update = True
-        
-        if(event == 'bar3_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('3',None)
-            else:
-                StationsView('3',Bartender.getShelf()[2])
-            #Update Display
-            update = True
-
-        if(event == 'bar4_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('4',None)
-            else:
-                StationsView('4',Bartender.getShelf()[3])
-            #Update Display
-            update = True
-
-        if(event == 'bar5_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('5',None)
-            else:
-                StationsView('5',Bartender.getShelf()[4])
-            #Update Display
-            update = True
-
-        if(event == 'bar6_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('6',None)
-            else:
-                StationsView('6',Bartender.getShelf()[5])
-            #Update Display
-            update = True
-
-        if(event == 'bar7_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('7',None)
-            else:
-                StationsView('7',Bartender.getShelf()[6])
-            #Update Display
-            update = True
-
-        if(event == 'bar8_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('8',None)
-            else:
-                StationsView('8',Bartender.getShelf()[7])
-            #Update Display
-            update = True
-
-        if(event == 'bar9_name'):
-            if(Bartender.getShelf()[1] == None):
-                StationsView('9',None)
-            else:
-                StationsView('9',Bartender.getShelf()[8])
-            #Update Display
-            update = True
+        offset = Bartender.getAlcCount()
+        for i in range(1,Bartender.getMaxPos()):
+            #Check for currently active station menu
+            if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i < Bartender.getAlcCount()+1):
+                if(event == 'bar'+str(i)+'_name'):
+                    if(Bartender.getShelf()[i-1] == None):
+                        StationsView(str(i),None,'Alcohol')
+                    else:
+                        StationsView('1',Bartender.getShelf()[i-1],'Alcohol')
+                    #Update Display
+                    update = True
+            if(window_stations['station_menu_selector'].GetText() == 'View Alcohol' and i < Bartender.getMixCount()+1):
+                if(event == 'bar'+str(i)+'_name'):
+                    if(Bartender.getShelf()[i+offset] == None):
+                        StationsView(str(i),None,'Mixer')
+                    else:
+                        StationsView('1',Bartender.getShelf()[i+offset],'Mixer')
+                    #Update Display
+                    update = True
 
         #Update Display
         if(update):
             i = 1
+            if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+                i = Bartender.getAlcCount() + 1
+            offset = Bartender.getAlcCount() - 1
             for item in Bartender.getShelf():
+                #If currently showing alcohol, stop iterating once we hit end of alcohol list
+                if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i == Bartender.getAlcCount()+1):
+                    break
+                if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+                    offset+=1
                 if(item!=None):
                     window_stations['bar'+str(i)+'_name'].update(value=item.getName())
                     window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
@@ -1319,11 +1290,11 @@ def StationsGUI(prev_window):
     #Close remaining window
     window_stations.close()
 
-def StationsView(station,ingredient):
+def StationsView(station,ingredient,family):
 
     available = ['Empty']
     for element in listIngredients():
-        if not element.isActive():
+        if not element.isActive() and element.getFamily() == family:
             available.append(element.getName())
 
     layout_stationsview = [
