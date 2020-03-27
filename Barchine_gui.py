@@ -18,7 +18,9 @@ if os.environ.get('DISPLAY','') == '':
 sg.theme('DarkAmber')
 
 #Fullscreen selector
-FULLSCREEN = False
+FULLSCREEN = True
+#Screen Resolution
+RESOLUTION = {x:800,y:480}
 
 #Load library information
 restoreBases()
@@ -232,7 +234,7 @@ def HomeGUI(prev_window):
             ]
 
     #Launch Window
-    window_home = sg.Window('Barchine', layout_home).Finalize()
+    window_home = sg.Window('Barchine', layout_home,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_home.Maximize()
     #Close Previous window
@@ -479,7 +481,7 @@ def LibraryGUI(prev_window):
             ]
 
     #Launch window
-    window_library = sg.Window('Barchine', layout_library).Finalize()
+    window_library = sg.Window('Barchine', layout_library,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_library.Maximize()
 
@@ -903,7 +905,7 @@ def IngredientsGUI(prev_window):
             ]
 
     #Launch window
-    window_ingredients = sg.Window('Barchine', layout_ingredients).Finalize()
+    window_ingredients = sg.Window('Barchine', layout_ingredients,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_ingredients.Maximize()
 
@@ -1185,7 +1187,7 @@ def StationsGUI(prev_window):
             ]
 
     #Launch window
-    window_stations = sg.Window('Barchine', layout_stations).Finalize()
+    window_stations = sg.Window('Barchine', layout_stations,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_stations.Maximize()
 
@@ -1412,7 +1414,7 @@ def StatsGUI(prev_window):
             ]
 
     #Launch window
-    window_stats = sg.Window('Barchine', layout_stats).Finalize()
+    window_stats = sg.Window('Barchine', layout_stats,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_stats.Maximize()
 
@@ -1464,7 +1466,7 @@ def SettingsGUI(prev_window):
             ]
 
     #Launch window
-    window_settings = sg.Window('Barchine', layout_settings).Finalize()
+    window_settings = sg.Window('Barchine', layout_settings,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_settings.Maximize()
 
