@@ -1177,10 +1177,11 @@ def StationsGUI(prev_window):
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_stations')],
                 [sg.Text(text='Select Station to Edit',size=(30,1),font=('Helvetica', 20),key='subtitle_stations')
                 ,sg.Button('View Mixers',key='station_menu_selector',size=(10,1),font=('Helvetica', 15))],
-                [sg.Column(layout_measure),sg.Column(layout_bar1,visible=True),sg.Column(layout_bar2,visible=True),
-                sg.Column(layout_bar3,visible=True),sg.Column(layout_bar4,visible=True),sg.Column(layout_bar5,visible=True),
-                sg.Column(layout_bar6,visible=True),sg.Column(layout_bar7,visible=True),sg.Column(layout_bar8,visible=True),
-                sg.Column(layout_bar9,visible=True)]
+                [sg.Column(layout_measure),sg.Column(layout_bar1,key='bar1_column',visible=True),sg.Column(layout_bar2,key='bar2_column',visible=True),
+                sg.Column(layout_bar3,key='bar3_column',visible=True),sg.Column(layout_bar4,key='bar4_column',visible=True),
+                sg.Column(layout_bar5,key='bar5_column',visible=True),sg.Column(layout_bar6,key='bar6_column',visible=True),
+                sg.Column(layout_bar7,key='bar7_column',visible=True),sg.Column(layout_bar8,key='bar8_column',visible=True),
+                sg.Column(layout_bar9,key='bar9_column',visible=True)]
             ]
 
     #Launch window
@@ -1193,24 +1194,50 @@ def StationsGUI(prev_window):
     if(prev_window is not None):
         prev_window.close()
 
-    #Load bars with shelf items
-    i = 1
+
+    #Pre-unload and reload all stations to remove visibility offset bug
+    for i in range(1,Bartender.getAlcCount()+1):
+        window_stations['bar'+str(i)+'_num'].update(visible=False)
+        window_stations['bar'+str(i)+'_meter'].update(visible=False)
+        window_stations['bar'+str(i)+'_name'].update(visible=False)
+    for i in range(1,Bartender.getAlcCount()+1):
+        window_stations['bar'+str(i)+'_num'].update(visible=True)
+        window_stations['bar'+str(i)+'_meter'].update(visible=True)
+        window_stations['bar'+str(i)+'_name'].update(visible=True)
+
+    #Draw the currently loaded stations
+    startIndex = 0
+    endIndex = 0
+    offset = 0
+    #Setup variables for counting alcohol
+    if(window_stations['station_menu_selector'].GetText() == 'View Mixers'):
+        startIndex = 0
+        endIndex = Bartender.getAlcCount()
+    #Set up variables for counting mixers
     if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
-        i = Bartender.getAlcCount() + 1
-    offset = Bartender.getAlcCount() - 1
-    for item in Bartender.getShelf():
-        #If currently showing alcohol, stop iterating once we hit end of alcohol list
-        if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i == Bartender.getAlcCount()+1):
-            break
-        if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
-            offset+=1
-        if(item!=None):
-            window_stations['bar'+str(i)+'_name'].update(value=item.getName())
-            window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
-        else:
-            window_stations['bar'+str(i)+'_name'].update(value='EMPTY')
-            window_stations['bar'+str(i)+'_meter'].update_bar(0,100)
-        i+=1
+        startIndex = Bartender.getAlcCount()
+        endIndex = Bartender.getMaxPos()
+        offset = Bartender.getAlcCount()
+    for i in range(startIndex,endIndex):
+            if(Bartender.getShelf()[i]!=None):
+                item = Bartender.getShelf()[i]
+                window_stations['bar'+str(i+1-offset)+'_name'].update(value=item.getName())
+                window_stations['bar'+str(i+1-offset)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
+            else:
+                window_stations['bar'+str(i+1-offset)+'_name'].update(value='EMPTY')
+                window_stations['bar'+str(i+1-offset)+'_meter'].update_bar(0,100)
+            #Increase offset if counting mixers
+            if(startIndex > Bartender.getAlcCount()):
+                offset+=1
+    
+    #Hide/Show leftover stations if unused (mixers)
+    if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+        for i in range(Bartender.getMixCount()+1,Bartender.getAlcCount()+1):
+            window_stations['bar'+str(i)+'_meter'].update(visible=False)
+    #Reveal hidden stations for alcohol
+    else:
+        for i in range(Bartender.getMixCount()+1,Bartender.getAlcCount()+1):
+            window_stations['bar'+str(i)+'_meter'].update(visible=True)
 
     chosen = None
     update = False
@@ -1236,12 +1263,17 @@ def StationsGUI(prev_window):
         if(event == 'Settings_stations'):
             contextSwitcher('Stations_stations','Settings_stations',window_stations)
 
-        #TODO: Fix this, thanks
         #Check for station menu selector
         if(event == 'station_menu_selector'):
             #If currently looking at alcohol stations, swap to mixers
-            pass
+            if(window_stations['station_menu_selector'].GetText() == 'View Mixers'):
+                window_stations['station_menu_selector'].update(text='View Alcohol')
+            else:
+                window_stations['station_menu_selector'].update(text='View Mixers')
+            update = True
 
+
+        #Search for the selected station
         offset = Bartender.getAlcCount()
         for i in range(1,Bartender.getMaxPos()):
             #Check for currently active station menu
@@ -1250,38 +1282,60 @@ def StationsGUI(prev_window):
                     if(Bartender.getShelf()[i-1] == None):
                         StationsView(str(i),None,'Alcohol')
                     else:
-                        StationsView('1',Bartender.getShelf()[i-1],'Alcohol')
+                        StationsView(str(i),Bartender.getShelf()[i-1],'Alcohol')
                     #Update Display
                     update = True
             if(window_stations['station_menu_selector'].GetText() == 'View Alcohol' and i < Bartender.getMixCount()+1):
                 if(event == 'bar'+str(i)+'_name'):
-                    if(Bartender.getShelf()[i+offset] == None):
-                        StationsView(str(i),None,'Mixer')
+                    if(Bartender.getShelf()[i-1+offset] == None):
+                        StationsView(str(i+offset),None,'Mixer')
                     else:
-                        StationsView('1',Bartender.getShelf()[i+offset],'Mixer')
+                        StationsView(i+offset,Bartender.getShelf()[i-1+offset],'Mixer')
                     #Update Display
                     update = True
 
         #Update Display
         if(update):
-            i = 1
+            #Draw the currently loaded stations
+            startIndex = 0
+            endIndex = 0
+            offset = 0
+            #Setup variables for counting alcohol
+            if(window_stations['station_menu_selector'].GetText() == 'View Mixers'):
+                startIndex = 0
+                endIndex = Bartender.getAlcCount()
+            #Set up variables for counting mixers
             if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
-                i = Bartender.getAlcCount() + 1
-            offset = Bartender.getAlcCount() - 1
-            for item in Bartender.getShelf():
-                #If currently showing alcohol, stop iterating once we hit end of alcohol list
-                if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i == Bartender.getAlcCount()+1):
-                    break
-                if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
-                    offset+=1
-                if(item!=None):
-                    window_stations['bar'+str(i)+'_name'].update(value=item.getName())
-                    window_stations['bar'+str(i)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
-                else:
-                    window_stations['bar'+str(i)+'_name'].update(value='EMPTY')
-                    window_stations['bar'+str(i)+'_meter'].update_bar(0,100)
-                i+=1
-            update = False
+                startIndex = Bartender.getAlcCount()
+                endIndex = Bartender.getMaxPos()
+                offset = Bartender.getAlcCount()
+            for i in range(startIndex,endIndex):
+                    if(Bartender.getShelf()[i]!=None):
+                        item = Bartender.getShelf()[i]
+                        window_stations['bar'+str(i+1-offset)+'_name'].update(value=item.getName())
+                        window_stations['bar'+str(i+1-offset)+'_meter'].update_bar(item.getEndVol(),item.getStartVol())
+                    else:
+                        window_stations['bar'+str(i+1-offset)+'_name'].update(value='EMPTY')
+                        window_stations['bar'+str(i+1-offset)+'_meter'].update_bar(0,100)
+                    #Increase offset if counting mixers
+                    if(startIndex > Bartender.getAlcCount()):
+                        offset+=1
+            
+            #Hide/Show leftover stations if unused (mixers)
+            if(window_stations['station_menu_selector'].GetText() == 'View Alcohol'):
+                for i in range(Bartender.getMixCount()+1,Bartender.getAlcCount()+1):
+                    window_stations['bar'+str(i)+'_num'].update(visible=False)
+                    window_stations['bar'+str(i)+'_meter'].update(visible=False)
+                    window_stations['bar'+str(i)+'_name'].update(visible=False)
+
+            #Reveal hidden stations for alcohol
+            else:
+                for i in range(Bartender.getMixCount()+1,Bartender.getAlcCount()+1):
+                    window_stations['bar'+str(i)+'_num'].update(visible=True)
+                    window_stations['bar'+str(i)+'_meter'].update(visible=True)
+                    window_stations['bar'+str(i)+'_name'].update(visible=True)
+
+            update=False
 
         if event in  (None, 'Exit'):
             window_stations.close()
