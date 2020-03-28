@@ -1,6 +1,7 @@
 import Ingredient_Library
 import Drink_Library
 import time, datetime
+from Logging import log
 
 #First 9 positions are alcohol, next 5 are mixers
 ALCOHOL_POSITION_COUNT = 9
@@ -58,6 +59,7 @@ def createOrder(name,force):
             if(key in shelf):
                 recipe[shelfPositions.index(str(key))] = int(value)
         #Pass on to arduino
+        log('Order','[Normal]'+str(order)+'|'+str(recipe))
         print('RECIPE: '+str(recipe))
     else:
         #Get recipe together for arduino
@@ -67,7 +69,8 @@ def createOrder(name,force):
             except ValueError:
                 print('Didnt find: '+str(key))
         #Pass on to arduino
-        print(recipe)
+        log('Order','[Normal]'+str(order)+'|'+str(recipe))
+        print(str(recipe))
 
 def showDrinkMenu(pretty):
     drinkmenu = []

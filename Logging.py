@@ -5,6 +5,16 @@ from time import sleep
 
 Logs = []
 
+#Valid log tags
+#Order[Normal/Forced] - Related to drink orders (Normal vs forced order), after | show arduino message
+#Mech - Related to the mechanical functionality
+#Drinks[CREATE/EDIT] - Related to Drink modifications
+#       [CREATE]     - {New Drink object}
+#       [EDIT]       - {element_name=change|drink object (original)}
+#Ingredients - Related to ingredient library modifications
+#Stations - Related to station modifications
+#Info - General information
+
 class Log():
     time = None
     tag = None

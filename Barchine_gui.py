@@ -9,6 +9,7 @@ import sys
 import os
 from pathlib import Path
 import re
+from Logging import log
 
 #Initialize display properties
 if os.environ.get('DISPLAY','') == '':
@@ -18,9 +19,9 @@ if os.environ.get('DISPLAY','') == '':
 sg.theme('DarkAmber')
 
 #Fullscreen selector
-FULLSCREEN = True
+FULLSCREEN = False
 #Screen Resolution
-RESOLUTION = {x:800,y:480}
+RESOLUTION = {'x':800,'y':480}
 
 #Load library information
 restoreBases()
@@ -787,7 +788,7 @@ def DrinkView(mode,drink):
                         check = False
                 #Continue saving
                 if(check):
-                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,new_ingredients,new_image)
+                    createDrink(new_name,new_ice,new_glass,new_garnish,new_extras,new_ingredients,new_image,False)
                     break
                 else:
                     print('ERROR: Duplicate name or invalid image file')
