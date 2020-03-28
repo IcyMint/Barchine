@@ -37,44 +37,51 @@ class Ingredient:
         return self.name
 
     def setName(self,new_name):
+        log('Ingredients','[EDIT]'+'name='+new_name+'|'+str(self))
         self.name = new_name
     
     def getBase(self):
         return self.base
 
     def setBase(self,new_base):
+        log('Ingredients','[EDIT]'+'base='+new_base+'|'+str(self))
         self.base = new_base
 
     def getFamily(self):
         return self.family
 
     def setFamily(self,new_family):
+        log('Ingredients','[EDIT]'+'family='+new_family+'|'+str(self))
         self.family = new_family
 
     def getStartVol(self):
         return self.startVol
 
     def setStartVol(self,new_startVol):
+        log('Ingredients','[EDIT]'+'startVol='+new_startVol+'|'+str(self))
         self.startVol = new_startVol
 
     def getEndVol(self):
         return self.endVol
 
     def setEndVol(self, new_endVol):
+        log('Ingredients','[EDIT]'+'endVol='+new_endVol+'|'+str(self))
         self.endVol = new_endVol
 
     def setActive(self, new_active):
+        log('Ingredients','[EDIT]'+'active='+new_active+'|'+str(self))
         self.active = new_active
     
     def getPosition(self):
         return self.position
 
     def setPosition(self, new_position):
+        log('Ingredients','[EDIT]'+'position='+new_position+'|'+str(self))
         self.position = new_position
 
         
 #Create an ingredient
-def createIngredient(name,base,family,startVol, endVol, active, position):
+def createIngredient(name,base,family,startVol, endVol, active, position,restore):
     test = str(active)
     if(test == 'True'):
         active = True
@@ -82,6 +89,8 @@ def createIngredient(name,base,family,startVol, endVol, active, position):
         active = False
     ingredient = Ingredient(name, base, family, int(startVol), int(endVol), bool(active), int(position))
     addIngredient(ingredient)
+    if(not restore):
+        log('Ingredients','[CREATE]'+str(ingredient))
 
 #Add ingredient to IngredientLibrary
 def addIngredient(new_ingredient):
@@ -93,13 +102,14 @@ def storeIngredientLibrary():
     for ingredient in IngredientLibrary:
         file.write(json.dumps(ingredient.__dict__)+'\n')
     file.close()
+    log('Info','Saving Ingredients Library')
 
 #Restore IngredientLibrary from storage
 def restoreIngredientLibrary():
     file = open("IngredientRepo.txt","r")
     for line in file:
         ingredient = json.loads(line[:len(line)-1])
-        createIngredient(ingredient['name'],ingredient['base'],ingredient['family'],ingredient['startVol'],ingredient['endVol'],ingredient['active'],ingredient['position'])
+        createIngredient(ingredient['name'],ingredient['base'],ingredient['family'],ingredient['startVol'],ingredient['endVol'],ingredient['active'],ingredient['position'],True)
 
 #Build bases library from file
 def restoreBases():
@@ -108,6 +118,7 @@ def restoreBases():
     file = open("BasesRepo.txt","r")
     for line in file:
         BASES.append(line.strip('\n'))
+    log('Info','Restoring Bases List')
     
 #Delete ingredient from IngredientLibrary
 def deleteIngredient(name):
@@ -115,6 +126,7 @@ def deleteIngredient(name):
     for element in IngredientLibrary:
         if(element.getName() == name):
             marked = element
+    log('Ingredients','[DELETE]'+str(marked))
     IngredientLibrary.remove(marked)
 
 def listIngredients():

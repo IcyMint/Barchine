@@ -1070,7 +1070,7 @@ def IngredientView(mode,ingredient):
                     
                     if(check):
                         print('SAVED')
-                        createIngredient(new_name,new_base,new_family,new_startVol,new_endVol,new_active,new_position)
+                        createIngredient(new_name,new_base,new_family,new_startVol,new_endVol,new_active,new_position,False)
                         break
                     pass
             if(mode == 'edit'):
