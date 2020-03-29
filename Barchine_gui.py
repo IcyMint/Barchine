@@ -339,6 +339,9 @@ def HomeGUI(prev_window):
 
 def ForceWarning(missing,window):
 
+    #Temporarily change theme
+    sg.theme('Dark')
+
     #Temporarily disable host window
     window.Disable()
 
@@ -366,9 +369,20 @@ def ForceWarning(missing,window):
         print(event, values)
 
         if(event == 'order_forcewarning'):
+            #Re-enable host window
+            window.Enable()
+            window.BringToFront()
+            #Change theme back to normal
+            sg.theme('DarkAmber')
             window_forcewarning.close()
             return True
+            
         if(event == 'cancel_forcewarning'):
+            #Re-enable host window
+            window.Enable()
+            window.BringToFront()
+            #Change theme back to normal
+            sg.theme('DarkAmber')
             window_forcewarning.close()
             return False
 
@@ -378,6 +392,9 @@ def ForceWarning(missing,window):
     #Re-enable host window
     window.Enable()
     window.BringToFront()
+
+    #Change theme back to normal
+    sg.theme('DarkAmber')
     
     window_forcewarning.close()
 
