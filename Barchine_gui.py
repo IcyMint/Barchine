@@ -377,6 +377,7 @@ def ForceWarning(missing,window):
 
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
     
     window_forcewarning.close()
 
@@ -444,6 +445,7 @@ def CustomView(window):
     
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
 
     window_customview.close()
 
@@ -705,6 +707,7 @@ def TextViewExpanded(text,title,window):
 
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
     
     window_textviewexpanded.close()
 
@@ -899,6 +902,7 @@ def DrinkView(mode,drink,window):
 
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
 
     window_drinkview.close()
 
@@ -1144,6 +1148,7 @@ def IngredientView(mode,ingredient,window):
 
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
     
     window_ingredientview.close()
 
@@ -1441,6 +1446,7 @@ def StationsView(station,ingredient,family,window):
 
     #Re-enable host window
     window.Enable()
+    window.BringToFront()
 
     window_stationsview.close()
 
