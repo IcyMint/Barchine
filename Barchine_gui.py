@@ -206,8 +206,8 @@ def HomeGUI(prev_window):
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_home',font=('Helvetica', 15),size=(15,1))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_home',size=(15,1))],
                 [sg.Text('-GLASS_NAME-',key='GLASS_NAME_home',size=(18,1))],
-                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_home',size=(15,1),enable_events=True)],
-                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_home',size=(15,3),enable_events=True)],
+                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_home',size=(15,1),relief='ridge',enable_events=True)],
+                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_home',size=(15,3),relief='ridge',enable_events=True)],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(25,4),key='DrinkIngredients_home')]
             ]
@@ -327,10 +327,10 @@ def HomeGUI(prev_window):
                 window_home['filter_home'].update(text='Unfilter')
                 window_home['Menu_List'].update(values=Bartender.showDrinkMenu(True))    
 
-        if(event == 'GARNISH_NAME_home'):
+        if(event == 'GARNISH_NAME_home' and chosen != None):
             TextViewExpanded(chosen.getGarnish(),'Garnish',window_home)
 
-        if(event == 'EXTRAS_NAME_home'):
+        if(event == 'EXTRAS_NAME_home' and chosen != None):
             TextViewExpanded(chosen.getExtras(),'Extras',window_home)
 
         if event in  (None, 'Exit'):
@@ -466,8 +466,8 @@ def LibraryGUI(prev_window):
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,2))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
                 [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(16,1))],
-                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1),enable_events=True)],
-                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library',size=(15,3),enable_events=True)],
+                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1),relief='ridge',enable_events=True)],
+                [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library',size=(15,3),relief='ridge',enable_events=True)],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(25,4),key='DrinkIngredients_library')]
             ]
@@ -595,10 +595,10 @@ def LibraryGUI(prev_window):
             window_library.close()
             break
 
-        if(event == 'GARNISH_NAME_library'):
+        if(event == 'GARNISH_NAME_library' and chosen != None):
             TextViewExpanded(chosen.getGarnish(),'Garnish',window_library)
 
-        if(event == 'EXTRAS_NAME_library'):
+        if(event == 'EXTRAS_NAME_library' and chosen != None):
             TextViewExpanded(chosen.getExtras(),'Extras',window_library)
 
     #Close remaining window
