@@ -59,25 +59,25 @@ class Ingredient:
         return self.startVol
 
     def setStartVol(self,new_startVol):
-        log('Ingredients','[EDIT]'+'startVol='+new_startVol+'|'+str(self))
+        log('Ingredients','[EDIT]'+'startVol='+str(new_startVol)+'|'+str(self))
         self.startVol = new_startVol
 
     def getEndVol(self):
         return self.endVol
 
     def setEndVol(self, new_endVol):
-        log('Ingredients','[EDIT]'+'endVol='+new_endVol+'|'+str(self))
+        log('Ingredients','[EDIT]'+'endVol='+atr(new_endVol)+'|'+str(self))
         self.endVol = new_endVol
 
     def setActive(self, new_active):
-        log('Ingredients','[EDIT]'+'active='+new_active+'|'+str(self))
+        log('Ingredients','[EDIT]'+'active='+str(new_active)+'|'+str(self))
         self.active = new_active
     
     def getPosition(self):
         return self.position
 
     def setPosition(self, new_position):
-        log('Ingredients','[EDIT]'+'position='+new_position+'|'+str(self))
+        log('Ingredients','[EDIT]'+'position='+str(new_position)+'|'+str(self))
         self.position = new_position
 
         

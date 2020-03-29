@@ -101,7 +101,7 @@ def createDrink(name, ice, glass, garnish, extras, ingredients, image,restore):
     drink = Drink(name, ice, glass, garnish, extras, ingredients, image)
     addDrink(drink)
     if(not restore):
-        log('Drinks','[CREATE]'+str(new_drink))
+        log('Drinks','[CREATE]'+str(drink))
 
 def addDrink(new_drink):
     DrinkLibrary.append(new_drink)

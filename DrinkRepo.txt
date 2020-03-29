@@ -29,3 +29,4 @@
 {"name": "Cosmopolitan", "ice": "None", "glass": "Martini Glass", "garnish": "None", "extras": "1/4 cup cranberry 10 mL lime juice", "ingredients": {"Vodka": 35, "Cointreau": 10}, "image": "Cosmopolitan.png"}
 {"name": "Tequila Sunrise", "ice": "None", "glass": "Any", "garnish": "None", "extras": "10 mL Grenadine", "ingredients": {"Orange Juice": 90, "Tequila": 15}, "image": "Tequila Sunrise.png"}
 {"name": "Whiskey Sour", "ice": "None", "glass": "Lowball Glass", "garnish": "None", "extras": "lemon juice 3/4 ounce simple syrup", "ingredients": {"Whiskey": 45}, "image": "Whiskey Sour.png"}
+{"name": "Throat Destroyer", "ice": "None", "glass": "Flute Glass", "garnish": "Lemon wedge", "extras": "1/2 full glass of mint leaves", "ingredients": {"Scotch": 30, "Vodka": 30, "Whiskey": 30, "Dark Rum": 20}, "image": "placeholder.png"}

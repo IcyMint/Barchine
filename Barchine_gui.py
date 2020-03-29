@@ -205,11 +205,11 @@ def HomeGUI(prev_window):
     drinkInfo_home = [
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_home',font=('Helvetica', 15),size=(15,1))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_home',size=(15,1))],
-                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_home',size=(15,1))],
+                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_home',size=(18,1))],
                 [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_home',size=(15,1),enable_events=True)],
                 [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_home',size=(15,3),enable_events=True)],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
-                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(20,4),key='DrinkIngredients_home')]
+                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(25,4),key='DrinkIngredients_home')]
             ]
     #Image translation
     image = Path('Image_Library/placeholder.png')
@@ -226,7 +226,7 @@ def HomeGUI(prev_window):
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_home'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_home'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_home')],
-                [sg.Listbox(Bartender.showDrinkMenu(True),font=('Helvetica', 20),size=(25,8),
+                [sg.Listbox(Bartender.showDrinkMenu(True),font=('Helvetica', 20),size=(22,8),
                 key='Menu_List',enable_events=True),sg.Column(drinkInfo_home),sg.Column(image_layout_home)],
                 [sg.Button('Order',font=('Helvetica', 20),size=(12,1),key='order_home')
                 ,sg.Button('Custom',font=('Helvetica', 20),size=(8,1),key='custom_home')
@@ -452,11 +452,11 @@ def LibraryGUI(prev_window):
     drinkInfo_library = [
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,2))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
-                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(15,1))],
+                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(16,1))],
                 [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1),enable_events=True)],
                 [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library',size=(15,3),enable_events=True)],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
-                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(26,4),key='DrinkIngredients_library')]
+                [sg.Listbox(['-DRINK_COMPONENTS-'],size=(25,4),key='DrinkIngredients_library')]
             ]
 
     #Image translation
@@ -474,7 +474,7 @@ def LibraryGUI(prev_window):
                 sg.Button('Stations',font=('Helvetica', 15),key='Stations_library'),
                 sg.Button('Stats',font=('Helvetica', 15),key='Stats_library'),
                 sg.Button('Settings',font=('Helvetica', 15),key='Settings_library')],
-                [sg.Listbox(drinks_pretty,font=('Helvetica', 20),size=(25,8),
+                [sg.Listbox(drinks_pretty,font=('Helvetica', 20),size=(22,8),
                 key='Library_List',enable_events=True),sg.Column(drinkInfo_library),sg.Column(image_layout_library)],
                 [sg.Button('Add',font=('Helvetica', 15),size=(15,1),key='Add_library'),
                 sg.Button('Edit',font=('Helvetica', 15),size=(15,1),key='Edit_library'),
