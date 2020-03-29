@@ -465,8 +465,8 @@ def LibraryGUI(prev_window):
     drinkInfo_library = [
                 [sg.Text('-DRINK_NAME-',key='DRINK_NAME_library',font=('Helvetica', 15),size=(15,2))],
                 [sg.Text('-ICE_NAME-',key='ICE_NAME_library',size=(15,1))],
-                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(16,1))],
-                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(15,1),relief='ridge',enable_events=True)],
+                [sg.Text('-GLASS_NAME-',key='GLASS_NAME_library',size=(18,1))],
+                [sg.Text('-GARNISH_NAME-',key='GARNISH_NAME_library',size=(18,1),relief='ridge',enable_events=True)],
                 [sg.Text('-EXTRAS_NAME-',key='EXTRAS_NAME_library',size=(15,3),relief='ridge',enable_events=True)],
                 [sg.Text('Ingredients:',font=('Helvetica', 15))],
                 [sg.Listbox(['-DRINK_COMPONENTS-'],size=(25,4),key='DrinkIngredients_library')]
