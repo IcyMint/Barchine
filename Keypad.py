@@ -1,6 +1,9 @@
 import PySimpleGUI as sg
 
 def Keypad():
+
+    sg.theme('Dark')
+
     layout = [
             [sg.Text(size=(15, 1), font=('Helvetica', 18), text_color='red', key='out')],
             [sg.Input(size=(10, 1), justification='right', key='input',visible=False)],
