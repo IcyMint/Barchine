@@ -298,11 +298,11 @@ def HomeGUI(prev_window):
                         display.append(str(key))
                         counter+=1
                 if(counter!=0):
-                    if(ForceWarning(display)):
+                    if(ForceWarning(display,window_home)):
                         Bartender.createOrder(chosen.getName(),True)
 
         if(event == 'custom_home'):
-            CustomView()
+            CustomView(window_home)
 
         if(event == 'recommended_home'):
             pass
@@ -328,16 +328,20 @@ def HomeGUI(prev_window):
                 window_home['Menu_List'].update(values=Bartender.showDrinkMenu(True))    
 
         if(event == 'GARNISH_NAME_home'):
-            TextViewExpanded(chosen.getGarnish(),'Garnish')
+            TextViewExpanded(chosen.getGarnish(),'Garnish',window_home)
 
         if(event == 'EXTRAS_NAME_home'):
-            TextViewExpanded(chosen.getExtras(),'Extras')
+            TextViewExpanded(chosen.getExtras(),'Extras',window_home)
 
         if event in  (None, 'Exit'):
             window_home.close()
             break
 
-def ForceWarning(missing):
+def ForceWarning(missing,window):
+
+    #Temporarily disable host window
+    window.Disable()
+
     layout_forcewarning = [
                     [sg.Text('Recipe Warning',key='title_forcewarning',font=('Helvetica', 20))],
                     [sg.Text('Missing Ingredients:',key='subtitle_forcewarning',font=('Helvetica', 15))],
@@ -370,10 +374,16 @@ def ForceWarning(missing):
 
         if event in  (None, 'Exit'):
             break
+
+    #Re-enable host window
+    window.Enable()
     
     window_forcewarning.close()
 
-def CustomView():
+def CustomView(window):
+
+    #Disable host window temporarily
+    window.Disable()
 
     layout_buttons_customview = [
                         [sg.Button('Add',font=('Helvetica', 15),key='add_customview')],
@@ -399,7 +409,7 @@ def CustomView():
 
         if(event == 'add_customview'):
 
-            new_elements = IngredientAddPopUp('custom',None,None)
+            new_elements = IngredientAddPopUp('custom',None,None,window_customview)
             if(new_elements[0] is not None):
                 ingredients[new_elements[0]] = int(new_elements[1])
 
@@ -432,6 +442,9 @@ def CustomView():
         if event in  (None, 'Exit'):
             break
     
+    #Re-enable host window
+    window.Enable()
+
     window_customview.close()
 
 def LibraryGUI(prev_window):
@@ -536,10 +549,7 @@ def LibraryGUI(prev_window):
 
         if(event == 'Add_library'):
             print(chosen)
-            window_library.disable()
-            DrinkView('new',None)
-            window_library.enable()
-            window_library.bring_to_front()
+            DrinkView('new',None,window_library)
 
             chosen = None
 
@@ -553,11 +563,7 @@ def LibraryGUI(prev_window):
             pass
 
         if(event == 'Edit_library' and chosen is not None):
-            print(chosen)
-            window_library.disable()
-            DrinkView('edit',chosen)
-            window_library.enable()
-            window_library.bring_to_front()
+            DrinkView('edit',chosen,window_library)
 
             chosen = None
 
@@ -590,16 +596,18 @@ def LibraryGUI(prev_window):
             break
 
         if(event == 'GARNISH_NAME_library'):
-            TextViewExpanded(chosen.getGarnish(),'Garnish')
+            TextViewExpanded(chosen.getGarnish(),'Garnish',window_library)
 
         if(event == 'EXTRAS_NAME_library'):
-            TextViewExpanded(chosen.getExtras(),'Extras')
+            TextViewExpanded(chosen.getExtras(),'Extras',window_library)
 
     #Close remaining window
     window_library.close()
 
-def IngredientAddPopUp(mode, input_key, input_value):
+def IngredientAddPopUp(mode, input_key, input_value, window):
 
+    #Temporarily disable host window
+    window.Disable()
 
     response = None
 
@@ -640,7 +648,9 @@ def IngredientAddPopUp(mode, input_key, input_value):
         print(event, values)
 
         if(event == 'amount_input_ingredientaddpopup'):
+            window_ingredientaddpopup.Disable()
             window_ingredientaddpopup['amount_input_ingredientaddpopup'].update(text=Keypad())
+            window_ingredientaddpopup.Enable()
 
         if(event =='save_ingredientaddpopup'):
             if(window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()):
@@ -659,11 +669,19 @@ def IngredientAddPopUp(mode, input_key, input_value):
     window_ingredientaddpopup.close()
     
     if(response == 'save'):
+        #Re-enable host window
+        window.Enable()
         return([values['ingredient_input_ingredientaddpopup'],window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()])
     elif(response == 'exit'):
+        #Re-enable host window
+        window.Enable()
         return([None,None])
 
-def TextViewExpanded(text,title):
+def TextViewExpanded(text,title,window):
+
+    #Temporarily disable host window
+    window.Disable()
+
     layout_textviewexpanded = [
                         [sg.Text(text=title,font=('Helvetica', 20),key='title_textviewexpanded')],
                         [sg.Text(text=text,font=('Helvetica', 12),key='content_textviewexpanded',size=(25,6))],
@@ -684,10 +702,16 @@ def TextViewExpanded(text,title):
 
         if event in  (None, 'Exit'):
             break
+
+    #Re-enable host window
+    window.Enable()
     
     window_textviewexpanded.close()
 
-def DrinkView(mode,drink):
+def DrinkView(mode,drink,window):
+
+    #Temporarily disable host window
+    window.Disable()
 
     layout_buttons_drinkview = [
                         [sg.Button('Add',font=('Helvetica', 15),key='add_drinkviewingredient')],
@@ -831,7 +855,7 @@ def DrinkView(mode,drink):
 
         if(event == 'add_drinkviewingredient'):
 
-            new_elements = IngredientAddPopUp('new',None,None)
+            new_elements = IngredientAddPopUp('new',None,None,window_drinkview)
             if(new_elements[0] is not None):
                 new_ingredients[new_elements[0]] = int(new_elements[1])
 
@@ -845,7 +869,7 @@ def DrinkView(mode,drink):
             for key, value in new_ingredients.items():
                 if(key == values['DrinkIngredients_drinkview'][0][values['DrinkIngredients_drinkview'][0].index('- ')+2:]):
                     #Send values to user field, then replace with returning values
-                    new_elements = IngredientAddPopUp('edit',key,value)
+                    new_elements = IngredientAddPopUp('edit',key,value,window_drinkview)
                     #Replace entry
                     if(new_elements[0] is not None):
                         del new_ingredients[key]
@@ -872,7 +896,10 @@ def DrinkView(mode,drink):
 
         if event in  (None, 'Exit'):
             break
-    
+
+    #Re-enable host window
+    window.Enable()
+
     window_drinkview.close()
 
 def IngredientsGUI(prev_window):
@@ -948,7 +975,7 @@ def IngredientsGUI(prev_window):
                     window_ingredients['CURRENT_VOLUME_NAME_ingredients'].update('Current Volume: '+str(ingredient.getEndVol())+' mL')
         
         if(event == 'Add_ingredients'):
-            IngredientView('new',None)
+            IngredientView('new',None,window_ingredients)
             #Update list of ingredients
             ingredients_pretty = []
             for ingredient in listIngredients():
@@ -957,7 +984,7 @@ def IngredientsGUI(prev_window):
             pass
 
         if(event == 'Edit_ingredients' and chosen is not None):
-            IngredientView('edit',chosen)
+            IngredientView('edit',chosen,window_ingredients)
             #Update list of ingredients
             ingredients_pretty = []
             for ingredient in listIngredients():
@@ -983,7 +1010,10 @@ def IngredientsGUI(prev_window):
     #Close remaining window
     window_ingredients.close()
 
-def IngredientView(mode,ingredient):
+def IngredientView(mode,ingredient,window):
+
+    #Temporarily disable host window
+    window.Disable()
 
     layout_ingredientview = [
                 [sg.Text('MODE',key='mode_name_ingredientview',font=('Helvetica', 30))],
@@ -1044,10 +1074,14 @@ def IngredientView(mode,ingredient):
         print(event, values)
 
         if(event == 'startvol_input_ingredientview'):
+            window_ingredientview.Disable()
             window_ingredientview['startvol_input_ingredientview'].update(text=Keypad())
+            window_ingredientview.Enable()
         
         if(event == 'endvol_input_ingredientview'):
+            window_ingredientview.Disable()
             window_ingredientview['endvol_input_ingredientview'].update(text=Keypad())
+            window_ingredientview.Enable()
 
         if(event == 'save_ingredientview'):
             new_name = re.sub('[#@,]','', values['name_input_ingredientview'])
@@ -1065,7 +1099,9 @@ def IngredientView(mode,ingredient):
                             check = False
 
                     #Ensure volumes are correct
-                    if(int(new_startVol) < int(new_endVol)):
+                    if(new_startVol == '' or new_endVol == ''):
+                        check = False
+                    elif(int(new_startVol) < int(new_endVol)):
                         check = False
                     
                     if(check):
@@ -1105,6 +1141,9 @@ def IngredientView(mode,ingredient):
 
         if event in  (None, 'Exit'):
             break
+
+    #Re-enable host window
+    window.Enable()
     
     window_ingredientview.close()
 
@@ -1283,17 +1322,17 @@ def StationsGUI(prev_window):
             if(window_stations['station_menu_selector'].GetText() == 'View Mixers' and i < Bartender.getAlcCount()+1):
                 if(event == 'bar'+str(i)+'_name'):
                     if(Bartender.getShelf()[i-1] == None):
-                        StationsView(str(i),None,'Alcohol')
+                        StationsView(str(i),None,'Alcohol',window_stations)
                     else:
-                        StationsView(str(i),Bartender.getShelf()[i-1],'Alcohol')
+                        StationsView(str(i),Bartender.getShelf()[i-1],'Alcohol',window_stations)
                     #Update Display
                     update = True
             if(window_stations['station_menu_selector'].GetText() == 'View Alcohol' and i < Bartender.getMixCount()+1):
                 if(event == 'bar'+str(i)+'_name'):
                     if(Bartender.getShelf()[i-1+offset] == None):
-                        StationsView(str(i+offset),None,'Mixer')
+                        StationsView(str(i+offset),None,'Mixer',window_stations)
                     else:
-                        StationsView(i+offset,Bartender.getShelf()[i-1+offset],'Mixer')
+                        StationsView(i+offset,Bartender.getShelf()[i-1+offset],'Mixer',window_stations)
                     #Update Display
                     update = True
 
@@ -1347,7 +1386,10 @@ def StationsGUI(prev_window):
     #Close remaining window
     window_stations.close()
 
-def StationsView(station,ingredient,family):
+def StationsView(station,ingredient,family,window):
+
+    #Temporarily disable host window
+    window.Disable()
 
     available = ['Empty']
     for element in listIngredients():
@@ -1396,6 +1438,9 @@ def StationsView(station,ingredient,family):
 
         if event in  (None, 'Exit'):
             break
+
+    #Re-enable host window
+    window.Enable()
 
     window_stationsview.close()
 

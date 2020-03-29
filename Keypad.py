@@ -27,7 +27,10 @@ def Keypad():
             window['out'].update(keys_entered)
         elif event == 'Submit':
             window.close()
-            return(values['input'])
+            if(values['input'] == ''):
+                return('0')
+            else:
+                return(values['input'])
 
         window['input'].update(keys_entered)
     window.close()
