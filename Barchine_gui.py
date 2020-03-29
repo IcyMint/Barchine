@@ -235,7 +235,7 @@ def HomeGUI(prev_window):
             ]
 
     #Launch Window
-    window_home = sg.Window('Barchine', layout_home,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_home = sg.Window('Barchine', layout_home, keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_home.Maximize()
     #Close Previous window
@@ -495,7 +495,7 @@ def LibraryGUI(prev_window):
             ]
 
     #Launch window
-    window_library = sg.Window('Barchine', layout_library,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_library = sg.Window('Barchine', layout_library, keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_library.Maximize()
 
@@ -666,15 +666,15 @@ def IngredientAddPopUp(mode, input_key, input_value, window):
         if event in  (None, 'Exit'):
             break
 
+    #Re-enable host window
+    window.Enable()
+    window.BringToFront()
+
     window_ingredientaddpopup.close()
     
     if(response == 'save'):
-        #Re-enable host window
-        window.Enable()
         return([values['ingredient_input_ingredientaddpopup'],window_ingredientaddpopup['amount_input_ingredientaddpopup'].GetText()])
     elif(response == 'exit'):
-        #Re-enable host window
-        window.Enable()
         return([None,None])
 
 def TextViewExpanded(text,title,window):
@@ -933,7 +933,7 @@ def IngredientsGUI(prev_window):
             ]
 
     #Launch window
-    window_ingredients = sg.Window('Barchine', layout_ingredients,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_ingredients = sg.Window('Barchine', layout_ingredients, keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_ingredients.Maximize()
 
@@ -1227,7 +1227,7 @@ def StationsGUI(prev_window):
             ]
 
     #Launch window
-    window_stations = sg.Window('Barchine', layout_stations,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_stations = sg.Window('Barchine', layout_stations, keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_stations.Maximize()
 
@@ -1460,7 +1460,7 @@ def StatsGUI(prev_window):
             ]
 
     #Launch window
-    window_stats = sg.Window('Barchine', layout_stats,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_stats = sg.Window('Barchine', layout_stats,keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_stats.Maximize()
 
@@ -1512,7 +1512,7 @@ def SettingsGUI(prev_window):
             ]
 
     #Launch window
-    window_settings = sg.Window('Barchine', layout_settings,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
+    window_settings = sg.Window('Barchine', layout_settings,keep_on_top=True,size=(RESOLUTION.get('x'),RESOLUTION.get('y'))).Finalize()
     if(FULLSCREEN):
         window_settings.Maximize()
 
